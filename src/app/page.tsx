@@ -92,9 +92,9 @@ export default function Home() {
               <ChecklistItem text="Vercel 계정" />
             </div>
           </div>
-          <button className="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors">
+          <a href="/prepare" className="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors">
             📋 상세 준비 가이드 보기
-          </button>
+          </a>
           <div className="mt-4 p-3 bg-yellow-900/50 rounded border-l-4 border-yellow-400">
             <p className="text-sm text-yellow-200">💡 이미 준비가 끝났다면 바로 시작해도 좋아요!</p>
           </div>
