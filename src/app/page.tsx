@@ -1,5 +1,8 @@
+'use client'
+
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 
 const StepCard = ({ icon, title, time, description, isActive = false }: {
   icon: string;
@@ -28,6 +31,33 @@ const ChecklistItem = ({ text, checked = true }: { text: string; checked?: boole
     <span className={checked ? 'text-gray-200' : 'text-gray-400'}>{text}</span>
   </div>
 );
+
+const Collapsible = ({ title, children, defaultOpen = false }: { 
+  title: string; 
+  children: React.ReactNode; 
+  defaultOpen?: boolean;
+}) => {
+  const [isOpen, setIsOpen] = useState(defaultOpen);
+
+  return (
+    <div className="border border-gray-600 rounded-lg overflow-hidden mt-3">
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="w-full p-3 bg-gray-700 hover:bg-gray-600 transition-colors text-left flex items-center justify-between"
+      >
+        <span className="font-medium text-white">{title}</span>
+        <span className={`transform transition-transform ${isOpen ? 'rotate-180' : ''}`}>
+          ▼
+        </span>
+      </button>
+      {isOpen && (
+        <div className="p-4 bg-gray-800 border-t border-gray-600">
+          {children}
+        </div>
+      )}
+    </div>
+  );
+};
 
 export default function Home() {
   return (
@@ -188,11 +218,25 @@ export default function Home() {
                   </li>
                   <li><strong>프로젝트 폴더 선택</strong><br/>아까 만든 폴더 (예: vibe-coding) 선택 → Open 클릭</li>
                 </ol>
-                <div className="mt-3 p-2 bg-blue-100 rounded">
-                  <p className="text-sm">💡 <strong>폴더를 열었나요?</strong><br/>
+                <div className="mt-3 p-2 bg-blue-900/50 rounded border border-blue-600">
+                  <p className="text-sm text-blue-200">💡 <strong>폴더를 열었나요?</strong><br/>
                   이제 Cursor 왼쪽 사이드바에 폴더 구조가 보일 거예요. 아직은 비어있지만 곧 채워집니다!</p>
                 </div>
               </div>
+
+              <Collapsible title="Q. 왜 폴더를 먼저 열어야 하나요?">
+                <div className="text-gray-300 space-y-3">
+                  <p><strong>Cursor는 폴더 단위로 프로젝트를 관리해요!</strong></p>
+                  <ul className="list-disc list-inside space-y-2 ml-4">
+                    <li>폴더를 열어야 AI가 프로젝트 전체를 이해할 수 있어요</li>
+                    <li>터미널도 해당 폴더 위치에서 실행돼요</li>
+                    <li>나중에 파일을 찾기도 쉬워져요</li>
+                  </ul>
+                  <div className="bg-yellow-900/50 p-3 rounded border-l-4 border-yellow-400">
+                    <p className="text-yellow-200 text-sm"><strong>꿀팁:</strong> 폴더 이름은 영어로, 띄어쓰기 없이 만드세요! (예: my-project)</p>
+                  </div>
+                </div>
+              </Collapsible>
             </div>
 
             {/* Step 3 */}
@@ -202,6 +246,17 @@ export default function Home() {
               
               <div className="bg-gray-800 border border-gray-600 rounded-lg p-4 mb-4">
                 <h4 className="font-bold mb-3 text-white">로그인 확인하기</h4>
+                {/* Cursor 로그인 화면 이미지 */}
+                <div className="mb-4 rounded-lg overflow-hidden border border-gray-600">
+                  <Image
+                    src="/images/cursor-login.png"
+                    alt="Cursor 로그인 화면"
+                    width={600}
+                    height={400}
+                    className="w-full h-auto"
+                  />
+                </div>
+                
                 <ol className="list-decimal list-inside space-y-2">
                   <li><strong>Settings 열기</strong><br/>Windows: Ctrl + , | Mac: Cmd + ,</li>
                   <li><strong>Cursor Settings 탭 클릭</strong></li>
@@ -319,6 +374,20 @@ export default function Home() {
                     <li>이렇게 해야 다른 사람들도 여러분의 사이트를 볼 수 있어요</li>
                   </ul>
                 </div>
+
+                <Collapsible title="Q. 실수로 Y를 눌렀다면?">
+                  <div className="text-gray-300 space-y-3">
+                    <p><strong>걱정하지 마세요! 다시 설정할 수 있어요.</strong></p>
+                    <div className="bg-blue-900/50 p-3 rounded border-l-4 border-blue-400">
+                      <p className="text-blue-200 text-sm"><strong>해결 방법:</strong></p>
+                      <ol className="list-decimal list-inside mt-2 space-y-1 text-sm">
+                        <li>Vercel 대시보드로 이동</li>
+                        <li>프로젝트 설정에서 &ldquo;Password Protection&rdquo; 비활성화</li>
+                        <li>또는 새 프로젝트로 다시 배포</li>
+                      </ol>
+                    </div>
+                  </div>
+                </Collapsible>
               </div>
 
               {/* 앞으로의 작업 플로우 */}
@@ -330,6 +399,78 @@ export default function Home() {
                 </div>
                 <p className="mt-2 text-sm text-blue-300">💡 코드를 수정할 때마다 이 마법의 주문을 외워보세요!<br/>
                 AI가 자동으로 GitHub에 저장하고 Vercel에 배포해줄 거예요.</p>
+              </div>
+
+              <div className="space-y-3">
+                <Collapsible title="Q. 커밋(Commit)? 그게 뭔가요?">
+                  <div className="text-gray-300 space-y-3">
+                    <p><strong>커밋은 &ldquo;세이브&rdquo;와 비슷해요!</strong></p>
+                    <div className="bg-gray-700 p-3 rounded">
+                      <p className="text-sm">🎮 <strong>게임으로 비유하면:</strong></p>
+                      <ul className="list-disc list-inside mt-2 space-y-1 text-sm ml-4">
+                        <li>커밋 = 게임 세이브</li>
+                        <li>언제든 이 지점으로 돌아갈 수 있어요</li>
+                        <li>&ldquo;홈페이지 디자인 완료&rdquo; 같은 메모도 남길 수 있어요</li>
+                      </ul>
+                    </div>
+                  </div>
+                </Collapsible>
+
+                <Collapsible title="Q. Push? 그게 뭔가요?">
+                  <div className="text-gray-300 space-y-3">
+                    <p><strong>Push는 &ldquo;백업&rdquo;과 비슷해요!</strong></p>
+                    <div className="bg-gray-700 p-3 rounded">
+                      <p className="text-sm">☁️ <strong>클라우드 저장소로 비유하면:</strong></p>
+                      <ul className="list-disc list-inside mt-2 space-y-1 text-sm ml-4">
+                        <li>Push = 구글 드라이브에 업로드</li>
+                        <li>컴퓨터가 고장나도 코드가 안전해요</li>
+                        <li>다른 컴퓨터에서도 작업할 수 있어요</li>
+                      </ul>
+                    </div>
+                  </div>
+                </Collapsible>
+
+                <Collapsible title="Q. 저는 혼자 만드는 건데 왜 Push를 해야하나요?">
+                  <div className="text-gray-300 space-y-3">
+                    <p><strong>혼자여도 Push가 꼭 필요해요!</strong></p>
+                    <div className="bg-gray-700 p-3 rounded">
+                      <p className="text-sm">🔗 <strong>Vercel이 GitHub에서 코드를 가져와요:</strong></p>
+                      <ul className="list-disc list-inside mt-2 space-y-1 text-sm ml-4">
+                        <li>Vercel = GitHub의 코드를 보고 웹사이트 만듦</li>
+                        <li>Push 안 하면 = Vercel이 최신 코드를 못 봄</li>
+                        <li>결국 = 업데이트된 사이트가 안 만들어짐</li>
+                      </ul>
+                    </div>
+                  </div>
+                </Collapsible>
+
+                <Collapsible title="Q. Repository가 뭔가요?">
+                  <div className="text-gray-300 space-y-3">
+                    <p><strong>Repository는 &ldquo;프로젝트 보관함&rdquo;이에요!</strong></p>
+                    <div className="bg-gray-700 p-3 rounded">
+                      <p className="text-sm">📁 <strong>폴더로 비유하면:</strong></p>
+                      <ul className="list-disc list-inside mt-2 space-y-1 text-sm ml-4">
+                        <li>Repository = 프로젝트 전체를 담는 큰 폴더</li>
+                        <li>모든 파일과 변경 기록이 들어있어요</li>
+                        <li>GitHub = 이런 폴더들을 모아두는 창고</li>
+                      </ul>
+                    </div>
+                  </div>
+                </Collapsible>
+
+                <Collapsible title="Q. 배포가 뭔가요?">
+                  <div className="text-gray-300 space-y-3">
+                    <p><strong>배포는 &ldquo;전세계에 공개&rdquo;하는 거예요!</strong></p>
+                    <div className="bg-gray-700 p-3 rounded">
+                      <p className="text-sm">🌍 <strong>쉽게 설명하면:</strong></p>
+                      <ul className="list-disc list-inside mt-2 space-y-1 text-sm ml-4">
+                        <li>지금까지는 내 컴퓨터에서만 볼 수 있었어요</li>
+                        <li>배포하면 = 인터넷 주소가 생겨요</li>
+                        <li>이제 누구나 그 주소로 들어와서 볼 수 있어요</li>
+                      </ul>
+                    </div>
+                  </div>
+                </Collapsible>
               </div>
 
               {/* 축하 메시지 */}
@@ -359,6 +500,51 @@ export default function Home() {
                 <p className="text-purple-700">이제 더 멋진 주소로 여러분의 웹사이트를 공유할 수 있어요!<br/>
                 친구들에게 자랑해보세요! 🎊</p>
               </div>
+            </div>
+
+            {/* Step 3-3: 자동 배포 설정 */}
+            <div className="mb-8">
+              <h3 className="text-2xl font-semibold mb-4">🔗 자동 배포 설정하기</h3>
+              <p className="text-gray-300 mb-4">GitHub에 푸시할 때마다 자동으로 배포되도록 설정하면 편리합니다!</p>
+              
+              <div className="bg-gray-800 border border-gray-600 rounded-lg p-4 mb-4">
+                <ol className="list-decimal list-inside space-y-2">
+                  <li><strong>Vercel 대시보드에서 프로젝트 선택</strong></li>
+                  <li><strong>Settings → Git → Deploy Hooks 설정</strong></li>
+                  <li><strong>이제 git push만 하면 자동 배포!</strong></li>
+                </ol>
+              </div>
+            </div>
+
+            {/* Step 3-3: Pull */}
+            <div className="mb-8">
+              <h3 className="text-2xl font-semibold mb-4">🔄 Step 3-3. 코드 가져오기 (Pull)</h3>
+              <p className="text-gray-300 mb-4">다른 컴퓨터에서 작업하거나, 팀원이 수정한 내용을 가져올 때 사용해요.</p>
+              
+              <div className="bg-gray-800 border border-gray-600 rounded-lg p-4 mb-4">
+                <div className="p-3 bg-green-200 rounded text-center">
+                  <p className="font-mono font-bold">&ldquo;풀(pull) 해줘&rdquo; 또는 &ldquo;최신 코드 가져와줘&rdquo;</p>
+                </div>
+              </div>
+
+              <Collapsible title="Q. Pull? 언제 사용하나요?">
+                <div className="text-gray-300 space-y-3">
+                  <p><strong>이런 상황에서 Pull을 사용해요:</strong></p>
+                  <div className="bg-gray-700 p-3 rounded">
+                    <ul className="list-disc list-inside space-y-2 text-sm">
+                      <li><strong>다른 컴퓨터에서 작업할 때:</strong><br/>
+                      집 컴퓨터 → 회사 컴퓨터로 옮겨서 작업</li>
+                      <li><strong>팀원과 함께 작업할 때:</strong><br/>
+                      동료가 수정한 내용을 내 컴퓨터로 가져오기</li>
+                      <li><strong>브라우저에서 GitHub 수정했을 때:</strong><br/>
+                      GitHub 웹사이트에서 직접 파일을 수정한 경우</li>
+                    </ul>
+                  </div>
+                  <div className="bg-blue-900/50 p-3 rounded border-l-4 border-blue-400">
+                    <p className="text-blue-200 text-sm"><strong>💡 기억하세요:</strong> Push는 올리기, Pull은 가져오기!</p>
+                  </div>
+                </div>
+              </Collapsible>
             </div>
           </section>
 

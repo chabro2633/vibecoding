@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const PreparePage = () => {
   const [formData, setFormData] = useState({
@@ -89,11 +90,15 @@ const PreparePage = () => {
                 <h3 className="text-xl font-bold mb-3 text-white">Cursor 설치</h3>
                 <p className="text-gray-300 mb-3">cursor.sh에서 다운로드</p>
                 
-                {/* Cursor 다운로드 화면 이미지 플레이스홀더 */}
-                <div className="bg-gray-700 border-2 border-dashed border-gray-500 rounded-lg p-6 mb-3 text-center">
-                  <div className="text-blue-400 text-2xl mb-2">💻</div>
-                  <p className="text-gray-400 text-sm">Cursor 다운로드 화면</p>
-                  <p className="text-gray-500 text-xs mt-1">cursor.sh 웹사이트</p>
+                {/* Cursor 다운로드 화면 이미지 */}
+                <div className="rounded-lg overflow-hidden border border-gray-600 mb-3">
+                  <Image
+                    src="/images/cursor-download.png"
+                    alt="Cursor 다운로드 화면"
+                    width={600}
+                    height={400}
+                    className="w-full h-auto"
+                  />
                 </div>
                 
                 <div className="text-blue-400 font-medium">⏱️ 소요시간: 5분</div>
