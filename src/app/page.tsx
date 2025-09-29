@@ -1,4 +1,4 @@
-import Image from "next/image";
+// import Image from "next/image";
 
 const StepCard = ({ icon, title, time, description, isActive = false }: {
   icon: string;
@@ -50,7 +50,7 @@ export default function Home() {
         {/* Hero Section */}
         <div className="text-center mb-12">
           <h1 className="text-5xl font-bold mb-4">바이브 코딩</h1>
-          <p className="text-xl text-gray-600 mb-2">"콴다의 모든 사람이 상상을 현실로 만들 수 있게"</p>
+          <p className="text-xl text-gray-600 mb-2">&ldquo;콴다의 모든 사람이 상상을 현실로 만들 수 있게&rdquo;</p>
           <p className="text-lg text-gray-500">AI와 함께하는 창의적인 개발 여정</p>
         </div>
 
@@ -162,7 +162,7 @@ export default function Home() {
                 <h4 className="font-bold mb-3">프로젝트 폴더 열기</h4>
                 <ol className="list-decimal list-inside space-y-2">
                   <li><strong>Cursor 실행</strong><br/>바탕화면이나 Dock에서 Cursor 아이콘 클릭</li>
-                  <li><strong>Open Folder 클릭</strong><br/>시작 화면에서 "Open Folder" 버튼을 찾아 클릭</li>
+                  <li><strong>Open Folder 클릭</strong><br/>시작 화면에서 &ldquo;Open Folder&rdquo; 버튼을 찾아 클릭</li>
                   <li><strong>프로젝트 폴더 선택</strong><br/>아까 만든 폴더 (예: vibe-coding) 선택 → Open 클릭</li>
                 </ol>
                 <div className="mt-3 p-2 bg-blue-100 rounded">
@@ -182,10 +182,10 @@ export default function Home() {
                 <ol className="list-decimal list-inside space-y-2">
                   <li><strong>Settings 열기</strong><br/>Windows: Ctrl + , | Mac: Cmd + ,</li>
                   <li><strong>Cursor Settings 탭 클릭</strong></li>
-                  <li><strong>Account 확인</strong><br/>로그인이 안 되어 있다면 "Log In" 버튼 클릭</li>
+                  <li><strong>Account 확인</strong><br/>로그인이 안 되어 있다면 &ldquo;Log In&rdquo; 버튼 클릭</li>
                 </ol>
                 <div className="mt-3 p-2 bg-blue-100 rounded">
-                  <p className="text-sm">💡 <strong>Pro Trial 확인:</strong> Settings에서 "Pro Trial" 또는 "Free Trial"이 보이면 성공!<br/>
+                  <p className="text-sm">💡 <strong>Pro Trial 확인:</strong> Settings에서 &ldquo;Pro Trial&rdquo; 또는 &ldquo;Free Trial&rdquo;이 보이면 성공!<br/>
                   만약 안 보인다면 준비 가이드를 다시 확인해주세요.</p>
                 </div>
               </div>
@@ -231,12 +231,12 @@ export default function Home() {
                 <div className="bg-yellow-50 rounded-lg p-4">
                   <h4 className="font-bold mb-2">💬 AI가 이해 못했을 때</h4>
                   <p className="text-sm mb-2">AI가 잘못 이해했거나 다른 걸 했나요?</p>
-                  <p className="text-sm font-medium text-yellow-800">해결: "아니야, 내가 원한 건 ___야" 라고 다시 설명</p>
+                  <p className="text-sm font-medium text-yellow-800">해결: &ldquo;아니야, 내가 원한 건 ___야&rdquo; 라고 다시 설명</p>
                 </div>
                 <div className="bg-red-50 rounded-lg p-4">
                   <h4 className="font-bold mb-2">🔴 에러가 났을 때</h4>
                   <p className="text-sm mb-2">빨간 글씨로 에러가 나타났나요?</p>
-                  <p className="text-sm font-medium text-red-800">해결: 에러 메시지를 복사해서 AI에게 "이 에러 해결해줘"</p>
+                  <p className="text-sm font-medium text-red-800">해결: 에러 메시지를 복사해서 AI에게 &ldquo;이 에러 해결해줘&rdquo;</p>
                 </div>
               </div>
             </div>
@@ -254,11 +254,11 @@ export default function Home() {
                 <h4 className="font-bold mb-3">📋 GitHub 레포지토리 URL 복사</h4>
                 <p className="mb-3">아까 만든 빈 레포지토리로 가면 이런 화면이 나와요:</p>
                 <ol className="list-decimal list-inside space-y-2">
-                  <li><strong>Code 버튼 클릭</strong><br/>초록색 "Code" 버튼을 찾아서 클릭</li>
+                  <li><strong>Code 버튼 클릭</strong><br/>초록색 &ldquo;Code&rdquo; 버튼을 찾아서 클릭</li>
                   <li><strong>HTTPS URL 복사</strong><br/>https://github.com/[username]/[repo-name].git 형태의 URL 복사</li>
                 </ol>
                 <div className="mt-3 p-3 bg-blue-100 rounded">
-                  <p className="text-sm font-mono">"💬 GitHub 레포지토리 [복사한 URL] 에 연결해줘"</p>
+                  <p className="text-sm font-mono">&ldquo;💬 GitHub 레포지토리 [복사한 URL] 에 연결해줘&rdquo;</p>
                 </div>
               </div>
 
@@ -266,7 +266,7 @@ export default function Home() {
                 <h4 className="font-bold mb-3">🚀 그 다음, Vercel로 배포하기</h4>
                 <p className="mb-2">GitHub에 연결했다면, 이제 Vercel로 배포해보세요!</p>
                 <div className="p-3 bg-green-200 rounded">
-                  <p className="font-mono">"💬 vercel에 로그인하고 배포까지 해줘"</p>
+                  <p className="font-mono">&ldquo;💬 vercel에 로그인하고 배포까지 해줘&rdquo;</p>
                 </div>
                 <p className="mt-2 text-sm text-green-700">AI가 Vercel CLI를 사용해서 자동으로 배포 프로세스를 진행해줄 거예요!</p>
               </div>
@@ -303,7 +303,7 @@ export default function Home() {
                 <h4 className="font-bold mb-3">💡 앞으로는 이렇게 하세요!</h4>
                 <p className="mb-2">이제 다 세팅했으니까, 앞으로는 이 말을 습관처럼 하면 됩니다:</p>
                 <div className="p-3 bg-blue-200 rounded text-center">
-                  <p className="font-mono font-bold">"커밋, 푸쉬, 배포해줘"</p>
+                  <p className="font-mono font-bold">&ldquo;커밋, 푸쉬, 배포해줘&rdquo;</p>
                 </div>
                 <p className="mt-2 text-sm text-blue-700">💡 코드를 수정할 때마다 이 마법의 주문을 외워보세요!<br/>
                 AI가 자동으로 GitHub에 저장하고 Vercel에 배포해줄 거예요.</p>
@@ -352,7 +352,7 @@ export default function Home() {
                   <li><strong>public 폴더를 만듭니다</strong></li>
                   <li><strong>이미지 파일을 그 폴더에 넣습니다</strong><br/>예: <code>public/logo.png</code></li>
                   <li><strong>AI 채팅에서 이렇게 말합니다:</strong><br/>
-                  "public 폴더에 있는 logo.png를 메인 페이지 상단에 보여줘"</li>
+                  &ldquo;public 폴더에 있는 logo.png를 메인 페이지 상단에 보여줘&rdquo;</li>
                 </ol>
                 <div className="mt-3 p-2 bg-blue-100 rounded">
                   <p className="text-sm"><strong>💡 핵심 포인트:</strong> 이미지는 직접 준비해야 하고, AI는 그 이미지를 코드로 연결하는 일만 도와줍니다.</p>
@@ -367,7 +367,7 @@ export default function Home() {
               
               <div className="bg-gray-50 rounded-lg p-4">
                 <h4 className="font-bold mb-3">🖱️ 개발자 도구 열기</h4>
-                <p className="mb-2">웹사이트에서 <strong>마우스 오른쪽 클릭</strong> → <strong>"검사"</strong> 클릭</p>
+                <p className="mb-2">웹사이트에서 <strong>마우스 오른쪽 클릭</strong> → <strong>&ldquo;검사&rdquo;</strong> 클릭</p>
                 <p className="text-sm text-gray-600 mb-3">단축키: Windows (F12 또는 Ctrl+Shift+I) / Mac (Cmd+Opt+I)</p>
                 
                 <div className="bg-yellow-100 p-3 rounded">
@@ -376,7 +376,7 @@ export default function Home() {
                   <ol className="text-sm list-decimal list-inside">
                     <li>에러 메시지를 드래그해서 선택</li>
                     <li>복사 (Ctrl+C 또는 Cmd+C)</li>
-                    <li>AI 채팅에 붙여넣고 <strong>"이 에러를 해결해줘"</strong></li>
+                    <li>AI 채팅에 붙여넣고 <strong>&ldquo;이 에러를 해결해줘&rdquo;</strong></li>
                   </ol>
                 </div>
                 
