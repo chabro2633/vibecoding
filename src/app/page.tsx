@@ -140,7 +140,19 @@ export default function Home() {
 
               <div className="bg-gray-800 border border-gray-600 rounded-lg p-4 mb-4">
                 <h4 className="font-bold mb-2 text-white">1. GitHub에서 새 Repository 생성</h4>
-                <p className="mb-2">github.com 로그인 → 우측 상단 + 버튼 → New repository 클릭</p>
+                <p className="mb-3">github.com 로그인 → 우측 상단 + 버튼 → New repository 클릭</p>
+                
+                {/* GitHub Repository 생성 화면 이미지 */}
+                <div className="mb-4 rounded-lg overflow-hidden border border-gray-600">
+                  <Image
+                    src="/images/repo.png"
+                    alt="GitHub Repository 생성 화면"
+                    width={700}
+                    height={500}
+                    className="w-full h-auto"
+                  />
+                </div>
+                
                 <p className="mb-2">Repository 이름 입력 → <strong>아무것도 체크하지 말고</strong> → Create repository</p>
                 <div className="bg-yellow-100 p-2 rounded border-l-4 border-yellow-500">
                   <p className="text-sm">⚠️ 이름은 영어, 숫자, 하이픈(-)만 사용 (예: my-cute-website)</p>
@@ -164,9 +176,14 @@ export default function Home() {
                   <li><strong>Open Folder 클릭</strong><br/>시작 화면에서 &ldquo;Open Folder&rdquo; 버튼을 찾아 클릭
                     
                     {/* Cursor Open Folder 화면 이미지 */}
-                    <div className="mt-2 bg-gray-700 border-2 border-dashed border-gray-500 rounded-lg p-4 text-center">
-                      <div className="text-blue-400 text-xl mb-1">📁</div>
-                      <p className="text-gray-400 text-xs">Cursor Open Folder 화면</p>
+                    <div className="mt-2 rounded-lg overflow-hidden border border-gray-600">
+                      <Image
+                        src="/images/cursor-open-folder.png"
+                        alt="Cursor Open Folder 화면"
+                        width={600}
+                        height={400}
+                        className="w-full h-auto"
+                      />
                     </div>
                   </li>
                   <li><strong>프로젝트 폴더 선택</strong><br/>아까 만든 폴더 (예: vibe-coding) 선택 → Open 클릭</li>
@@ -364,15 +381,14 @@ export default function Home() {
                 {/* Public 폴더 구조 예시 이미지 */}
                 <div className="mt-4 mb-4">
                   <p className="text-sm font-medium text-gray-300 mb-2">📁 public 폴더 구조 예시:</p>
-                  <div className="bg-gray-700 border-2 border-dashed border-gray-500 rounded-lg p-4">
-                    <div className="text-yellow-400 text-sm mb-1">📂 Public 폴더 구조</div>
-                    <div className="text-gray-400 text-xs font-mono">
-                      public/<br/>
-                      ├── logo.png<br/>
-                      ├── banner.jpg<br/>
-                      └── icons/<br/>
-                      &nbsp;&nbsp;&nbsp;&nbsp;└── favicon.ico
-                    </div>
+                  <div className="rounded-lg overflow-hidden border border-gray-600">
+                    <Image
+                      src="/images/public-folder.png"
+                      alt="Public 폴더 구조"
+                      width={500}
+                      height={300}
+                      className="w-full h-auto"
+                    />
                   </div>
                 </div>
                 <div className="mt-3 p-2 bg-blue-100 rounded">
@@ -391,18 +407,27 @@ export default function Home() {
                 <p className="mb-3">웹사이트에서 <strong>마우스 오른쪽 클릭</strong> → <strong>&ldquo;검사&rdquo;</strong> 클릭</p>
                 
                 {/* 검사 메뉴 이미지 */}
-                <div className="mb-3 bg-gray-700 border-2 border-dashed border-gray-500 rounded-lg p-4 text-center">
-                  <div className="text-green-400 text-xl mb-1">🔍</div>
-                  <p className="text-gray-400 text-xs">검사 메뉴</p>
+                <div className="mb-3 rounded-lg overflow-hidden border border-gray-600">
+                  <Image
+                    src="/images/inspect-menu.png"
+                    alt="검사 메뉴"
+                    width={400}
+                    height={250}
+                    className="w-full h-auto"
+                  />
                 </div>
                 
                 <p className="text-sm text-gray-400 mb-3">단축키: Windows (F12 또는 Ctrl+Shift+I) / Mac (Cmd+Opt+I)</p>
                 
                 {/* 개발자 도구 화면 이미지 */}
-                <div className="mb-4 bg-gray-700 border-2 border-dashed border-gray-500 rounded-lg p-4 text-center">
-                  <div className="text-blue-400 text-xl mb-1">🛠️</div>
-                  <p className="text-gray-400 text-xs">개발자 도구 화면</p>
-                  <p className="text-gray-500 text-xs mt-1">Console 탭과 모바일 아이콘</p>
+                <div className="mb-4 rounded-lg overflow-hidden border border-gray-600">
+                  <Image
+                    src="/images/devtools.png"
+                    alt="개발자 도구 화면"
+                    width={600}
+                    height={400}
+                    className="w-full h-auto"
+                  />
                 </div>
                 
                 <div className="bg-yellow-100 p-3 rounded">
