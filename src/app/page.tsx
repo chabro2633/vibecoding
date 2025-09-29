@@ -1,4 +1,5 @@
-// import Image from "next/image";
+import Image from "next/image";
+import Link from "next/link";
 
 const StepCard = ({ icon, title, time, description, isActive = false }: {
   icon: string;
@@ -92,9 +93,9 @@ export default function Home() {
               <ChecklistItem text="Vercel 계정" />
             </div>
           </div>
-          <a href="/prepare" className="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors">
+          <Link href="/prepare" className="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors">
             📋 상세 준비 가이드 보기
-          </a>
+          </Link>
           <div className="mt-4 p-3 bg-yellow-900/50 rounded border-l-4 border-yellow-400">
             <p className="text-sm text-yellow-200">💡 이미 준비가 끝났다면 바로 시작해도 좋아요!</p>
           </div>
@@ -160,7 +161,14 @@ export default function Home() {
                 <h4 className="font-bold mb-3 text-white">프로젝트 폴더 열기</h4>
                 <ol className="list-decimal list-inside space-y-2">
                   <li><strong>Cursor 실행</strong><br/>바탕화면이나 Dock에서 Cursor 아이콘 클릭</li>
-                  <li><strong>Open Folder 클릭</strong><br/>시작 화면에서 &ldquo;Open Folder&rdquo; 버튼을 찾아 클릭</li>
+                  <li><strong>Open Folder 클릭</strong><br/>시작 화면에서 &ldquo;Open Folder&rdquo; 버튼을 찾아 클릭
+                    
+                    {/* Cursor Open Folder 화면 이미지 */}
+                    <div className="mt-2 bg-gray-700 border-2 border-dashed border-gray-500 rounded-lg p-4 text-center">
+                      <div className="text-blue-400 text-xl mb-1">📁</div>
+                      <p className="text-gray-400 text-xs">Cursor Open Folder 화면</p>
+                    </div>
+                  </li>
                   <li><strong>프로젝트 폴더 선택</strong><br/>아까 만든 폴더 (예: vibe-coding) 선택 → Open 클릭</li>
                 </ol>
                 <div className="mt-3 p-2 bg-blue-100 rounded">
@@ -352,6 +360,21 @@ export default function Home() {
                   <li><strong>AI 채팅에서 이렇게 말합니다:</strong><br/>
                   &ldquo;public 폴더에 있는 logo.png를 메인 페이지 상단에 보여줘&rdquo;</li>
                 </ol>
+                
+                {/* Public 폴더 구조 예시 이미지 */}
+                <div className="mt-4 mb-4">
+                  <p className="text-sm font-medium text-gray-300 mb-2">📁 public 폴더 구조 예시:</p>
+                  <div className="bg-gray-700 border-2 border-dashed border-gray-500 rounded-lg p-4">
+                    <div className="text-yellow-400 text-sm mb-1">📂 Public 폴더 구조</div>
+                    <div className="text-gray-400 text-xs font-mono">
+                      public/<br/>
+                      ├── logo.png<br/>
+                      ├── banner.jpg<br/>
+                      └── icons/<br/>
+                      &nbsp;&nbsp;&nbsp;&nbsp;└── favicon.ico
+                    </div>
+                  </div>
+                </div>
                 <div className="mt-3 p-2 bg-blue-100 rounded">
                   <p className="text-sm"><strong>💡 핵심 포인트:</strong> 이미지는 직접 준비해야 하고, AI는 그 이미지를 코드로 연결하는 일만 도와줍니다.</p>
                 </div>
@@ -365,8 +388,22 @@ export default function Home() {
               
               <div className="bg-gray-800 border border-gray-600 rounded-lg p-4">
                 <h4 className="font-bold mb-3 text-white">🖱️ 개발자 도구 열기</h4>
-                <p className="mb-2">웹사이트에서 <strong>마우스 오른쪽 클릭</strong> → <strong>&ldquo;검사&rdquo;</strong> 클릭</p>
+                <p className="mb-3">웹사이트에서 <strong>마우스 오른쪽 클릭</strong> → <strong>&ldquo;검사&rdquo;</strong> 클릭</p>
+                
+                {/* 검사 메뉴 이미지 */}
+                <div className="mb-3 bg-gray-700 border-2 border-dashed border-gray-500 rounded-lg p-4 text-center">
+                  <div className="text-green-400 text-xl mb-1">🔍</div>
+                  <p className="text-gray-400 text-xs">검사 메뉴</p>
+                </div>
+                
                 <p className="text-sm text-gray-400 mb-3">단축키: Windows (F12 또는 Ctrl+Shift+I) / Mac (Cmd+Opt+I)</p>
+                
+                {/* 개발자 도구 화면 이미지 */}
+                <div className="mb-4 bg-gray-700 border-2 border-dashed border-gray-500 rounded-lg p-4 text-center">
+                  <div className="text-blue-400 text-xl mb-1">🛠️</div>
+                  <p className="text-gray-400 text-xs">개발자 도구 화면</p>
+                  <p className="text-gray-500 text-xs mt-1">Console 탭과 모바일 아이콘</p>
+                </div>
                 
                 <div className="bg-yellow-100 p-3 rounded">
                   <h5 className="font-bold mb-2 text-white">🚨 콘솔 에러가 나타났을 때</h5>
