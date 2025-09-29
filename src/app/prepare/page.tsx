@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import emailjs from '@emailjs/browser';
 
 const PreparePage = () => {
   const [formData, setFormData] = useState({
@@ -25,38 +24,21 @@ const PreparePage = () => {
     setIsSubmitting(true);
 
     try {
-      // EmailJS를 사용해서 이메일 전송
-      const templateParams = {
-        to_email: 'gudxock@gmail.com',
-        from_name: formData.name,
-        user_name: formData.name,
-        user_message: formData.message || '메시지 없음',
-        submission_time: new Date().toLocaleString('ko-KR'),
-      };
+      const response = await fetch('/api/submit-preparation', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
 
-      // EmailJS 설정 (공개 키들이므로 클라이언트에서 사용 가능)
-      const serviceId = 'service_vibecoding'; // EmailJS에서 제공받은 Service ID
-      const templateId = 'template_preparation'; // EmailJS에서 생성한 Template ID  
-      const publicKey = 'YOUR_EMAILJS_PUBLIC_KEY'; // EmailJS 공개 키
-
-      // EmailJS로 이메일 전송 시도
-      try {
-        await emailjs.send(serviceId, templateId, templateParams, publicKey);
-        console.log('이메일 전송 성공');
-      } catch (emailError) {
-        console.log('EmailJS 전송 실패, 백업 방법 사용:', emailError);
-        // EmailJS 실패 시 백업으로 API 라우트 사용
-        await fetch('/api/submit-preparation', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(formData),
-        });
+      if (response.ok) {
+        setIsSubmitted(true);
+        setFormData({ name: '', message: '' });
+      } else {
+        const errorData = await response.json();
+        alert(errorData.error || '제출 중 오류가 발생했습니다. 다시 시도해주세요.');
       }
-
-      setIsSubmitted(true);
-      setFormData({ name: '', message: '' });
     } catch (error) {
       console.error('Error:', error);
       alert('제출 중 오류가 발생했습니다. 다시 시도해주세요.');

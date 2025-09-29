@@ -427,7 +427,13 @@ export default function Home() {
       {/* Footer */}
       <footer className="bg-gray-800 border-t border-gray-700 py-8 mt-16">
         <div className="max-w-6xl mx-auto px-4 text-center">
-          <p className="text-gray-300">문의하기</p>
+          <div className="flex justify-center items-center space-x-6">
+            <p className="text-gray-300">문의하기</p>
+            <span className="text-gray-600">|</span>
+            <Link href="/admin" className="text-gray-400 hover:text-gray-300 text-sm">
+              🛠️ Admin
+            </Link>
+          </div>
         </div>
       </footer>
     </div>
