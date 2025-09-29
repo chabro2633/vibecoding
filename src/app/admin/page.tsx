@@ -128,6 +128,16 @@ const AdminPage = () => {
 
       {/* Main Content */}
       <main className="max-w-6xl mx-auto px-4 py-8">
+        {/* System Status */}
+        <div className="mb-6 bg-blue-900/30 border border-blue-600 rounded-lg p-4">
+          <div className="flex items-center space-x-2">
+            <div className="text-blue-400">ℹ️</div>
+            <p className="text-blue-200 text-sm">
+              <strong>저장 방식:</strong> 메모리 기반 저장 (서버 재시작 시 데이터 초기화됨)
+            </p>
+          </div>
+        </div>
+
         {/* Dashboard Stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <div className="bg-gray-800 p-6 rounded-lg border border-gray-600">

@@ -17,17 +17,23 @@ export async function POST(request: NextRequest) {
     const success = addSubmission(name, message || '');
     
     if (success) {
-      console.log('준비 완료 제출 저장됨:', {
+      const submissionInfo = {
         name: name.trim(),
         message: message?.trim() || '(메시지 없음)',
         timestamp: new Date().toISOString()
-      });
+      };
+      
+      console.log('✅ 준비 완료 제출 저장 성공:', submissionInfo);
 
       return NextResponse.json(
-        { message: '성공적으로 제출되었습니다.' },
+        { 
+          message: '성공적으로 제출되었습니다.',
+          data: submissionInfo
+        },
         { status: 200 }
       );
     } else {
+      console.error('❌ 데이터 저장 실패');
       return NextResponse.json(
         { error: '데이터 저장 중 오류가 발생했습니다.' },
         { status: 500 }
