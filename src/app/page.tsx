@@ -184,11 +184,11 @@ export default function Home() {
                 </div>
                 
                 <p className="mb-2">Repository 이름 입력 → <strong>아무것도 체크하지 말고</strong> → Create repository</p>
-                <div className="bg-yellow-100 p-2 rounded border-l-4 border-yellow-500">
-                  <p className="text-sm">⚠️ 이름은 영어, 숫자, 하이픈(-)만 사용 (예: my-cute-website)</p>
+                <div className="bg-yellow-900/50 p-2 rounded border-l-4 border-yellow-400">
+                  <p className="text-sm text-yellow-200">⚠️ 이름은 영어, 숫자, 하이픈(-)만 사용 (예: my-cute-website)</p>
                 </div>
-                <div className="mt-2 p-2 bg-blue-100 rounded">
-                  <p className="text-sm"><strong>💡 왜 빈 레포지토리를 만드나요?</strong><br/>
+                <div className="mt-2 p-2 bg-blue-900/50 rounded border border-blue-600">
+                  <p className="text-sm text-blue-200"><strong>💡 왜 빈 레포지토리를 만드나요?</strong><br/>
                   빈 레포지토리는 Vercel에 바로 연결할 수 없어요. 먼저 프로젝트를 만들고 나서 연결합니다!</p>
                 </div>
               </div>
@@ -262,8 +262,8 @@ export default function Home() {
                   <li><strong>Cursor Settings 탭 클릭</strong></li>
                   <li><strong>Account 확인</strong><br/>로그인이 안 되어 있다면 &ldquo;Log In&rdquo; 버튼 클릭</li>
                 </ol>
-                <div className="mt-3 p-2 bg-blue-100 rounded">
-                  <p className="text-sm">💡 <strong>Pro Trial 확인:</strong> Settings에서 &ldquo;Pro Trial&rdquo; 또는 &ldquo;Free Trial&rdquo;이 보이면 성공!<br/>
+                <div className="mt-3 p-2 bg-blue-900/50 rounded border border-blue-600">
+                  <p className="text-sm text-blue-200">💡 <strong>Pro Trial 확인:</strong> Settings에서 &ldquo;Pro Trial&rdquo; 또는 &ldquo;Free Trial&rdquo;이 보이면 성공!<br/>
                   만약 안 보인다면 준비 가이드를 다시 확인해주세요.</p>
                 </div>
               </div>
@@ -286,8 +286,8 @@ export default function Home() {
                     </ul>
           </li>
         </ol>
-                <div className="mt-3 p-3 bg-green-100 rounded">
-                  <p className="text-sm font-medium">🎉 <strong>축하합니다!</strong> 이제 AI와 대화할 준비가 완료되었어요!<br/>
+                <div className="mt-3 p-3 bg-green-900/50 rounded border border-green-600">
+                  <p className="text-sm font-medium text-green-200">🎉 <strong>축하합니다!</strong> 이제 AI와 대화할 준비가 완료되었어요!<br/>
                   채팅창을 열려면: Cmd/Ctrl + L</p>
                 </div>
               </div>
@@ -306,15 +306,15 @@ export default function Home() {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="bg-yellow-50 rounded-lg p-4">
+                <div className="bg-yellow-900/50 rounded-lg p-4 border border-yellow-600">
                   <h4 className="font-bold mb-2 text-white">💬 AI가 이해 못했을 때</h4>
-                  <p className="text-sm mb-2">AI가 잘못 이해했거나 다른 걸 했나요?</p>
-                  <p className="text-sm font-medium text-yellow-800">해결: &ldquo;아니야, 내가 원한 건 ___야&rdquo; 라고 다시 설명</p>
+                  <p className="text-sm mb-2 text-yellow-200">AI가 잘못 이해했거나 다른 걸 했나요?</p>
+                  <p className="text-sm font-medium text-yellow-100">해결: &ldquo;아니야, 내가 원한 건 ___야&rdquo; 라고 다시 설명</p>
                 </div>
-                <div className="bg-red-50 rounded-lg p-4">
+                <div className="bg-red-900/50 rounded-lg p-4 border border-red-600">
                   <h4 className="font-bold mb-2 text-white">🔴 에러가 났을 때</h4>
-                  <p className="text-sm mb-2">빨간 글씨로 에러가 나타났나요?</p>
-                  <p className="text-sm font-medium text-red-300">해결: 에러 메시지를 복사해서 AI에게 &ldquo;이 에러 해결해줘&rdquo;</p>
+                  <p className="text-sm mb-2 text-red-200">빨간 글씨로 에러가 나타났나요?</p>
+                  <p className="text-sm font-medium text-red-100">해결: 에러 메시지를 복사해서 AI에게 &ldquo;이 에러 해결해줘&rdquo;</p>
                 </div>
               </div>
             </div>
@@ -335,16 +335,16 @@ export default function Home() {
                   <li><strong>Code 버튼 클릭</strong><br/>초록색 &ldquo;Code&rdquo; 버튼을 찾아서 클릭</li>
                   <li><strong>HTTPS URL 복사</strong><br/>https://github.com/[username]/[repo-name].git 형태의 URL 복사</li>
                 </ol>
-                <div className="mt-3 p-3 bg-blue-100 rounded">
-                  <p className="text-sm font-mono">&ldquo;💬 GitHub 레포지토리 [복사한 URL] 에 연결해줘&rdquo;</p>
+                <div className="mt-3 p-3 bg-blue-900/50 rounded border border-blue-600">
+                  <p className="text-sm font-mono text-blue-200">&ldquo;💬 GitHub 레포지토리 [복사한 URL] 에 연결해줘&rdquo;</p>
                 </div>
               </div>
 
               <div className="bg-green-900/30 border border-green-600 rounded-lg p-4 mb-4">
                 <h4 className="font-bold mb-3 text-white">🚀 그 다음, Vercel로 배포하기</h4>
                 <p className="mb-2">GitHub에 연결했다면, 이제 Vercel로 배포해보세요!</p>
-                <div className="p-3 bg-green-200 rounded">
-                  <p className="font-mono">&ldquo;💬 vercel에 로그인하고 배포까지 해줘&rdquo;</p>
+                <div className="p-3 bg-green-900/50 rounded border border-green-600">
+                  <p className="font-mono text-green-200">&ldquo;💬 vercel에 로그인하고 배포까지 해줘&rdquo;</p>
                 </div>
                 <p className="mt-2 text-sm text-green-300">AI가 Vercel CLI를 사용해서 자동으로 배포 프로세스를 진행해줄 거예요!</p>
               </div>
@@ -354,19 +354,19 @@ export default function Home() {
                 <h4 className="font-bold text-red-300 mb-2">🚨 중요! Vercel 배포 시 반드시 읽어주세요!</h4>
                 <p className="text-red-200 mb-3">모두가 볼 수 있는 사이트를 만들려면 이 설정이 필요해요</p>
                 
-                <div className="bg-yellow-100 p-3 rounded mb-3">
+                <div className="bg-yellow-900/50 p-3 rounded mb-3 border border-yellow-600">
                   <h5 className="font-bold mb-2 text-white">💡 터미널 선택지 팁</h5>
-                  <p className="text-sm">터미널에서 <code>(y/N)</code> 형태로 물어볼 때:</p>
-                  <ul className="text-sm mt-1 ml-4 list-disc">
+                  <p className="text-sm text-yellow-200">터미널에서 <code>(y/N)</code> 형태로 물어볼 때:</p>
+                  <ul className="text-sm mt-1 ml-4 list-disc text-yellow-200">
                     <li>대문자(N)가 기본값입니다</li>
                     <li>그냥 Enter = N 선택</li>
                     <li>y를 원하면 y 입력 후 Enter</li>
                   </ul>
                 </div>
 
-                <div className="bg-white p-3 rounded border">
+                <div className="bg-gray-800 p-3 rounded border border-gray-600">
                   <h5 className="font-bold mb-2 text-white">⚠️ 배포할 때 터미널에서 이런 질문이 나옵니다:</h5>
-                  <p className="font-mono text-sm mb-2">`Enable Vercel Authentication (y/N)?`</p>
+                  <p className="font-mono text-sm mb-2 text-gray-300">`Enable Vercel Authentication (y/N)?`</p>
                   <p className="text-red-200 font-bold">👉 반드시 `n` 을 입력하세요!</p>
                   <ul className="mt-2 text-sm text-red-200 list-disc ml-4">
                     <li>그냥 Enter 치면 안돼요! (Enter = N이지만 다른 의미)</li>
@@ -394,8 +394,8 @@ export default function Home() {
               <div className="bg-blue-900/30 border border-blue-600 rounded-lg p-4 mb-4">
                 <h4 className="font-bold mb-3 text-white">💡 앞으로는 이렇게 하세요!</h4>
                 <p className="mb-2">이제 다 세팅했으니까, 앞으로는 이 말을 습관처럼 하면 됩니다:</p>
-                <div className="p-3 bg-blue-200 rounded text-center">
-                  <p className="font-mono font-bold">&ldquo;커밋, 푸쉬, 배포해줘&rdquo;</p>
+                <div className="p-3 bg-blue-900/50 rounded text-center border border-blue-600">
+                  <p className="font-mono font-bold text-blue-200">&ldquo;커밋, 푸쉬, 배포해줘&rdquo;</p>
                 </div>
                 <p className="mt-2 text-sm text-blue-300">💡 코드를 수정할 때마다 이 마법의 주문을 외워보세요!<br/>
                 AI가 자동으로 GitHub에 저장하고 Vercel에 배포해줄 거예요.</p>
@@ -474,9 +474,9 @@ export default function Home() {
               </div>
 
               {/* 축하 메시지 */}
-              <div className="bg-green-100 rounded-lg p-4 text-center">
-                <h4 className="font-bold text-green-800 mb-2">🎉 축하합니다!</h4>
-                <p className="text-green-300">이제 전 세계에서 여러분의 웹사이트를 볼 수 있어요!<br/>
+              <div className="bg-green-900/50 rounded-lg p-4 text-center border border-green-600">
+                <h4 className="font-bold text-green-200 mb-2">🎉 축하합니다!</h4>
+                <p className="text-green-200">이제 전 세계에서 여러분의 웹사이트를 볼 수 있어요!<br/>
                 배포가 완료되면 <code>https://프로젝트명.vercel.app</code> 같은 주소를 받게 됩니다.</p>
               </div>
             </div>
@@ -495,9 +495,9 @@ export default function Home() {
                 </ol>
               </div>
 
-              <div className="bg-purple-100 rounded-lg p-4 text-center">
-                <h4 className="font-bold text-purple-800 mb-2">🌟 축하합니다!</h4>
-                <p className="text-purple-700">이제 더 멋진 주소로 여러분의 웹사이트를 공유할 수 있어요!<br/>
+              <div className="bg-purple-900/50 rounded-lg p-4 text-center border border-purple-600">
+                <h4 className="font-bold text-purple-200 mb-2">🌟 축하합니다!</h4>
+                <p className="text-purple-200">이제 더 멋진 주소로 여러분의 웹사이트를 공유할 수 있어요!<br/>
                 친구들에게 자랑해보세요! 🎊</p>
               </div>
             </div>
@@ -522,8 +522,8 @@ export default function Home() {
               <p className="text-gray-300 mb-4">다른 컴퓨터에서 작업하거나, 팀원이 수정한 내용을 가져올 때 사용해요.</p>
               
               <div className="bg-gray-800 border border-gray-600 rounded-lg p-4 mb-4">
-                <div className="p-3 bg-green-200 rounded text-center">
-                  <p className="font-mono font-bold">&ldquo;풀(pull) 해줘&rdquo; 또는 &ldquo;최신 코드 가져와줘&rdquo;</p>
+                <div className="p-3 bg-green-900/50 rounded text-center border border-green-600">
+                  <p className="font-mono font-bold text-green-200">&ldquo;풀(pull) 해줘&rdquo; 또는 &ldquo;최신 코드 가져와줘&rdquo;</p>
                 </div>
               </div>
 
@@ -577,8 +577,8 @@ export default function Home() {
                     />
                   </div>
                 </div>
-                <div className="mt-3 p-2 bg-blue-100 rounded">
-                  <p className="text-sm"><strong>💡 핵심 포인트:</strong> 이미지는 직접 준비해야 하고, AI는 그 이미지를 코드로 연결하는 일만 도와줍니다.</p>
+                <div className="mt-3 p-2 bg-blue-900/50 rounded border border-blue-600">
+                  <p className="text-sm text-blue-200"><strong>💡 핵심 포인트:</strong> 이미지는 직접 준비해야 하고, AI는 그 이미지를 코드로 연결하는 일만 도와줍니다.</p>
                 </div>
               </div>
             </div>
@@ -616,18 +616,18 @@ export default function Home() {
                   />
                 </div>
                 
-                <div className="bg-yellow-100 p-3 rounded">
+                <div className="bg-yellow-900/50 p-3 rounded border border-yellow-600">
                   <h5 className="font-bold mb-2 text-white">🚨 콘솔 에러가 나타났을 때</h5>
-                  <p className="text-sm mb-2">콘솔에 빨간색 에러 메시지가 보이면?</p>
-                  <ol className="text-sm list-decimal list-inside">
+                  <p className="text-sm mb-2 text-yellow-200">콘솔에 빨간색 에러 메시지가 보이면?</p>
+                  <ol className="text-sm list-decimal list-inside text-yellow-200">
                     <li>에러 메시지를 드래그해서 선택</li>
                     <li>복사 (Ctrl+C 또는 Cmd+C)</li>
                     <li>AI 채팅에 붙여넣고 <strong>&ldquo;이 에러를 해결해줘&rdquo;</strong></li>
                   </ol>
                 </div>
                 
-                <div className="mt-3 p-2 bg-blue-100 rounded">
-                  <p className="text-sm"><strong>꿀팁:</strong> 개발자 도구를 잘 활용하면 AI가 여러분의 문제를 정확히 이해하고 빠르게 해결할 수 있어요!</p>
+                <div className="mt-3 p-2 bg-blue-900/50 rounded border border-blue-600">
+                  <p className="text-sm text-blue-200"><strong>꿀팁:</strong> 개발자 도구를 잘 활용하면 AI가 여러분의 문제를 정확히 이해하고 빠르게 해결할 수 있어요!</p>
                 </div>
               </div>
             </div>
