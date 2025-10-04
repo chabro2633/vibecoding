@@ -19,15 +19,15 @@ export async function POST(request: NextRequest) {
     // GitHub API 설정
     const owner = 'chahyeongtae' // GitHub 사용자명
     const repo = 'vibecoding' // 저장소 이름
+    const path = `public/images/${fileName}`
+    const token = process.env.GITHUB_TOKEN || process.env.GITHUB_PAT // GitHub Personal Access Token
     
     console.log('GitHub API 호출 정보:', {
       owner,
       repo,
-      path: `public/images/${fileName}`,
+      path,
       hasToken: !!token
     })
-    const path = `public/images/${fileName}`
-    const token = process.env.GITHUB_TOKEN || process.env.GITHUB_PAT // GitHub Personal Access Token
 
     if (!token) {
       console.error('환경 변수 확인:', {
