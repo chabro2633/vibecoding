@@ -343,6 +343,167 @@ export default function Home() {
               </div>
             </div>
 
+            {/* Step 5 - AI 채팅으로 지시해보기 */}
+            <div className="mb-8">
+              <h3 className="text-2xl font-semibold mb-4 text-gray-200">🎯 Step 5. 이제 AI 채팅으로 지시해보세요!</h3>
+              
+              <div className="bg-gradient-to-r from-orange-900/50 to-red-900/50 border border-orange-600 rounded-lg p-4 mb-4">
+                <h4 className="font-bold mb-3 text-white">⚡ 축하합니다! 이제 AI와 대화할 준비가 모두 끝났어요!</h4>
+                <p className="text-orange-200 mb-3">이제 터미널을 사용하지 않고 한국어로 편하게 개발할 수 있습니다.</p>
+                <p className="text-orange-200 mb-3">예: &ldquo;Git 설치해줘&rdquo;, &ldquo;Node.js 설치해줘&rdquo;</p>
+                
+                <div className="bg-orange-900/50 rounded-lg p-3 border border-orange-500">
+                  <p className="text-sm font-mono text-orange-100">
+                    <strong>Cmd/Ctrl + L</strong> ← 채팅창 열기
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Step 6 - Git 설치 */}
+            <div className="mb-8">
+              <h3 className="text-2xl font-semibold mb-4 text-gray-200">🔧 Step 6. Git 설치</h3>
+              <p className="text-gray-300 mb-4">코드의 변경사항을 기록하고 백업하는 도구입니다.</p>
+              
+              <div className="bg-gray-800 border border-gray-600 rounded-lg p-4 mb-4">
+                <div className="bg-blue-900/50 border border-blue-600 rounded-lg p-4 mb-4">
+                  <h4 className="font-bold mb-2 text-white">🤖 Cursor AI 채팅에서 말하기:</h4>
+                  <div className="bg-white rounded-lg p-3 border">
+                    <p className="text-gray-800 font-mono">&ldquo;Git 설치해줘&rdquo;</p>
+                  </div>
+                </div>
+                
+                <Collapsible title="Q. Git이 뭔가요? 왜 필요한가요?">
+                  <div className="text-sm text-gray-300 space-y-2">
+                    <p><strong>Git은 코드의 변경사항을 기록하는 도구입니다.</strong></p>
+                    <p>• 코드를 수정할 때마다 &ldquo;저장점&rdquo;을 만들어줍니다</p>
+                    <p>• 실수로 코드를 망쳤을 때 이전 상태로 되돌릴 수 있어요</p>
+                    <p>• GitHub에 코드를 올리려면 반드시 필요합니다</p>
+                  </div>
+                </Collapsible>
+              </div>
+            </div>
+
+            {/* Step 7 - Node.js 설치 */}
+            <div className="mb-8">
+              <h3 className="text-2xl font-semibold mb-4 text-gray-200">🟢 Step 7. Node.js 설치</h3>
+              <p className="text-gray-300 mb-4">웹사이트를 실행하고 테스트하는 도구입니다.</p>
+              
+              <div className="bg-gray-800 border border-gray-600 rounded-lg p-4 mb-4">
+                <div className="bg-green-900/50 border border-green-600 rounded-lg p-4 mb-4">
+                  <h4 className="font-bold mb-2 text-white">🤖 Cursor AI 채팅에서 말하기:</h4>
+                  <div className="bg-white rounded-lg p-3 border">
+                    <p className="text-gray-800 font-mono">&ldquo;Node.js 설치해줘&rdquo;</p>
+                  </div>
+                </div>
+                
+                <Collapsible title="Q. Node.js가 뭔가요? 왜 필요한가요?">
+                  <div className="text-sm text-gray-300 space-y-2">
+                    <p><strong>Node.js는 JavaScript를 실행하는 환경입니다.</strong></p>
+                    <p>• 웹사이트를 내 컴퓨터에서 미리 볼 수 있게 해줍니다</p>
+                    <p>• Next.js 같은 최신 웹 기술을 사용할 수 있게 해줍니다</p>
+                    <p>• 개발할 때 필수적인 도구입니다</p>
+                  </div>
+                </Collapsible>
+              </div>
+            </div>
+
+            {/* Step 8 - 이미지 사용법 및 개발자 도구 */}
+            <div className="mb-8">
+              <h3 className="text-2xl font-semibold mb-4 text-gray-200">🖼️ Step 8. 이미지 사용법</h3>
+              <p className="text-gray-300 mb-4">웹사이트에 이미지를 넣는 방법을 알아보세요!</p>
+              
+              <div className="bg-yellow-900/50 border border-yellow-600 rounded-lg p-4 mb-4">
+                <h4 className="font-bold mb-3 text-white">📁 이미지 준비하기</h4>
+                <p className="text-yellow-200 mb-3">AI는 이미지를 만들어주지 않습니다. 직접 준비해야 해요!</p>
+                
+                <ol className="list-decimal list-inside space-y-2 text-yellow-200">
+                  <li><strong>public 폴더를 만듭니다</strong></li>
+                  <li><strong>이미지 파일을 그 폴더에 넣습니다</strong><br/>
+                  <span className="text-sm">예: `public/logo.png`</span></li>
+                  <li><strong>AI 채팅에서 이렇게 말합니다:</strong><br/>
+                  <span className="text-sm font-mono">&ldquo;public 폴더에 있는 logo.png를 메인 페이지 상단에 보여줘&rdquo;</span></li>
+                </ol>
+                
+                <div className="mt-4">
+                  <h5 className="font-bold mb-2 text-white">📁 public 폴더 구조 예시:</h5>
+                  
+                  {/* Public 폴더 구조 예시 이미지 */}
+                  <div className="mb-4 rounded-lg overflow-hidden border border-gray-600">
+                    <Image
+                      src="/images/public-folder.png"
+                      alt="Public 폴더 구조"
+                      width={600}
+                      height={400}
+                      className="w-full h-auto"
+                    />
+                  </div>
+                </div>
+                
+                <div className="mt-3 p-2 bg-yellow-900/50 rounded border border-yellow-600">
+                  <p className="text-sm text-yellow-200"><strong>💡 핵심 포인트:</strong> 이미지는 직접 준비해야 하고, AI는 그 이미지를 코드로 연결하는 일만 도와줍니다.</p>
+                </div>
+              </div>
+
+              <div className="bg-blue-900/50 border border-blue-600 rounded-lg p-4 mb-4">
+                <h4 className="font-bold mb-3 text-white">🔍 브라우저 개발자 도구 사용법</h4>
+                <p className="text-blue-200 mb-3">웹사이트 디버깅의 핵심 도구입니다!</p>
+                <p className="text-blue-200 mb-4">웹사이트에서 문제가 생겼을 때, 브라우저 개발자 도구를 사용하면 AI가 문제를 더 빠르게 해결할 수 있어요!</p>
+                
+                <div className="mb-4">
+                  <h5 className="font-bold mb-2 text-white">🖱️ 개발자 도구 열기</h5>
+                  <p className="text-blue-200 mb-2">웹사이트에서 <strong>마우스 오른쪽 클릭</strong> → <strong>&ldquo;검사&rdquo;</strong> 클릭</p>
+                  
+                  {/* 검사 메뉴 이미지 */}
+                  <div className="mb-4 rounded-lg overflow-hidden border border-gray-600">
+                    <Image
+                      src="/images/inspect-menu.png"
+                      alt="검사 메뉴"
+                      width={400}
+                      height={300}
+                      className="w-full h-auto"
+                    />
+                  </div>
+                  
+                  <p className="text-sm text-blue-300">단축키: Windows (F12 또는 Ctrl+Shift+I) / Mac (Cmd+Opt+I)</p>
+                </div>
+                
+                <div className="mb-4">
+                  <h5 className="font-bold mb-2 text-white">📱 콘솔과 모바일 뷰</h5>
+                  
+                  {/* 개발자 도구 화면 이미지 */}
+                  <div className="mb-4 rounded-lg overflow-hidden border border-gray-600">
+                    <Image
+                      src="/images/devtools.png"
+                      alt="개발자 도구 화면"
+                      width={700}
+                      height={400}
+                      className="w-full h-auto"
+                    />
+                  </div>
+                  
+                  <ul className="space-y-1 text-blue-200">
+                    <li><strong>Console 탭:</strong> 에러 메시지가 표시되는 곳</li>
+                    <li><strong>모바일 아이콘:</strong> 모바일 화면에서 어떻게 보이는지 확인</li>
+                  </ul>
+                </div>
+                
+                <div className="bg-red-900/50 border border-red-600 rounded-lg p-3">
+                  <h5 className="font-bold mb-2 text-white">🚨 콘솔 에러가 나타났을 때</h5>
+                  <p className="text-red-200 mb-2">콘솔에 빨간색 에러 메시지가 보이면?</p>
+                  <ol className="list-decimal list-inside space-y-1 text-red-200 text-sm">
+                    <li>에러 메시지를 드래그해서 선택</li>
+                    <li>복사 (Ctrl+C 또는 Cmd+C)</li>
+                    <li>AI 채팅에 붙여넣고 <strong>&ldquo;이 에러를 해결해줘&rdquo;</strong></li>
+                  </ol>
+                </div>
+                
+                <div className="mt-3 p-2 bg-blue-900/50 rounded border border-blue-600">
+                  <p className="text-sm text-blue-200"><strong>💡 꿀팁:</strong> 개발자 도구를 잘 활용하면 AI가 여러분의 문제를 정확히 이해하고 빠르게 해결할 수 있어요!</p>
+                </div>
+              </div>
+            </div>
+
             {/* Error Resolution */}
             <div className="mb-8">
               <h3 className="text-2xl font-semibold mb-4 text-gray-200">🛡️ 에러 해결 마법 공식</h3>
@@ -372,11 +533,40 @@ export default function Home() {
 
           {/* Section 2: 배포 */}
           <section className="border-t-4 border-green-500 pt-6">
-            <h2 className="text-3xl font-bold mb-6 text-white">🌐 배포</h2>
+            {/* 2부 완료 메시지 */}
+            <div className="text-center mb-8">
+              <div className="inline-flex items-center justify-center bg-gradient-to-r from-green-600 to-blue-600 text-white px-6 py-3 rounded-full font-bold text-lg shadow-lg">
+                🎉 1부 완료! 이제 프로젝트를 준비해봅시다
+              </div>
+            </div>
+
+            {/* 2부 헤더 */}
+            <div className="text-center mb-12">
+              <div className="inline-flex items-center justify-center bg-gradient-to-r from-blue-900 to-purple-900 border-2 border-blue-500 rounded-2xl px-8 py-6 shadow-2xl">
+                <div className="text-center">
+                  <h2 className="text-4xl font-bold text-white mb-2">📋 2부: 프로젝트 준비 및 배포</h2>
+                  <div className="w-24 h-1 bg-gradient-to-r from-blue-400 to-purple-400 mx-auto rounded-full"></div>
+                </div>
+              </div>
+            </div>
             
-            {/* Step 3 - GitHub 연동 및 Vercel 배포 */}
+            {/* Step 1 - Next.js 프로젝트 생성 */}
             <div className="mb-8">
-              <h3 className="text-2xl font-semibold mb-4 text-gray-200">🌐 Step 3. GitHub에 코드 올리고 Vercel로 배포하기</h3>
+              <h3 className="text-2xl font-semibold mb-4 text-gray-200">⚡ Step 1. Next.js 프로젝트 생성</h3>
+              <p className="text-gray-300 mb-4">이제 AI와 함께 실제 웹사이트를 만들어봅시다!</p>
+              
+              <div className="bg-gradient-to-r from-purple-900/50 to-blue-900/50 border border-purple-600 rounded-lg p-4 mb-4">
+                <h4 className="font-bold mb-2 text-white">🤖 Cursor AI 채팅에서 말하기:</h4>
+                <div className="bg-white rounded-lg p-3 border">
+                  <p className="text-gray-800 font-mono">&ldquo;create-next-app으로 vibecoding 프로젝트 만들어줘&rdquo;</p>
+                </div>
+                <p className="text-purple-200 text-sm mt-2">AI가 자동으로 Next.js 프로젝트를 생성해줄 거예요!</p>
+              </div>
+            </div>
+
+            {/* Step 2 - GitHub 연동 및 Vercel 배포 */}
+            <div className="mb-8">
+              <h3 className="text-2xl font-semibold mb-4 text-gray-200">🌐 Step 2. GitHub에 코드 올리고 Vercel로 배포하기</h3>
               
               <div className="bg-gray-800 border border-gray-600 rounded-lg p-4 mb-4">
                 <h4 className="font-bold mb-3 text-white">📋 GitHub 레포지토리 URL 복사</h4>
@@ -531,17 +721,19 @@ export default function Home() {
               </div>
             </div>
 
-            {/* 도메인 변경 */}
+            {/* Step 5: 도메인 변경 */}
             <div className="mb-8">
-              <h3 className="text-2xl font-semibold mb-4 text-gray-200">🌐 도메인 이름 바꾸기 (선택사항)</h3>
+              <h3 className="text-2xl font-semibold mb-4 text-gray-200">🌐 Step 5. 도메인 이름 바꾸기 (선택사항)</h3>
               <p className="text-gray-300 mb-4">기본 주소가 너무 길다고요? Vercel에서 더 짧고 예쁜 주소로 바꿀 수 있어요!</p>
               
-              <div className="bg-gray-800 border border-gray-600 rounded-lg p-4 mb-4">
-                <ol className="list-decimal list-inside space-y-2">
-                  <li><strong>Vercel 대시보드 접속</strong><br/>vercel.com에 로그인 → 여러분의 프로젝트 클릭</li>
-                  <li><strong>Settings → Domains 메뉴로 이동</strong><br/>프로젝트 설정에서 도메인 관리 페이지로 들어가요</li>
+              <div className="bg-gradient-to-r from-purple-900/50 to-pink-900/50 border border-purple-600 rounded-lg p-4 mb-4">
+                <ol className="list-decimal list-inside space-y-2 text-purple-200">
+                  <li><strong>Vercel 대시보드 접속</strong><br/>
+                  <span className="text-sm text-purple-300">vercel.com에 로그인 → 여러분의 프로젝트 클릭</span></li>
+                  <li><strong>Settings → Domains 메뉴로 이동</strong><br/>
+                  <span className="text-sm text-purple-300">프로젝트 설정에서 도메인 관리 페이지로 들어가요</span></li>
                   <li><strong>원하는 이름 입력하고 Add 클릭</strong><br/>
-                  예: my-awesome-site.vercel.app → coolsite.vercel.app</li>
+                  <span className="text-sm text-purple-300">예: my-awesome-site.vercel.app → coolsite.vercel.app</span></li>
                 </ol>
               </div>
 
@@ -552,28 +744,33 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Step 3-3: 자동 배포 설정 */}
+            {/* Step 3: 자동 배포 설정 */}
             <div className="mb-8">
-              <h3 className="text-2xl font-semibold mb-4 text-gray-200">🔗 자동 배포 설정하기</h3>
+              <h3 className="text-2xl font-semibold mb-4 text-gray-200">🔗 Step 3. 자동 배포 설정하기</h3>
               <p className="text-gray-300 mb-4">GitHub에 푸시할 때마다 자동으로 배포되도록 설정하면 편리합니다!</p>
               
-              <div className="bg-gray-800 border border-gray-600 rounded-lg p-4 mb-4">
-                <ol className="list-decimal list-inside space-y-2">
+              <div className="bg-gradient-to-r from-green-900/50 to-blue-900/50 border border-green-600 rounded-lg p-4 mb-4">
+                <ol className="list-decimal list-inside space-y-2 text-green-200">
                   <li><strong>Vercel 대시보드에서 프로젝트 선택</strong></li>
                   <li><strong>Settings → Git → Deploy Hooks 설정</strong></li>
                   <li><strong>이제 git push만 하면 자동 배포!</strong></li>
                 </ol>
+                
+                <div className="mt-4 p-3 bg-green-900/50 rounded border border-green-500">
+                  <p className="text-sm text-green-200"><strong>💡 꿀팁:</strong> 이제부터는 코드를 수정하고 &ldquo;커밋, 푸쉬, 배포해줘&rdquo;라고 말하면 자동으로 웹사이트가 업데이트돼요!</p>
+                </div>
               </div>
             </div>
 
-            {/* Step 3-3: Pull */}
+            {/* Step 4: Pull */}
             <div className="mb-8">
-              <h3 className="text-2xl font-semibold mb-4 text-gray-200">🔄 Step 3-3. 코드 가져오기 (Pull)</h3>
+              <h3 className="text-2xl font-semibold mb-4 text-gray-200">🔄 Step 4. 코드 가져오기 (Pull)</h3>
               <p className="text-gray-300 mb-4">다른 컴퓨터에서 작업하거나, 팀원이 수정한 내용을 가져올 때 사용해요.</p>
               
-              <div className="bg-gray-800 border border-gray-600 rounded-lg p-4 mb-4">
-                <div className="p-3 bg-green-900/50 rounded text-center border border-green-600">
-                  <p className="font-mono font-bold text-green-200">&ldquo;풀(pull) 해줘&rdquo; 또는 &ldquo;최신 코드 가져와줘&rdquo;</p>
+              <div className="bg-gradient-to-r from-cyan-900/50 to-blue-900/50 border border-cyan-600 rounded-lg p-4 mb-4">
+                <h4 className="font-bold mb-2 text-white">🤖 Cursor AI 채팅에서 말하기:</h4>
+                <div className="bg-white rounded-lg p-3 border text-center">
+                  <p className="font-mono font-bold text-gray-800">&ldquo;풀(pull) 해줘&rdquo; 또는 &ldquo;최신 코드 가져와줘&rdquo;</p>
                 </div>
               </div>
 
