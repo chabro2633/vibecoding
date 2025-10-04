@@ -19,6 +19,13 @@ export async function POST(request: NextRequest) {
     // GitHub API 설정
     const owner = 'chahyeongtae' // GitHub 사용자명
     const repo = 'vibecoding' // 저장소 이름
+    
+    console.log('GitHub API 호출 정보:', {
+      owner,
+      repo,
+      path: `public/images/${fileName}`,
+      hasToken: !!token
+    })
     const path = `public/images/${fileName}`
     const token = process.env.GITHUB_TOKEN || process.env.GITHUB_PAT // GitHub Personal Access Token
 
@@ -32,6 +39,32 @@ export async function POST(request: NextRequest) {
         error: 'GitHub 토큰이 설정되지 않았습니다.',
         debug: `NODE_ENV: ${process.env.NODE_ENV}, 토큰 확인: ${!!process.env.GITHUB_TOKEN}`
       }, { status: 500 })
+    }
+
+    // GitHub API 테스트 - 저장소 접근 권한 확인
+    try {
+      const repoTestResponse = await fetch(
+        `https://api.github.com/repos/${owner}/${repo}`,
+        {
+          headers: {
+            'Authorization': `token ${token}`,
+            'Accept': 'application/vnd.github.v3+json',
+          },
+        }
+      )
+      
+      if (!repoTestResponse.ok) {
+        const repoError = await repoTestResponse.json()
+        console.error('저장소 접근 실패:', repoError)
+        return NextResponse.json({ 
+          error: `저장소 접근 실패 (${repoTestResponse.status}): ${repoError.message || '권한이 없거나 저장소가 존재하지 않습니다'}` 
+        }, { status: 403 })
+      }
+      
+      console.log('저장소 접근 성공')
+    } catch (error) {
+      console.error('저장소 접근 테스트 오류:', error)
+      return NextResponse.json({ error: '저장소 접근 테스트 실패' }, { status: 500 })
     }
 
     // 기존 파일 확인
@@ -78,7 +111,13 @@ export async function POST(request: NextRequest) {
 
     if (!uploadResponse.ok) {
       const errorData = await uploadResponse.json()
-      throw new Error(`GitHub 업로드 실패: ${errorData.message}`)
+      console.error('GitHub API 오류:', {
+        status: uploadResponse.status,
+        statusText: uploadResponse.statusText,
+        errorData,
+        url: `https://api.github.com/repos/${owner}/${repo}/contents/${path}`
+      })
+      throw new Error(`GitHub 업로드 실패 (${uploadResponse.status}): ${errorData.message || errorData.error || 'Unknown error'}`)
     }
 
     const result = await uploadResponse.json()
