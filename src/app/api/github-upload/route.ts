@@ -20,10 +20,18 @@ export async function POST(request: NextRequest) {
     const owner = 'chahyeongtae' // GitHub 사용자명
     const repo = 'vibecoding' // 저장소 이름
     const path = `public/images/${fileName}`
-    const token = process.env.GITHUB_TOKEN // GitHub Personal Access Token
+    const token = process.env.GITHUB_TOKEN || process.env.GITHUB_PAT // GitHub Personal Access Token
 
     if (!token) {
-      return NextResponse.json({ error: 'GitHub 토큰이 설정되지 않았습니다.' }, { status: 500 })
+      console.error('환경 변수 확인:', {
+        GITHUB_TOKEN: process.env.GITHUB_TOKEN ? '설정됨' : '없음',
+        GITHUB_PAT: process.env.GITHUB_PAT ? '설정됨' : '없음',
+        NODE_ENV: process.env.NODE_ENV
+      })
+      return NextResponse.json({ 
+        error: 'GitHub 토큰이 설정되지 않았습니다.',
+        debug: `NODE_ENV: ${process.env.NODE_ENV}, 토큰 확인: ${!!process.env.GITHUB_TOKEN}`
+      }, { status: 500 })
     }
 
     // 기존 파일 확인
