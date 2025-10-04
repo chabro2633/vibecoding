@@ -108,29 +108,9 @@ export default function ImageEditor() {
       }
       reader.readAsDataURL(file)
 
-      // 실제 파일 업로드 API 호출
-      const uploadFormData = new FormData()
-      uploadFormData.append('file', file)
-      uploadFormData.append('imageId', imageId)
-
-      const response = await fetch('/api/upload-image', {
-        method: 'POST',
-        body: uploadFormData
-      })
-
-      const uploadResult = await response.json()
-
-      if (uploadResult.success) {
-        console.log(`${imageId} 이미지 업로드 성공:`, uploadResult.path)
-        // 업로드된 파일 경로로 업데이트
-        setUploadedFiles(prev => ({
-          ...prev,
-          [imageId]: uploadResult.path
-        }))
-        alert('이미지가 성공적으로 업로드되었습니다!')
-      } else {
-        throw new Error(uploadResult.error || '업로드 실패')
-      }
+      // 클라이언트 사이드 미리보기만 제공 (Vercel serverless 환경 제한으로 인해)
+      console.log(`${imageId} 이미지 미리보기 준비 완료:`, file.name)
+      alert('이미지 미리보기가 준비되었습니다! 실제 적용을 위해서는 개발자에게 이미지 파일을 전달해주세요.')
       
     } catch (error) {
       console.error('이미지 업로드 오류:', error)
@@ -182,7 +162,12 @@ export default function ImageEditor() {
         {/* 헤더 */}
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold mb-4">🖼️ 바이브 코딩 이미지 에디터</h1>
-          <p className="text-gray-300">이미지를 업로드해서 실시간으로 변경해보세요!</p>
+          <p className="text-gray-300">이미지를 업로드해서 실시간으로 미리보기를 확인하세요!</p>
+          <div className="mt-3 p-3 bg-yellow-900/50 border border-yellow-600 rounded-lg max-w-2xl mx-auto">
+            <p className="text-yellow-200 text-sm">
+              ⚠️ <strong>안내:</strong> 현재는 미리보기만 제공됩니다. 실제 이미지 변경을 위해서는 선택한 이미지 파일을 개발자에게 전달해주세요.
+            </p>
+          </div>
           <div className="mt-4">
             <button
               onClick={() => window.open('/', '_blank')}
@@ -301,9 +286,10 @@ export default function ImageEditor() {
             <div>
               <h3 className="font-bold mb-2">2. 변경사항 적용</h3>
               <ul className="space-y-1 text-sm">
-                <li>• &ldquo;코드 변경사항 복사&rdquo; 버튼 클릭</li>
-                <li>• 개발자에게 변경사항 전달</li>
-                <li>• 실제 사이트에 반영 완료!</li>
+                <li>• 미리보기로 원하는 이미지 확인</li>
+                <li>• 이미지 파일을 개발자에게 전달</li>
+                <li>• 어떤 위치에 사용할지 함께 알려주기</li>
+                <li>• 개발자가 실제 사이트에 반영!</li>
               </ul>
             </div>
           </div>
