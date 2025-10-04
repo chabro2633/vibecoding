@@ -270,7 +270,7 @@ export default function Home() {
                     
                     {/* Cursor Open Folder 화면 이미지 */}
                     <div className="mt-3 mb-3 rounded-lg overflow-hidden border border-gray-600">
-                      <Image
+        <Image
                         src="/images/cursor-open-folder.png"
                         alt="Cursor Open Folder 화면"
                         width={600}
@@ -278,7 +278,7 @@ export default function Home() {
                         className="w-full h-auto"
                       />
                     </div>
-                  </li>
+          </li>
                   <li><strong>프로젝트 폴더 선택</strong><br/>아까 만든 폴더 (예: vibe-coding) 선택 → Open 클릭</li>
                 </ol>
                 <div className="mt-3 p-2 bg-blue-900/50 rounded border border-blue-600">
@@ -296,11 +296,11 @@ export default function Home() {
               <div className="bg-gray-800 border border-gray-600 rounded-lg p-4 mb-4">
                 <h4 className="font-bold mb-3 text-white">로그인 확인하기</h4>
                 
-                {/* Cursor 로그인 화면 이미지 */}
+                {/* Cursor 채팅 화면 이미지 */}
                 <div className="mb-4 rounded-lg overflow-hidden border border-gray-600">
-        <Image
-                    src="/images/cursor-login.png"
-                    alt="Cursor 로그인 화면"
+                  <Image
+                    src="/images/cursor-chat-screen.png"
+                    alt="Cursor 채팅 화면 - 로그인 상태"
                     width={600}
                     height={400}
                     className="w-full h-auto"
