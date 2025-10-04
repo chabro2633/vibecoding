@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
     const base64Content = buffer.toString('base64')
 
     // GitHub API 설정
-    const owner = 'chahyeongtae' // GitHub 사용자명
+    const owner = 'chabro2633' // GitHub 사용자명 (실제 GitHub 계정명)
     const repo = 'vibecoding' // 저장소 이름
     const path = `public/images/${fileName}`
     const token = process.env.GITHUB_TOKEN || process.env.GITHUB_PAT // GitHub Personal Access Token
