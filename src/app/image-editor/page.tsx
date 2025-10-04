@@ -197,29 +197,26 @@ export default function ImageEditor() {
 
               {/* 현재 이미지 미리보기 */}
               <div className="mb-4 rounded-lg overflow-hidden border border-gray-600 bg-gray-700">
-                <div className="relative" style={{ minHeight: '200px' }}>
+                <div className="relative flex items-center justify-center" style={{ minHeight: '200px' }}>
                   {uploadedFiles[img.id] ? (
-                  <Image
-                    src={uploadedFiles[img.id]}
-                    alt={img.name}
-                    width={img.maxWidth}
-                    height={300}
-                    className="w-full h-auto"
-                    style={{ maxWidth: `${img.maxWidth}px` }}
-                  />
-                  ) : (
                     <Image
-                      src={img.path}
+                      src={uploadedFiles[img.id]}
                       alt={img.name}
                       width={img.maxWidth}
                       height={300}
                       className="w-full h-auto"
-                      onError={() => (
-                        <div className="flex items-center justify-center h-48 text-gray-500">
-                          이미지를 불러올 수 없습니다
-                        </div>
-                      )}
+                      style={{ maxWidth: `${img.maxWidth}px` }}
                     />
+                  ) : (
+                    <div className="text-center p-8">
+                      <div className="text-6xl mb-4">🖼️</div>
+                      <div className="text-lg font-semibold text-gray-300 mb-2">{img.name}</div>
+                      <div className="text-sm text-gray-400 mb-1">{img.description}</div>
+                      <div className="text-xs text-blue-400">📍 {img.usedIn}</div>
+                      <div className="mt-3 text-xs text-gray-500">
+                        이미지를 선택하면 여기에 미리보기가 표시됩니다
+                      </div>
+                    </div>
                   )}
                 </div>
               </div>
@@ -327,17 +324,33 @@ export default function ImageEditor() {
           className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 p-4"
           onClick={() => setSelectedImage(null)}
         >
-          <div className="max-w-4xl max-h-full overflow-auto">
-            <Image
-              src={uploadedFiles[selectedImage.id] || selectedImage.path}
-              alt={selectedImage.name}
-              width={800}
-              height={600}
-              className="w-full h-auto rounded-lg"
-            />
+          <div className="max-w-4xl max-h-full overflow-auto bg-gray-800 rounded-lg p-6">
+            {uploadedFiles[selectedImage.id] ? (
+              <Image
+                src={uploadedFiles[selectedImage.id]}
+                alt={selectedImage.name}
+                width={800}
+                height={600}
+                className="w-full h-auto rounded-lg"
+              />
+            ) : (
+              <div className="text-center p-12 bg-gray-700 rounded-lg">
+                <div className="text-8xl mb-6">🖼️</div>
+                <h3 className="text-2xl font-bold mb-2">{selectedImage.name}</h3>
+                <p className="text-gray-300 mb-4">{selectedImage.description}</p>
+                <p className="text-blue-400">📍 {selectedImage.usedIn}</p>
+                <p className="text-sm text-gray-500 mt-4">
+                  이미지를 선택하면 여기에 미리보기가 표시됩니다
+                </p>
+              </div>
+            )}
             <div className="text-center mt-4">
-              <h3 className="text-xl font-bold">{selectedImage.name}</h3>
-              <p className="text-gray-300">{selectedImage.description}</p>
+              <button
+                onClick={() => setSelectedImage(null)}
+                className="bg-gray-600 hover:bg-gray-700 px-4 py-2 rounded-lg"
+              >
+                닫기
+              </button>
             </div>
           </div>
         </div>
