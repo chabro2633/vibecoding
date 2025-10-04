@@ -14,6 +14,8 @@ const HTMLEditor = ({ initialHtml = '', onSave, onLoad }: HTMLEditorProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [message, setMessage] = useState('');
+  const [isLoadingSite, setIsLoadingSite] = useState(false);
+  const [isUpdatingSite, setIsUpdatingSite] = useState(false);
 
   // HTML 로드
   const handleLoad = async () => {
@@ -57,6 +59,58 @@ const HTMLEditor = ({ initialHtml = '', onSave, onLoad }: HTMLEditorProps) => {
     }
   };
 
+  // 사이트 HTML 가져오기
+  const handleLoadSite = async () => {
+    setIsLoadingSite(true);
+    try {
+      const response = await fetch('/api/fetch-site-html?url=https://vibecoding-irbxsqtdj-chabro2633s-projects.vercel.app');
+      const data = await response.json();
+      
+      if (data.success) {
+        setHtml(data.html);
+        setMessage('사이트 HTML이 성공적으로 로드되었습니다.');
+        setTimeout(() => setMessage(''), 3000);
+      } else {
+        setMessage('사이트 HTML 로드 중 오류가 발생했습니다.');
+        setTimeout(() => setMessage(''), 3000);
+      }
+    } catch {
+      setMessage('사이트 HTML 로드 중 오류가 발생했습니다.');
+      setTimeout(() => setMessage(''), 3000);
+    } finally {
+      setIsLoadingSite(false);
+    }
+  };
+
+  // 사이트 업데이트
+  const handleUpdateSite = async () => {
+    setIsUpdatingSite(true);
+    try {
+      const response = await fetch('/api/update-site', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ html }),
+      });
+
+      const data = await response.json();
+      
+      if (data.success) {
+        setMessage('사이트가 성공적으로 업데이트되었습니다!');
+        setTimeout(() => setMessage(''), 3000);
+      } else {
+        setMessage('사이트 업데이트 중 오류가 발생했습니다.');
+        setTimeout(() => setMessage(''), 3000);
+      }
+    } catch {
+      setMessage('사이트 업데이트 중 오류가 발생했습니다.');
+      setTimeout(() => setMessage(''), 3000);
+    } finally {
+      setIsUpdatingSite(false);
+    }
+  };
+
   // 미리보기 토글
   const togglePreview = () => {
     setIsPreview(!isPreview);
@@ -91,6 +145,13 @@ const HTMLEditor = ({ initialHtml = '', onSave, onLoad }: HTMLEditorProps) => {
         <h3 className="text-xl font-bold text-white">📝 HTML 에디터</h3>
         <div className="flex items-center space-x-2">
           <button
+            onClick={handleLoadSite}
+            disabled={isLoadingSite}
+            className="bg-purple-600 text-white px-3 py-1 rounded text-sm hover:bg-purple-700 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {isLoadingSite ? '로딩...' : '🌐 사이트 가져오기'}
+          </button>
+          <button
             onClick={handleLoad}
             disabled={isLoading || !onLoad}
             className="bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
@@ -103,6 +164,13 @@ const HTMLEditor = ({ initialHtml = '', onSave, onLoad }: HTMLEditorProps) => {
             className="bg-green-600 text-white px-3 py-1 rounded text-sm hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isSaving ? '저장중...' : '💾 저장'}
+          </button>
+          <button
+            onClick={handleUpdateSite}
+            disabled={isUpdatingSite}
+            className="bg-orange-600 text-white px-3 py-1 rounded text-sm hover:bg-orange-700 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {isUpdatingSite ? '업데이트중...' : '🚀 사이트 업데이트'}
           </button>
           <button
             onClick={handleRefresh}
@@ -171,6 +239,8 @@ const HTMLEditor = ({ initialHtml = '', onSave, onLoad }: HTMLEditorProps) => {
       <div className="mt-4 text-sm text-gray-400">
         <p><strong>💡 팁:</strong></p>
         <ul className="list-disc list-inside space-y-1 mt-2">
+          <li><strong>🌐 사이트 가져오기:</strong> 현재 배포된 사이트의 HTML을 가져와서 수정할 수 있습니다</li>
+          <li><strong>🚀 사이트 업데이트:</strong> 수정한 HTML을 사이트에 적용합니다</li>
           <li>미리보기 모드에서 HTML 렌더링 결과를 확인할 수 있습니다</li>
           <li>포맷팅 버튼으로 HTML 코드를 정리할 수 있습니다</li>
           <li>저장된 HTML은 서버에 저장됩니다</li>

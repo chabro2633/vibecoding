@@ -216,18 +216,33 @@ const AdminPage = () => {
             {/* 생성된 HTML 미리보기 링크 */}
             <div className="bg-gray-800 border border-gray-600 rounded-lg p-6">
               <h3 className="text-lg font-bold mb-4">🔗 생성된 페이지 링크</h3>
-              <div className="flex items-center space-x-4">
-                <a
-                  href="/generated/index.html"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors"
-                >
-                  🌐 새 탭에서 열기
-                </a>
-                <span className="text-gray-400 text-sm">
-                  /generated/index.html
-                </span>
+              <div className="space-y-4">
+                <div className="flex items-center space-x-4">
+                  <a
+                    href="/generated/index.html"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors"
+                  >
+                    🌐 새 탭에서 열기
+                  </a>
+                  <span className="text-gray-400 text-sm">
+                    /generated/index.html
+                  </span>
+                </div>
+                <div className="flex items-center space-x-4">
+                  <a
+                    href="/site/index.html"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700 transition-colors"
+                  >
+                    🚀 업데이트된 사이트 보기
+                  </a>
+                  <span className="text-gray-400 text-sm">
+                    /site/index.html
+                  </span>
+                </div>
               </div>
             </div>
           </div>
