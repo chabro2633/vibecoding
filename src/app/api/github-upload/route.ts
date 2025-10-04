@@ -26,7 +26,8 @@ export async function POST(request: NextRequest) {
       owner,
       repo,
       path,
-      hasToken: !!token
+      hasToken: !!token,
+      tokenType: token ? (token.startsWith('ghp_') ? 'Personal Access Token' : 'Fine-grained token or 기타') : 'No token'
     })
 
     if (!token) {
@@ -37,8 +38,14 @@ export async function POST(request: NextRequest) {
       })
       return NextResponse.json({ 
         error: 'GitHub 토큰이 설정되지 않았습니다.',
-        debug: `NODE_ENV: ${process.env.NODE_ENV}, 토큰 확인: ${!!process.env.GITHUB_TOKEN}`
+        debug: `NODE_ENV: ${process.env.NODE_ENV}, 토큰 확인: ${!!process.env.GITHUB_TOKEN}`,
+        help: '환경 변수에 GITHUB_TOKEN 또는 GITHUB_PAT를 설정해주세요.'
       }, { status: 500 })
+    }
+    
+    // 토큰 형식 검증
+    if (!token.startsWith('ghp_') && !token.startsWith('github_pat_')) {
+      console.warn('토큰 형식이 일반적이지 않습니다:', token.substring(0, 10) + '...')
     }
 
     // GitHub API 테스트 - 저장소 접근 권한 확인
@@ -47,24 +54,47 @@ export async function POST(request: NextRequest) {
         `https://api.github.com/repos/${owner}/${repo}`,
         {
           headers: {
-            'Authorization': `token ${token}`,
+            'Authorization': `Bearer ${token}`,
             'Accept': 'application/vnd.github.v3+json',
+            'User-Agent': 'vibecoding-app/1.0',
           },
         }
       )
       
       if (!repoTestResponse.ok) {
         const repoError = await repoTestResponse.json()
-        console.error('저장소 접근 실패:', repoError)
+        console.error('저장소 접근 실패:', {
+          status: repoTestResponse.status,
+          statusText: repoTestResponse.statusText,
+          error: repoError,
+          url: `https://api.github.com/repos/${owner}/${repo}`
+        })
+        
+        let errorMessage = ''
+        if (repoTestResponse.status === 401) {
+          errorMessage = '토큰이 유효하지 않습니다. 토큰을 확인하고 다시 시도해주세요.'
+        } else if (repoTestResponse.status === 403) {
+          errorMessage = '토큰 권한이 부족합니다. 토큰에 다음 권한이 필요합니다: repo (전체 저장소 접근), contents:write'
+        } else if (repoTestResponse.status === 404) {
+          errorMessage = '저장소가 존재하지 않거나 접근 권한이 없습니다.'
+        } else {
+          errorMessage = repoError.message || '저장소에 접근할 수 없습니다.'
+        }
+        
         return NextResponse.json({ 
-          error: `저장소 접근 실패 (${repoTestResponse.status}): ${repoError.message || '권한이 없거나 저장소가 존재하지 않습니다'}` 
-        }, { status: 403 })
+          error: `저장소 접근 실패 (${repoTestResponse.status}): ${errorMessage}`,
+          debug: {
+            status: repoTestResponse.status,
+            statusText: repoTestResponse.statusText,
+            help: 'GitHub 토큰 권한을 확인해주세요. 다음 권한이 필요합니다: repo, contents:write'
+          }
+        }, { status: repoTestResponse.status })
       }
       
       console.log('저장소 접근 성공')
     } catch (error) {
       console.error('저장소 접근 테스트 오류:', error)
-      return NextResponse.json({ error: '저장소 접근 테스트 실패' }, { status: 500 })
+      return NextResponse.json({ error: '저장소 접근 테스트 실패', details: error instanceof Error ? error.message : 'Unknown error' }, { status: 500 })
     }
 
     // 기존 파일 확인
@@ -74,8 +104,9 @@ export async function POST(request: NextRequest) {
         `https://api.github.com/repos/${owner}/${repo}/contents/${path}`,
         {
           headers: {
-            'Authorization': `token ${token}`,
+            'Authorization': `Bearer ${token}`,
             'Accept': 'application/vnd.github.v3+json',
+            'User-Agent': 'vibecoding-app/1.0',
           },
         }
       )
@@ -101,9 +132,10 @@ export async function POST(request: NextRequest) {
       {
         method: 'PUT',
         headers: {
-          'Authorization': `token ${token}`,
+          'Authorization': `Bearer ${token}`,
           'Accept': 'application/vnd.github.v3+json',
           'Content-Type': 'application/json',
+          'User-Agent': 'vibecoding-app/1.0',
         },
         body: JSON.stringify(uploadData)
       }
@@ -115,9 +147,23 @@ export async function POST(request: NextRequest) {
         status: uploadResponse.status,
         statusText: uploadResponse.statusText,
         errorData,
-        url: `https://api.github.com/repos/${owner}/${repo}/contents/${path}`
+        url: `https://api.github.com/repos/${owner}/${repo}/contents/${path}`,
+        fileName,
+        fileSize: file.size
       })
-      throw new Error(`GitHub 업로드 실패 (${uploadResponse.status}): ${errorData.message || errorData.error || 'Unknown error'}`)
+      
+      let errorMessage = ''
+      if (uploadResponse.status === 401) {
+        errorMessage = '인증 실패 - 토큰이 유효하지 않습니다.'
+      } else if (uploadResponse.status === 403) {
+        errorMessage = '권한 부족 - 토큰에 contents:write 권한이 필요합니다.'
+      } else if (uploadResponse.status === 422) {
+        errorMessage = '잘못된 요청 - 파일 이름이나 내용에 문제가 있을 수 있습니다.'
+      } else {
+        errorMessage = errorData.message || errorData.error || '알 수 없는 오류'
+      }
+      
+      throw new Error(`GitHub 업로드 실패 (${uploadResponse.status}): ${errorMessage}`)
     }
 
     const result = await uploadResponse.json()

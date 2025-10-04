@@ -111,7 +111,22 @@ export default function ImageEditor() {
       if (uploadToGitHub) {
         // GitHub에 실제 업로드
         const fileExtension = file.name.split('.').pop() || 'png'
-        const fileName = `${imageId}.${fileExtension}`
+        
+        // imageId를 실제 파일명으로 매핑
+        const fileNameMapping: { [key: string]: string } = {
+          'cursor-start': 'cursor-start-screen',
+          'cursor-folder': 'cursor-open-folder', 
+          'cursor-chat': 'cursor-chat-screen',
+          'github-dashboard': 'github-dashboard',
+          'github-create': 'github-create-repo',
+          'public-folder': 'public-folder',
+          'inspect-menu': 'inspect-menu',
+          'devtools': 'devtools',
+          'cursor-download': 'cursor-download'
+        }
+        
+        const baseFileName = fileNameMapping[imageId] || imageId
+        const fileName = `${baseFileName}.${fileExtension}`
         
         const formData = new FormData()
         formData.append('file', file)
@@ -253,6 +268,10 @@ export default function ImageEditor() {
                       height={300}
                       className="w-full h-auto"
                       style={{ maxWidth: `${img.maxWidth}px` }}
+                      onError={(e) => {
+                        console.error(`이미지 로딩 실패: ${uploadedFiles[img.id]}`)
+                        e.currentTarget.style.display = 'none'
+                      }}
                     />
                   ) : (
                     <div className="text-center p-8">

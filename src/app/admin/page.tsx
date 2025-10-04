@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import HTMLEditor from '../components/HTMLEditor';
 
 interface SubmissionData {
   id: string;
@@ -16,6 +17,7 @@ const AdminPage = () => {
   const [password, setPassword] = useState('');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [sortBy, setSortBy] = useState<'newest' | 'oldest'>('newest');
+  const [activeTab, setActiveTab] = useState<'submissions' | 'html-editor'>('submissions');
 
   // 간단한 비밀번호 인증 (실제 운영에서는 더 안전한 인증 시스템 필요)
   const adminPassword = 'chabro2024';
@@ -67,6 +69,34 @@ const AdminPage = () => {
     }
   };
 
+  // HTML 에디터 관련 함수들
+  const handleHtmlSave = async (html: string) => {
+    const response = await fetch('/api/html-editor', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ html }),
+    });
+
+    if (!response.ok) {
+      throw new Error('HTML 저장에 실패했습니다.');
+    }
+
+    return response.json();
+  };
+
+  const handleHtmlLoad = async (): Promise<string> => {
+    const response = await fetch('/api/html-editor');
+    
+    if (!response.ok) {
+      throw new Error('HTML 로드에 실패했습니다.');
+    }
+
+    const data = await response.json();
+    return data.html;
+  };
+
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen bg-gray-900 text-white flex items-center justify-center">
@@ -111,6 +141,29 @@ const AdminPage = () => {
         <div className="max-w-6xl mx-auto px-4 flex items-center justify-between">
           <div className="flex items-center space-x-4">
             <h1 className="text-xl font-bold">🛠️ 차브로 Admin</h1>
+            {/* 탭 네비게이션 */}
+            <div className="flex space-x-1 bg-gray-800 rounded-lg p-1">
+              <button
+                onClick={() => setActiveTab('submissions')}
+                className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                  activeTab === 'submissions'
+                    ? 'bg-blue-600 text-white'
+                    : 'text-gray-400 hover:text-white hover:bg-gray-700'
+                }`}
+              >
+                📋 제출 현황
+              </button>
+              <button
+                onClick={() => setActiveTab('html-editor')}
+                className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                  activeTab === 'html-editor'
+                    ? 'bg-blue-600 text-white'
+                    : 'text-gray-400 hover:text-white hover:bg-gray-700'
+                }`}
+              >
+                📝 HTML 에디터
+              </button>
+            </div>
           </div>
           <div className="flex items-center space-x-4">
             <Link href="/" className="text-blue-400 hover:text-blue-300">
@@ -133,10 +186,56 @@ const AdminPage = () => {
           <div className="flex items-center space-x-2">
             <div className="text-blue-400">ℹ️</div>
             <p className="text-blue-200 text-sm">
-              <strong>저장 방식:</strong> 메모리 기반 저장 (서버 재시작 시 데이터 초기화됨)
+              <strong>저장 방식:</strong> {activeTab === 'submissions' ? '메모리 기반 저장 (서버 재시작 시 데이터 초기화됨)' : '파일 기반 저장 (public/generated/index.html)'}
             </p>
           </div>
         </div>
+
+        {/* HTML 에디터 (임시로 항상 표시) */}
+        <div className="mb-6">
+          <HTMLEditor
+            onSave={handleHtmlSave}
+            onLoad={handleHtmlLoad}
+          />
+        </div>
+
+        {/* HTML 에디터 탭 */}
+        {activeTab === 'html-editor' && (
+          <div className="space-y-6">
+            <div className="bg-gray-800 border border-gray-600 rounded-lg p-6">
+              <h2 className="text-2xl font-bold mb-4">📝 HTML 에디터</h2>
+              <p className="text-gray-400 mb-6">
+                HTML 코드를 편집하고 미리보기할 수 있습니다. 저장된 HTML은 <code className="bg-gray-700 px-2 py-1 rounded">/generated/index.html</code>에 저장됩니다.
+              </p>
+              <HTMLEditor
+                onSave={handleHtmlSave}
+                onLoad={handleHtmlLoad}
+              />
+            </div>
+            
+            {/* 생성된 HTML 미리보기 링크 */}
+            <div className="bg-gray-800 border border-gray-600 rounded-lg p-6">
+              <h3 className="text-lg font-bold mb-4">🔗 생성된 페이지 링크</h3>
+              <div className="flex items-center space-x-4">
+                <a
+                  href="/generated/index.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors"
+                >
+                  🌐 새 탭에서 열기
+                </a>
+                <span className="text-gray-400 text-sm">
+                  /generated/index.html
+                </span>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* 제출 현황 탭 */}
+        {activeTab === 'submissions' && (
+          <>
 
         {/* Dashboard Stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
@@ -287,6 +386,8 @@ const AdminPage = () => {
               </button>
             </div>
           </div>
+        )}
+          </>
         )}
       </main>
     </div>
