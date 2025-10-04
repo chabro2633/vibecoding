@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>바이브 코딩 - 이미지 편집용</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* 다크 테마 기본 설정 */
+        body {
+            background-color: #111827;
+            color: white;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gray-900 text-white">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-4xl font-bold text-center mb-8">🖼️ 이미지 편집 영역</h1>
+        
+        <!-- 이미지 편집 섹션들 -->
+        <div class="space-y-8">
+            
+            <!-- Cursor 시작 화면 -->
+            <div class="bg-gray-800 border border-gray-600 rounded-lg p-6">
+                <h3 class="text-xl font-bold mb-4">📱 Cursor 시작 화면</h3>
+                <div class="mb-4 rounded-lg overflow-hidden border border-gray-600">
+                    <img src="/images/cursor-start-screen.png" 
+                         alt="Cursor 시작 화면" 
+                         class="w-full h-auto"
+                         style="max-width: 600px;">
+                </div>
+                <p class="text-gray-300">Step 2에서 사용되는 Cursor 시작 화면 이미지입니다.</p>
+            </div>
+
+            <!-- Cursor Open Folder -->
+            <div class="bg-gray-800 border border-gray-600 rounded-lg p-6">
+                <h3 class="text-xl font-bold mb-4">📂 Cursor Open Folder</h3>
+                <div class="mb-4 rounded-lg overflow-hidden border border-gray-600">
+                    <img src="/images/cursor-open-folder.png" 
+                         alt="Cursor Open Folder 화면" 
+                         class="w-full h-auto"
+                         style="max-width: 600px;">
+                </div>
+                <p class="text-gray-300">Step 2에서 사용되는 Cursor Open Folder 화면 이미지입니다.</p>
+            </div>
+
+            <!-- Cursor 채팅 화면 -->
+            <div class="bg-gray-800 border border-gray-600 rounded-lg p-6">
+                <h3 class="text-xl font-bold mb-4">💬 Cursor 채팅 화면</h3>
+                <div class="mb-4 rounded-lg overflow-hidden border border-gray-600">
+                    <img src="/images/cursor-chat-screen.png" 
+                         alt="Cursor 채팅 화면" 
+                         class="w-full h-auto"
+                         style="max-width: 600px;">
+                </div>
+                <p class="text-gray-300">Step 3에서 사용되는 Cursor 채팅 화면 이미지입니다.</p>
+            </div>
+
+            <!-- GitHub 대시보드 -->
+            <div class="bg-gray-800 border border-gray-600 rounded-lg p-6">
+                <h3 class="text-xl font-bold mb-4">🐙 GitHub 대시보드</h3>
+                <div class="mb-4 rounded-lg overflow-hidden border border-gray-600">
+                    <img src="/images/github-dashboard.png" 
+                         alt="GitHub 대시보드" 
+                         class="w-full h-auto"
+                         style="max-width: 700px;">
+                </div>
+                <p class="text-gray-300">Step 1에서 사용되는 GitHub 대시보드 이미지입니다.</p>
+            </div>
+
+            <!-- GitHub Repository 생성 -->
+            <div class="bg-gray-800 border border-gray-600 rounded-lg p-6">
+                <h3 class="text-xl font-bold mb-4">📝 GitHub Repository 생성</h3>
+                <div class="mb-4 rounded-lg overflow-hidden border border-gray-600">
+                    <img src="/images/github-create-repo.png" 
+                         alt="GitHub Repository 생성" 
+                         class="w-full h-auto"
+                         style="max-width: 700px;">
+                </div>
+                <p class="text-gray-300">Step 1에서 사용되는 GitHub Repository 생성 이미지입니다.</p>
+            </div>
+
+            <!-- Public 폴더 구조 -->
+            <div class="bg-gray-800 border border-gray-600 rounded-lg p-6">
+                <h3 class="text-xl font-bold mb-4">📁 Public 폴더 구조</h3>
+                <div class="mb-4 rounded-lg overflow-hidden border border-gray-600">
+                    <img src="/images/public-folder.png" 
+                         alt="Public 폴더 구조" 
+                         class="w-full h-auto"
+                         style="max-width: 600px;">
+                </div>
+                <p class="text-gray-300">Step 8에서 사용되는 Public 폴더 구조 이미지입니다.</p>
+            </div>
+
+            <!-- 검사 메뉴 -->
+            <div class="bg-gray-800 border border-gray-600 rounded-lg p-6">
+                <h3 class="text-xl font-bold mb-4">🔍 검사 메뉴</h3>
+                <div class="mb-4 rounded-lg overflow-hidden border border-gray-600">
+                    <img src="/images/inspect-menu.png" 
+                         alt="검사 메뉴" 
+                         class="w-full h-auto"
+                         style="max-width: 400px;">
+                </div>
+                <p class="text-gray-300">Step 8에서 사용되는 브라우저 검사 메뉴 이미지입니다.</p>
+            </div>
+
+            <!-- 개발자 도구 -->
+            <div class="bg-gray-800 border border-gray-600 rounded-lg p-6">
+                <h3 class="text-xl font-bold mb-4">🛠️ 개발자 도구</h3>
+                <div class="mb-4 rounded-lg overflow-hidden border border-gray-600">
+                    <img src="/images/devtools.png" 
+                         alt="개발자 도구" 
+                         class="w-full h-auto"
+                         style="max-width: 700px;">
+                </div>
+                <p class="text-gray-300">Step 8에서 사용되는 개발자 도구 화면 이미지입니다.</p>
+            </div>
+
+            <!-- Cursor 다운로드 -->
+            <div class="bg-gray-800 border border-gray-600 rounded-lg p-6">
+                <h3 class="text-xl font-bold mb-4">⬇️ Cursor 다운로드</h3>
+                <div class="mb-4 rounded-lg overflow-hidden border border-gray-600">
+                    <img src="/images/cursor-download.png" 
+                         alt="Cursor 다운로드" 
+                         class="w-full h-auto"
+                         style="max-width: 600px;">
+                </div>
+                <p class="text-gray-300">준비 페이지에서 사용되는 Cursor 다운로드 이미지입니다.</p>
+            </div>
+
+        </div>
+
+        <!-- 편집 안내 -->
+        <div class="mt-12 bg-blue-900/50 border border-blue-600 rounded-lg p-6">
+            <h2 class="text-2xl font-bold mb-4">📝 편집 방법</h2>
+            <div class="space-y-3 text-blue-200">
+                <p><strong>1. 이미지 교체:</strong> 각 이미지의 <code>src</code> 속성을 원하는 이미지 경로로 변경하세요.</p>
+                <p><strong>2. 크기 조정:</strong> <code>style="max-width: 600px;"</code> 부분을 수정하여 크기를 조절하세요.</p>
+                <p><strong>3. 설명 변경:</strong> <code>alt</code> 속성과 설명 텍스트를 수정하세요.</p>
+                <p><strong>4. 저장 후 적용:</strong> 편집 완료 후 변경사항을 Next.js 파일에 반영하세요.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 이미지 클릭 시 크게 보기
+        document.querySelectorAll('img').forEach(img => {
+            img.style.cursor = 'pointer';
+            img.addEventListener('click', function() {
+                const overlay = document.createElement('div');
+                overlay.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0,0,0,0.8);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    z-index: 1000;
+                    cursor: pointer;
+                `;
+                
+                const bigImg = document.createElement('img');
+                bigImg.src = this.src;
+                bigImg.style.cssText = `
+                    max-width: 90%;
+                    max-height: 90%;
+                    border-radius: 8px;
+                `;
+                
+                overlay.appendChild(bigImg);
+                document.body.appendChild(overlay);
+                
+                overlay.addEventListener('click', () => {
+                    document.body.removeChild(overlay);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -147,9 +147,14 @@ export default function Home() {
               <ChecklistItem text="Vercel 계정" />
             </div>
             
-            <Link href="/prepare" className="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors">
-              📋 상세 준비 가이드 보기
-            </Link>
+            <div className="mt-4 flex flex-col sm:flex-row gap-3">
+              <Link href="/prepare" className="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors">
+                📋 상세 준비 가이드 보기
+              </Link>
+              <Link href="/image-editor" className="inline-block bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition-colors">
+                🖼️ 이미지 에디터
+              </Link>
+            </div>
             
             <div className="mt-4 p-3 bg-blue-900/50 rounded border-l-4 border-blue-400">
               <p className="text-blue-200 text-sm">💡 이미 준비가 끝났다면 바로 시작해도 좋아요!</p>
