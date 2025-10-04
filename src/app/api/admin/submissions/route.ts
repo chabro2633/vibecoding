@@ -1,10 +1,10 @@
 import { NextResponse } from 'next/server';
-import { readSubmissions } from '@/lib/storage';
+
+// 메모리 기반 저장소 (실제 운영에서는 데이터베이스 사용 권장)
+let submissions: any[] = [];
 
 export async function GET() {
   try {
-    const submissions = readSubmissions();
-    
     return NextResponse.json(
       { 
         submissions: submissions,
