@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 interface HTMLEditorProps {
   initialHtml?: string;
@@ -25,7 +25,7 @@ const HTMLEditor = ({ initialHtml = '', onSave, onLoad }: HTMLEditorProps) => {
       setHtml(loadedHtml);
       setMessage('HTML이 성공적으로 로드되었습니다.');
       setTimeout(() => setMessage(''), 3000);
-    } catch (error) {
+    } catch {
       setMessage('HTML 로드 중 오류가 발생했습니다.');
       setTimeout(() => setMessage(''), 3000);
     } finally {
@@ -42,7 +42,7 @@ const HTMLEditor = ({ initialHtml = '', onSave, onLoad }: HTMLEditorProps) => {
       await onSave(html);
       setMessage('HTML이 성공적으로 저장되었습니다.');
       setTimeout(() => setMessage(''), 3000);
-    } catch (error) {
+    } catch {
       setMessage('HTML 저장 중 오류가 발생했습니다.');
       setTimeout(() => setMessage(''), 3000);
     } finally {
@@ -79,7 +79,7 @@ const HTMLEditor = ({ initialHtml = '', onSave, onLoad }: HTMLEditorProps) => {
         })
         .join('\n');
       setHtml(formatted);
-    } catch (error) {
+    } catch {
       setMessage('HTML 포맷팅 중 오류가 발생했습니다.');
       setTimeout(() => setMessage(''), 3000);
     }
