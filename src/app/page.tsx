@@ -196,18 +196,30 @@ export default function Home() {
                 <h4 className="font-bold mb-2 text-white">1. GitHub에서 새 Repository 생성</h4>
                 <p className="mb-3 text-gray-300">github.com 로그인 → 우측 상단 + 버튼 → New repository 클릭</p>
                 
-                {/* GitHub Repository 생성 화면 이미지 */}
+                {/* GitHub 대시보드 화면 이미지 */}
                 <div className="mb-4 rounded-lg overflow-hidden border border-gray-600">
                   <Image
-                    src="/images/repo.png"
-                    alt="GitHub Repository 생성 화면"
+                    src="/images/github-dashboard.png"
+                    alt="GitHub 대시보드 - New repository 버튼"
                     width={700}
                     height={500}
                     className="w-full h-auto"
                   />
                 </div>
                 
-                <p className="mb-2 text-gray-300">Repository 이름 입력 → <strong>아무것도 체크하지 말고</strong> → Create repository</p>
+                <p className="mb-3 text-gray-300">Repository 이름 입력 → <strong>아무것도 체크하지 말고</strong> → Create repository</p>
+                
+                {/* GitHub Repository 생성 폼 화면 이미지 */}
+                <div className="mb-4 rounded-lg overflow-hidden border border-gray-600">
+                  <Image
+                    src="/images/github-create-repo.png"
+                    alt="GitHub Repository 생성 폼"
+                    width={700}
+                    height={500}
+                    className="w-full h-auto"
+                  />
+                </div>
+                
                 <div className="bg-yellow-900/50 p-2 rounded border-l-4 border-yellow-400">
                   <p className="text-sm text-yellow-200">⚠️ 이름은 영어, 숫자, 하이픈(-)만 사용 (예: my-cute-website)</p>
                 </div>
@@ -240,20 +252,33 @@ export default function Home() {
               <div className="bg-gray-800 border border-gray-600 rounded-lg p-4 mb-4">
                 <h4 className="font-bold mb-3 text-white">프로젝트 폴더 열기</h4>
                 
-                {/* Cursor Open Folder 화면 이미지 */}
-                <div className="mb-4 rounded-lg overflow-hidden border border-gray-600">
-                  <Image
-                    src="/images/cursor-open-folder.png"
-                    alt="Cursor Open Folder 화면"
-                    width={600}
-                    height={400}
-                    className="w-full h-auto"
-                  />
-                </div>
-                
                 <ol className="list-decimal list-inside space-y-2">
-                  <li><strong>Cursor 실행</strong><br/>바탕화면이나 Dock에서 Cursor 아이콘 클릭</li>
-                  <li><strong>Open Folder 클릭</strong><br/>시작 화면에서 &ldquo;Open Folder&rdquo; 버튼을 찾아 클릭</li>
+                  <li><strong>Cursor 실행</strong><br/>바탕화면이나 Dock에서 Cursor 아이콘 클릭
+                    
+                    {/* Cursor 시작 화면 이미지 */}
+                    <div className="mt-3 mb-3 rounded-lg overflow-hidden border border-gray-600">
+                      <Image
+                        src="/images/cursor-start-screen.png"
+                        alt="Cursor 시작 화면"
+                        width={600}
+                        height={300}
+                        className="w-full h-auto"
+                      />
+                    </div>
+                  </li>
+                  <li><strong>Open Folder 클릭</strong><br/>시작 화면에서 &ldquo;Open Folder&rdquo; 버튼을 찾아 클릭
+                    
+                    {/* Cursor Open Folder 화면 이미지 */}
+                    <div className="mt-3 mb-3 rounded-lg overflow-hidden border border-gray-600">
+                      <Image
+                        src="/images/cursor-open-folder.png"
+                        alt="Cursor Open Folder 화면"
+                        width={600}
+                        height={400}
+                        className="w-full h-auto"
+                      />
+                    </div>
+                  </li>
                   <li><strong>프로젝트 폴더 선택</strong><br/>아까 만든 폴더 (예: vibe-coding) 선택 → Open 클릭</li>
                 </ol>
                 <div className="mt-3 p-2 bg-blue-900/50 rounded border border-blue-600">
@@ -273,7 +298,7 @@ export default function Home() {
                 
                 {/* Cursor 로그인 화면 이미지 */}
                 <div className="mb-4 rounded-lg overflow-hidden border border-gray-600">
-                  <Image
+        <Image
                     src="/images/cursor-login.png"
                     alt="Cursor 로그인 화면"
                     width={600}
@@ -634,7 +659,7 @@ export default function Home() {
                 
                 {/* 개발자 도구 화면 이미지 */}
                 <div className="mb-4 rounded-lg overflow-hidden border border-gray-600">
-                  <Image
+            <Image
                     src="/images/devtools.png"
                     alt="개발자 도구 화면"
                     width={600}
