@@ -88,7 +88,7 @@ const initialImages: ImageItem[] = [
 ]
 
 export default function ImageEditor() {
-  const [images, setImages] = useState<ImageItem[]>(initialImages)
+  const [images] = useState<ImageItem[]>(initialImages)
   const [selectedImage, setSelectedImage] = useState<ImageItem | null>(null)
   const [uploadedFiles, setUploadedFiles] = useState<{[key: string]: string}>({})
   const [isUploading, setIsUploading] = useState(false)
@@ -214,12 +214,14 @@ export default function ImageEditor() {
               <div className="mb-4 rounded-lg overflow-hidden border border-gray-600 bg-gray-700">
                 <div className="relative" style={{ minHeight: '200px' }}>
                   {uploadedFiles[img.id] ? (
-                    <img
-                      src={uploadedFiles[img.id]}
-                      alt={img.name}
-                      className="w-full h-auto"
-                      style={{ maxWidth: `${img.maxWidth}px` }}
-                    />
+                  <Image
+                    src={uploadedFiles[img.id]}
+                    alt={img.name}
+                    width={img.maxWidth}
+                    height={300}
+                    className="w-full h-auto"
+                    style={{ maxWidth: `${img.maxWidth}px` }}
+                  />
                   ) : (
                     <Image
                       src={img.path}
@@ -291,7 +293,7 @@ export default function ImageEditor() {
             <div>
               <h3 className="font-bold mb-2">1. 이미지 업로드</h3>
               <ul className="space-y-1 text-sm">
-                <li>• 각 카드에서 "새 이미지 선택" 클릭</li>
+                <li>• 각 카드에서 &ldquo;새 이미지 선택&rdquo; 클릭</li>
                 <li>• 원하는 이미지 파일 선택 (5MB 이하)</li>
                 <li>• 실시간으로 미리보기 확인</li>
               </ul>
@@ -299,7 +301,7 @@ export default function ImageEditor() {
             <div>
               <h3 className="font-bold mb-2">2. 변경사항 적용</h3>
               <ul className="space-y-1 text-sm">
-                <li>• "코드 변경사항 복사" 버튼 클릭</li>
+                <li>• &ldquo;코드 변경사항 복사&rdquo; 버튼 클릭</li>
                 <li>• 개발자에게 변경사항 전달</li>
                 <li>• 실제 사이트에 반영 완료!</li>
               </ul>
@@ -340,9 +342,11 @@ export default function ImageEditor() {
           onClick={() => setSelectedImage(null)}
         >
           <div className="max-w-4xl max-h-full overflow-auto">
-            <img
+            <Image
               src={uploadedFiles[selectedImage.id] || selectedImage.path}
               alt={selectedImage.name}
+              width={800}
+              height={600}
               className="w-full h-auto rounded-lg"
             />
             <div className="text-center mt-4">
