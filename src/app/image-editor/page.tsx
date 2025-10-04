@@ -93,7 +93,7 @@ export default function ImageEditor() {
   const [uploadedFiles, setUploadedFiles] = useState<{[key: string]: string}>({})
   const [isUploading, setIsUploading] = useState(false)
 
-  const handleImageUpload = async (imageId: string, file: File) => {
+  const handleImageUpload = async (imageId: string, file: File, uploadToGitHub = false) => {
     setIsUploading(true)
     
     try {
@@ -108,19 +108,49 @@ export default function ImageEditor() {
       }
       reader.readAsDataURL(file)
 
-      // 클라이언트 사이드 미리보기만 제공 (Vercel serverless 환경 제한으로 인해)
-      console.log(`${imageId} 이미지 미리보기 준비 완료:`, file.name)
-      alert('이미지 미리보기가 준비되었습니다! 실제 적용을 위해서는 개발자에게 이미지 파일을 전달해주세요.')
+      if (uploadToGitHub) {
+        // GitHub에 실제 업로드
+        const fileExtension = file.name.split('.').pop() || 'png'
+        const fileName = `${imageId}.${fileExtension}`
+        
+        const formData = new FormData()
+        formData.append('file', file)
+        formData.append('imageId', imageId)
+        formData.append('fileName', fileName)
+
+        const response = await fetch('/api/github-upload', {
+          method: 'POST',
+          body: formData
+        })
+
+        const result = await response.json()
+
+        if (result.success) {
+          alert(`🎉 성공! 이미지가 GitHub에 업로드되었습니다!\n\n📁 파일: ${fileName}\n🔗 GitHub: ${result.githubUrl}\n\n⚡ 약 1-2분 후 사이트에 자동 반영됩니다!`)
+          
+          // 업로드된 파일 경로로 업데이트
+          setUploadedFiles(prev => ({
+            ...prev,
+            [imageId]: result.path
+          }))
+        } else {
+          throw new Error(result.error || 'GitHub 업로드 실패')
+        }
+      } else {
+        // 미리보기만
+        console.log(`${imageId} 이미지 미리보기 준비 완료:`, file.name)
+        alert('이미지 미리보기가 준비되었습니다!')
+      }
       
     } catch (error) {
       console.error('이미지 업로드 오류:', error)
-      alert('이미지 업로드 중 오류가 발생했습니다.')
+      alert(`업로드 실패: ${error instanceof Error ? error.message : '알 수 없는 오류가 발생했습니다.'}`)
     } finally {
       setIsUploading(false)
     }
   }
 
-  const handleFileSelect = (imageId: string, event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileSelect = (imageId: string, event: React.ChangeEvent<HTMLInputElement>, uploadToGitHub = false) => {
     const file = event.target.files?.[0]
     if (file) {
       if (file.size > 5 * 1024 * 1024) { // 5MB 제한
@@ -133,7 +163,21 @@ export default function ImageEditor() {
         return
       }
 
-      handleImageUpload(imageId, file)
+      if (uploadToGitHub) {
+        const confirmUpload = confirm(
+          `🚀 GitHub에 실제 업로드하시겠습니까?\n\n` +
+          `📁 파일: ${file.name}\n` +
+          `📍 위치: ${imageId}\n` +
+          `⚡ 업로드 후 1-2분 내에 사이트에 자동 반영됩니다.\n\n` +
+          `확인을 누르면 GitHub에 업로드됩니다.`
+        )
+        
+        if (!confirmUpload) {
+          return
+        }
+      }
+
+      handleImageUpload(imageId, file, uploadToGitHub)
     }
   }
 
@@ -163,10 +207,13 @@ export default function ImageEditor() {
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold mb-4">🖼️ 바이브 코딩 이미지 에디터</h1>
           <p className="text-gray-300">이미지를 업로드해서 실시간으로 미리보기를 확인하세요!</p>
-          <div className="mt-3 p-3 bg-yellow-900/50 border border-yellow-600 rounded-lg max-w-2xl mx-auto">
-            <p className="text-yellow-200 text-sm">
-              ⚠️ <strong>안내:</strong> 현재는 미리보기만 제공됩니다. 실제 이미지 변경을 위해서는 선택한 이미지 파일을 개발자에게 전달해주세요.
+          <div className="mt-3 p-3 bg-blue-900/50 border border-blue-600 rounded-lg max-w-3xl mx-auto">
+            <p className="text-blue-200 text-sm">
+              🚀 <strong>새로운 기능!</strong> 이제 GitHub에 직접 업로드해서 실제 사이트에 바로 반영할 수 있습니다!
             </p>
+            <div className="mt-2 text-xs text-blue-300">
+              👀 <strong>미리보기:</strong> 임시 확인용 | 🚀 <strong>GitHub 업로드:</strong> 실제 사이트 반영 (1-2분 후)
+            </div>
           </div>
           <div className="mt-4">
             <button
@@ -223,18 +270,38 @@ export default function ImageEditor() {
 
               {/* 업로드 버튼 */}
               <div className="space-y-3">
+                {/* 미리보기용 업로드 */}
                 <label className="block">
                   <input
                     type="file"
                     accept="image/*"
-                    onChange={(e) => handleFileSelect(img.id, e)}
+                    onChange={(e) => handleFileSelect(img.id, e, false)}
                     className="hidden"
                     disabled={isUploading}
                   />
                   <div className="bg-purple-600 hover:bg-purple-700 disabled:bg-gray-600 px-4 py-2 rounded-lg text-center cursor-pointer transition-colors">
-                    {isUploading ? '업로드 중...' : '📁 새 이미지 선택'}
+                    {isUploading ? '처리 중...' : '👀 미리보기'}
                   </div>
                 </label>
+
+                {/* GitHub 실제 업로드 */}
+                <label className="block">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => handleFileSelect(img.id, e, true)}
+                    className="hidden"
+                    disabled={isUploading}
+                  />
+                  <div className="bg-green-600 hover:bg-green-700 disabled:bg-gray-600 px-4 py-2 rounded-lg text-center cursor-pointer transition-colors font-bold">
+                    {isUploading ? '업로드 중...' : '🚀 GitHub에 업로드'}
+                  </div>
+                </label>
+                
+                <div className="text-xs text-gray-400 text-center">
+                  <p>👀 미리보기: 임시 확인용</p>
+                  <p>🚀 GitHub 업로드: 실제 사이트 반영</p>
+                </div>
 
                 {uploadedFiles[img.id] && (
                   <div className="flex space-x-2">
