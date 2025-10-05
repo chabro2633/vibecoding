@@ -61,24 +61,30 @@
         <div class="card">
             <h2 style="font-size: 2rem; font-weight: bold; margin-bottom: 1.5rem; color: #ff6b35;">🚀 바이브 코딩 여정</h2>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
-                <div style="text-align: center; padding: 1rem; border: 2px solid #ff6b35; border-radius: 0.5rem; background: rgba(255, 107, 53, 0.1);">
-                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">📋</div>
-                    <h3 style="font-weight: bold; color: #fff; margin-bottom: 0.25rem;">준비</h3>
-                    <p style="color: #28a745; font-size: 0.875rem; font-weight: 600;">10분</p>
-                    <p style="color: #ccc; font-size: 0.875rem;">계정 설정</p>
-                </div>
-                <div style="text-align: center; padding: 1rem; border: 2px solid #333; border-radius: 0.5rem;">
-                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">⚙️</div>
-                    <h3 style="font-weight: bold; color: #fff; margin-bottom: 0.25rem;">환경설정</h3>
-                    <p style="color: #28a745; font-size: 0.875rem; font-weight: 600;">15분</p>
-                    <p style="color: #ccc; font-size: 0.875rem;">개발 도구 설치</p>
-                </div>
-                <div style="text-align: center; padding: 1rem; border: 2px solid #333; border-radius: 0.5rem;">
-                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">🛠️</div>
-                    <h3 style="font-weight: bold; color: #fff; margin-bottom: 0.25rem;">프로젝트 생성</h3>
-                    <p style="color: #28a745; font-size: 0.875rem; font-weight: 600;">20분</p>
-                    <p style="color: #ccc; font-size: 0.875rem;">Next.js 시작</p>
-                </div>
+                <a href="#prepare" style="text-decoration: none; color: inherit;">
+                    <div style="text-align: center; padding: 1rem; border: 2px solid #ff6b35; border-radius: 0.5rem; background: rgba(255, 107, 53, 0.1); cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">📋</div>
+                        <h3 style="font-weight: bold; color: #fff; margin-bottom: 0.25rem;">준비</h3>
+                        <p style="color: #28a745; font-size: 0.875rem; font-weight: 600;">10분</p>
+                        <p style="color: #ccc; font-size: 0.875rem;">계정 설정</p>
+                    </div>
+                </a>
+                <a href="#cursor" style="text-decoration: none; color: inherit;">
+                    <div style="text-align: center; padding: 1rem; border: 2px solid #333; border-radius: 0.5rem; cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'; this.style.borderColor='#ff6b35'" onmouseout="this.style.transform='scale(1)'; this.style.borderColor='#333'">
+                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">⚙️</div>
+                        <h3 style="font-weight: bold; color: #fff; margin-bottom: 0.25rem;">환경설정</h3>
+                        <p style="color: #28a745; font-size: 0.875rem; font-weight: 600;">15분</p>
+                        <p style="color: #ccc; font-size: 0.875rem;">개발 도구 설치</p>
+                    </div>
+                </a>
+                <a href="#create" style="text-decoration: none; color: inherit;">
+                    <div style="text-align: center; padding: 1rem; border: 2px solid #333; border-radius: 0.5rem; cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'; this.style.borderColor='#ff6b35'" onmouseout="this.style.transform='scale(1)'; this.style.borderColor='#333'">
+                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">🛠️</div>
+                        <h3 style="font-weight: bold; color: #fff; margin-bottom: 0.25rem;">프로젝트 생성</h3>
+                        <p style="color: #28a745; font-size: 0.875rem; font-weight: 600;">20분</p>
+                        <p style="color: #ccc; font-size: 0.875rem;">Next.js 시작</p>
+                    </div>
+                </a>
                 <div style="text-align: center; padding: 1rem; border: 2px solid #333; border-radius: 0.5rem;">
                     <div style="font-size: 2rem; margin-bottom: 0.5rem;">🔗</div>
                     <h3 style="font-weight: bold; color: #fff; margin-bottom: 0.25rem;">Git 연동</h3>
@@ -95,7 +101,7 @@
             <p style="text-align: center; color: #ccc;">총 <span style="color: #ff6b35; font-weight: bold;">약 1시간</span>으로 <span style="color: #28a745; font-weight: bold;">나만의 웹사이트</span>가 완성됩니다! ✨</p>
         </div>
         
-        <div class="card">
+        <div class="card" id="prepare">
             <h2 style="font-size: 2rem; font-weight: bold; margin-bottom: 1.5rem; color: #ff6b35;">📌 사전 준비사항</h2>
             <h3 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem; color: #ff6b35;">⚡ 준비물 체크리스트</h3>
             <p style="color: #ccc; margin-bottom: 1.5rem;">시작하기 전에 4가지를 미리 준비해주세요!</p>
@@ -119,7 +125,7 @@
             </div>
         </div>
         
-        <div class="card">
+        <div class="card" id="cursor">
             <h2 style="font-size: 2rem; font-weight: bold; margin-bottom: 1.5rem; color: #ff6b35;">📋 1부: 개발 환경 세팅</h2>
             
             <div class="step">
@@ -290,6 +296,14 @@
                         <span style="color: #ccc; font-size: 0.875rem; margin-left: 0.5rem;">← 채팅창 열기</span>
                     </div>
                 </div>
+            </div>
+        </div>
+        
+        <div class="card" id="create">
+            <h2 style="font-size: 2rem; font-weight: bold; margin-bottom: 1.5rem; color: #ff6b35;">🚀 2부: 프로젝트 준비 및 배포</h2>
+            <p style="color: #ccc; margin-bottom: 1.5rem;">이제 실제로 프로젝트를 만들고 배포해봅시다!</p>
+            <div class="info">
+                <p style="color: #007bff; font-size: 0.875rem;">💡 이 섹션에서는 Next.js 프로젝트 생성부터 배포까지 모든 과정을 다룹니다.</p>
             </div>
         </div>
     </main>
