@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 
 // 메모리 기반 저장소 (실제 운영에서는 데이터베이스 사용 권장)
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 let submissions: unknown[] = [];
 
 export async function DELETE() {

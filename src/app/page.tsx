@@ -4,33 +4,34 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
-const StepCard = ({ icon, title, time, description, isActive = false }: {
-  icon: string;
-  title: string;
-  time: string;
-  description: string;
-  isActive?: boolean;
-}) => (
-  <div className={`flex flex-col items-center p-4 rounded-lg border-2 transition-all duration-200 ${
-    isActive ? 'border-orange-400 bg-orange-900/30' : 'border-gray-600 hover:border-gray-500'
-  }`}>
-    <div className={`text-3xl mb-2 ${isActive ? 'animate-pulse' : ''}`}>{icon}</div>
-    <div className="text-center">
-      <h3 className="font-bold text-lg mb-1 text-white">{title}</h3>
-      <p className="text-sm text-orange-400 mb-2">{time}</p>
-      <p className="text-sm text-gray-400">{description}</p>
-    </div>
-  </div>
-);
+// StepCard and ChecklistItem components are not currently used but kept for future use
+// const StepCard = ({ icon, title, time, description, isActive = false }: {
+//   icon: string;
+//   title: string;
+//   time: string;
+//   description: string;
+//   isActive?: boolean;
+// }) => (
+//   <div className={`flex flex-col items-center p-4 rounded-lg border-2 transition-all duration-200 ${
+//     isActive ? 'border-orange-400 bg-orange-900/30' : 'border-gray-600 hover:border-gray-500'
+//   }`}>
+//     <div className={`text-3xl mb-2 ${isActive ? 'animate-pulse' : ''}`}>{icon}</div>
+//     <div className="text-center">
+//       <h3 className="font-bold text-lg mb-1 text-white">{title}</h3>
+//       <p className="text-sm text-orange-400 mb-2">{time}</p>
+//       <p className="text-sm text-gray-400">{description}</p>
+//     </div>
+//   </div>
+// );
 
-const ChecklistItem = ({ text, checked = true }: { text: string; checked?: boolean }) => (
-  <div className="flex items-center space-x-2 mb-2">
-    <span className={`text-lg ${checked ? 'text-green-400' : 'text-gray-500'}`}>
-      {checked ? '✅' : '⬜'}
-    </span>
-    <span className={checked ? 'text-gray-200' : 'text-gray-400'}>{text}</span>
-  </div>
-);
+// const ChecklistItem = ({ text, checked = true }: { text: string; checked?: boolean }) => (
+//   <div className="flex items-center space-x-2 mb-2">
+//     <span className={`text-lg ${checked ? 'text-green-400' : 'text-gray-500'}`}>
+//       {checked ? '✅' : '⬜'}
+//     </span>
+//     <span className={checked ? 'text-gray-200' : 'text-gray-400'}>{text}</span>
+//   </div>
+// );
 
 const Collapsible = ({ title, children, defaultOpen = false }: {
   title: string;
@@ -392,7 +393,7 @@ export default function Home() {
                   <li className="relative pl-8">
                     <span className="absolute left-0 w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-semibold">2</span>
                     <strong>Open Folder 클릭</strong>
-                    <p className="text-sm text-text-secondary mt-1">시작 화면에서 "Open Folder" 버튼을 찾아 클릭</p>
+                    <p className="text-sm text-text-secondary mt-1">시작 화면에서 &quot;Open Folder&quot; 버튼을 찾아 클릭</p>
                   </li>
                   <li className="relative pl-8">
                     <span className="absolute left-0 w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-semibold">3</span>
@@ -450,7 +451,7 @@ export default function Home() {
                   <li className="relative pl-8">
                     <span className="absolute left-0 w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-semibold">3</span>
                     <strong>Account 확인</strong>
-                    <p className="text-sm text-text-secondary">로그인이 안 되어 있다면 "Log In" 버튼 클릭</p>
+                    <p className="text-sm text-text-secondary">로그인이 안 되어 있다면 &quot;Log In&quot; 버튼 클릭</p>
                   </li>
                 </ol>
               </div>
@@ -458,7 +459,7 @@ export default function Home() {
               <div className="rounded-lg px-5 py-4 my-4 flex items-start gap-3 border bg-primary/5 border-primary/20 mt-4">
                 <span className="text-xl flex-shrink-0 mt-0.5">💡</span>
                 <div>
-                  <strong>Pro Trial 확인:</strong> Settings에서 "Pro Trial" 또는 "Free Trial"이 보이면 성공!<br />
+                  <strong>Pro Trial 확인:</strong> Settings에서 &quot;Pro Trial&quot; 또는 &quot;Free Trial&quot;이 보이면 성공!<br />
                   만약 안 보인다면 준비 가이드를 다시 확인해주세요.
                 </div>
               </div>
@@ -632,7 +633,7 @@ export default function Home() {
                   <span className="text-2xl">💬</span> Cursor AI 채팅에서 말하기:
                 </p>
                 <div className="bg-white text-black p-5 rounded-lg border-3 border-purple-500 shadow-lg font-mono text-xl font-bold text-center">
-                  "Vercel CLI 설치해줘"
+                  &quot;Vercel CLI 설치해줘&quot;
                 </div>
               </div>
 
@@ -675,7 +676,7 @@ export default function Home() {
                   <span className="text-2xl">💬</span> Cursor AI 채팅에서 말하기:
                 </p>
                 <div className="bg-white text-black p-5 rounded-lg border-3 border-purple-500 shadow-lg font-mono text-xl font-bold text-center">
-                  "create-next-app으로 [프로젝트-이름] 프로젝트 만들어줘"
+                  &quot;create-next-app으로 [프로젝트-이름] 프로젝트 만들어줘&quot;
                 </div>
                 <p className="text-purple-300 text-sm mt-3">AI가 자동으로 Next.js 프로젝트를 생성해줄 거예요!</p>
               </div>
@@ -719,7 +720,7 @@ export default function Home() {
                   <span className="text-2xl">💬</span> Cursor AI 채팅에서 말하기:
                 </p>
                 <div className="bg-white text-black p-5 rounded-lg border-3 border-success shadow-lg font-mono text-xl font-bold text-center">
-                  "로컬 서버 켜줘"
+                  &quot;로컬 서버 켜줘&quot;
                 </div>
                 <p className="text-green-300 text-sm mt-3">AI가 자동으로 npm run dev 명령어를 실행해줄 거예요!</p>
               </div>
@@ -988,7 +989,7 @@ export default function Home() {
                   <span className="text-2xl">💬</span> Cursor AI 채팅에서 말하기:
                 </p>
                 <div className="bg-white text-black p-5 rounded-lg border-3 border-blue-500 shadow-lg font-mono text-xl font-bold text-center">
-                  "GitHub 레포지토리 [복사한 URL] 에 연결해줘"
+                  &quot;GitHub 레포지토리 [복사한 URL] 에 연결해줘&quot;
                 </div>
               </div>
 
@@ -1000,7 +1001,7 @@ export default function Home() {
                   <span className="text-2xl">💬</span> Cursor AI 채팅에서 말하기:
                 </p>
                 <div className="bg-white text-black p-5 rounded-lg border-3 border-success shadow-lg font-mono text-xl font-bold text-center">
-                  "vercel에 로그인하고 배포까지 해줘"
+                  &quot;vercel에 로그인하고 배포까지 해줘&quot;
                 </div>
                 <p className="mt-3 text-sm text-green-300">AI가 Vercel CLI를 사용해서 자동으로 배포 프로세스를 진행해줄 거예요!</p>
               </div>
@@ -1176,7 +1177,7 @@ export default function Home() {
                   <span className="text-2xl">💬</span> Cursor AI 채팅에서 말하기:
                 </p>
                 <div className="bg-white text-black p-5 rounded-lg border-3 border-cyan-500 shadow-lg font-mono text-xl font-bold text-center">
-                  "풀(pull) 해줘" 또는 "최신 코드 가져와줘"
+                  &quot;풀(pull) 해줘&quot; 또는 &quot;최신 코드 가져와줘&quot;
                 </div>
               </div>
 

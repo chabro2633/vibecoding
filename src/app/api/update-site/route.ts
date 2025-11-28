@@ -8,7 +8,7 @@ const SITE_HTML_PATH = path.join(process.cwd(), 'public', 'site', 'index.html');
 // 사이트 HTML 업데이트
 export async function POST(request: NextRequest) {
   try {
-    const { html, page = 'index' } = await request.json();
+    const { html } = await request.json();
     
     if (!html) {
       return NextResponse.json(
