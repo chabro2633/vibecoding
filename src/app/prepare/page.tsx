@@ -1,6 +1,5 @@
 'use client'
 
-import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -20,10 +19,7 @@ export default function PreparePage() {
       <header className="border-b border-gray-700 py-4">
         <div className="max-w-6xl mx-auto px-4 flex items-center justify-between">
           <div className="flex items-center space-x-4">
-            <Image src="/images/qanda-logo.png" alt="QANDA" width={120} height={40} className="h-8 w-auto" />
-          </div>
-          <div className="flex items-center space-x-2">
-            <Image src="/images/mathpresso-logo.png" alt="Mathpresso" width={120} height={40} className="h-8 w-auto" />
+            <span className="text-2xl font-bold text-white">VIBEPICK</span>
           </div>
         </div>
       </header>
@@ -260,7 +256,7 @@ export default function PreparePage() {
       {/* Footer */}
       <footer className="border-t border-gray-700 py-8 mt-12">
         <div className="max-w-6xl mx-auto px-4 text-center">
-          <p className="text-gray-400">© 2024 QANDA. All rights reserved.</p>
+          <p className="text-gray-400">© 2024 VIBEPICK. All rights reserved.</p>
         </div>
       </footer>
     </div>

@@ -78,10 +78,7 @@ export default function Home() {
       <header className="fixed top-0 left-0 right-0 z-[1000] bg-black/95 backdrop-blur-[10px] border-b border-border-color">
         <nav className="max-w-7xl mx-auto px-8 py-4 flex justify-between items-center">
           <div className="flex items-center">
-            <Image src="/images/qanda-logo.png" alt="QANDA" width={80} height={80} className="object-contain" />
-          </div>
-          <div className="flex items-center">
-            <Image src="/images/mathpresso-logo.png" alt="Mathpresso" width={120} height={120} className="object-contain" />
+            <span className="text-2xl font-bold text-white">VIBEPICK</span>
           </div>
         </nav>
       </header>
@@ -94,10 +91,9 @@ export default function Home() {
       {/* Main Content */}
       <div>
         <section className="hero mt-12 px-4 py-16 text-center relative">
-          {/* Logo Images */}
+          {/* Logo */}
           <div className="flex flex-col items-center gap-4 mb-8">
-            <Image src="/images/mathpresso-logo.png" alt="Mathpresso Logo" width={120} height={120} className="h-20 w-auto opacity-80" />
-            <Image src="/images/qanda-logo.png" alt="Qanda Logo" width={120} height={120} className="h-20 w-auto opacity-90" />
+            <span className="text-4xl font-bold text-white">VIBEPICK</span>
           </div>
 
           {/* Hero Title */}
@@ -105,7 +101,7 @@ export default function Home() {
             바이브 코딩
           </h1>
           <p className="text-lg md:text-xl text-text-secondary max-w-2xl mx-auto">
-            <span className="text-xl md:text-2xl font-bold text-primary mb-2 inline-block">&quot;콴다의 모든 사람이 상상을 현실로 만들 수 있게&quot;</span>
+            <span className="text-xl md:text-2xl font-bold text-primary mb-2 inline-block">&quot;바이브픽의 모든 사람이 상상을 현실로 만들 수 있게&quot;</span>
             <br />
             AI와 함께하는 창의적인 개발 여정
           </p>
@@ -1239,7 +1235,7 @@ export default function Home() {
         {/* Footer */}
         <footer className="border-t border-border-color py-8 mt-12">
           <div className="max-w-6xl mx-auto px-4 text-center">
-            <p className="text-text-secondary">© 2024 QANDA. All rights reserved.</p>
+            <p className="text-text-secondary">© 2024 VIBEPICK. All rights reserved.</p>
           </div>
         </footer>
       </div>
