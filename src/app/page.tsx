@@ -60,6 +60,40 @@ const Collapsible = ({ title, children, defaultOpen = false }: {
   );
 };
 
+const FAQToggle = ({ question, children }: {
+  question: string;
+  children: React.ReactNode;
+}) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div className="mt-6">
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="w-full bg-gradient-to-r from-sky-500/20 to-cyan-500/20 border border-sky-500/50 rounded-lg p-4 text-left hover:from-sky-500/30 hover:to-cyan-500/30 transition-all duration-200 group"
+      >
+        <div className="flex items-center justify-between">
+          <h4 className="text-lg font-semibold text-sky-400 flex items-center gap-2">
+            <span className="text-2xl font-bold text-red-500">Q.</span>
+            {question}
+          </h4>
+          <svg className={`w-6 h-6 text-sky-400 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </div>
+        {!isOpen && <p className="text-sm text-sky-300/70 mt-1">클릭해서 답변 보기</p>}
+      </button>
+      {isOpen && (
+        <div className="mt-2 bg-sky-900/20 border border-sky-500/30 rounded-lg p-4">
+          <div className="text-sky-100">
+            {children}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
 export default function Home() {
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -407,20 +441,14 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="mt-6">
-                <button className="w-full bg-gradient-to-r from-sky-500/20 to-cyan-500/20 border border-sky-500/50 rounded-lg p-4 text-left hover:from-sky-500/30 hover:to-cyan-500/30 transition-all duration-200 group">
-                  <div className="flex items-center justify-between">
-                    <h4 className="text-lg font-semibold text-sky-400 flex items-center gap-2">
-                      <span className="text-2xl font-bold text-red-500">Q.</span>
-                      왜 폴더를 먼저 열어야 하나요?
-                    </h4>
-                    <svg className="w-6 h-6 text-sky-400 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
-                    </svg>
-                  </div>
-                  <p className="text-sm text-sky-300/70 mt-1">클릭해서 답변 보기</p>
-                </button>
-              </div>
+              <FAQToggle question="왜 폴더를 먼저 열어야 하나요?">
+                <p className="mb-3"><strong>Cursor는 폴더 단위로 프로젝트를 관리해요!</strong></p>
+                <ul className="list-disc list-inside space-y-2 text-sky-200">
+                  <li>폴더를 열어야 AI가 프로젝트 파일들을 만들 수 있어요</li>
+                  <li>터미널도 해당 폴더 위치에서 실행돼요</li>
+                  <li>나중에 파일을 찾기도 쉬워요</li>
+                </ul>
+              </FAQToggle>
             </div>
 
             <h3 className="text-2xl font-bold mb-6 mt-8 text-primary">🔐 Step 3. Cursor 로그인하기</h3>
