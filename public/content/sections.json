@@ -1,0 +1,71 @@
+{
+  "hero": {
+    "logoName": "VIBEPICK",
+    "title": "바이브 코딩",
+    "slogan": "바이브픽의 모든 사람이 상상을 현실로 만들 수 있게",
+    "subtitle": "AI와 함께하는 창의적인 개발 여정",
+    "tags": [
+      { "icon": "📋", "text": "1부: 개발 환경 세팅", "color": "primary" },
+      { "icon": "🚀", "text": "2부: 프로젝트 준비 및 배포", "color": "success" }
+    ]
+  },
+  "journey": {
+    "title": "바이브 코딩 여정",
+    "totalTime": "약 1시간",
+    "completionMessage": "나만의 웹사이트가 완성됩니다!",
+    "steps": [
+      { "icon": "📋", "title": "준비", "time": "10분", "description": "계정 설정" },
+      { "icon": "⚙️", "title": "환경설정", "time": "15분", "description": "개발 도구 설치" },
+      { "icon": "🛠️", "title": "프로젝트 생성", "time": "20분", "description": "Next.js 시작" },
+      { "icon": "🔗", "title": "Git 연동", "time": "10분", "description": "버전 관리" },
+      { "icon": "🌐", "title": "배포!", "time": "5분", "description": "웹사이트 공개" }
+    ]
+  },
+  "prerequisites": {
+    "title": "사전 준비사항",
+    "icon": "📌",
+    "cardTitle": "준비물 체크리스트",
+    "cardIcon": "⚡",
+    "subtitle": "시작하기 전에 4가지를 미리 준비해주세요!",
+    "items": [
+      "Cursor 설치",
+      "Cursor Pro 2주 Trial 시작",
+      "GitHub 계정",
+      "Vercel 계정"
+    ],
+    "buttonText": "상세 준비 가이드 보기",
+    "buttonLink": "/prepare"
+  },
+  "intro": {
+    "title": "소개",
+    "icon": "💡",
+    "content": "바이브 코딩은 AI와 함께 웹사이트를 만드는 세션입니다."
+  },
+  "cursor": {
+    "title": "Cursor 시작하기",
+    "icon": "🚀",
+    "subtitle": "AI 코딩 도구",
+    "steps": [
+      {
+        "title": "Cursor 다운로드",
+        "description": "cursor.com에서 다운로드하세요",
+        "image": "/images/cursor-download.png"
+      },
+      {
+        "title": "Cursor 시작 화면",
+        "description": "Cursor를 실행하면 시작 화면이 나타납니다",
+        "image": "/images/cursor-start.png"
+      },
+      {
+        "title": "폴더 열기",
+        "description": "Open Folder를 클릭하여 프로젝트 폴더를 선택합니다",
+        "image": "/images/cursor-folder.png"
+      },
+      {
+        "title": "채팅 화면",
+        "description": "Cmd+L로 AI 채팅을 열 수 있습니다",
+        "image": "/images/cursor-chat.png"
+      }
+    ]
+  }
+}

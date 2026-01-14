@@ -2,7 +2,47 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+// 콘텐츠 타입 정의
+interface HeroContent {
+  logoName: string;
+  title: string;
+  slogan: string;
+  subtitle: string;
+  tags: { icon: string; text: string; color: string }[];
+}
+
+interface JourneyStep {
+  icon: string;
+  title: string;
+  time: string;
+  description: string;
+}
+
+interface JourneyContent {
+  title: string;
+  totalTime: string;
+  completionMessage: string;
+  steps: JourneyStep[];
+}
+
+interface PrerequisitesContent {
+  title: string;
+  icon: string;
+  cardTitle: string;
+  cardIcon: string;
+  subtitle: string;
+  items: string[];
+  buttonText: string;
+  buttonLink: string;
+}
+
+interface ContentData {
+  hero: HeroContent;
+  journey: JourneyContent;
+  prerequisites: PrerequisitesContent;
+}
 
 // StepCard and ChecklistItem components are not currently used but kept for future use
 // const StepCard = ({ icon, title, time, description, isActive = false }: {
@@ -26,7 +66,7 @@ import { useState } from "react";
 
 // const ChecklistItem = ({ text, checked = true }: { text: string; checked?: boolean }) => (
 //   <div className="flex items-center space-x-2 mb-2">
-//     <span className={`text-lg ${checked ? 'text-green-400' : 'text-gray-500'}`}>
+//     <span className={`text-lg ${checked ? 'text-white' : 'text-gray-500'}`}>
 //       {checked ? '✅' : '⬜'}
 //     </span>
 //     <span className={checked ? 'text-gray-200' : 'text-gray-400'}>{text}</span>
@@ -70,22 +110,22 @@ const FAQToggle = ({ question, children }: {
     <div className="mt-6">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full bg-gradient-to-r from-sky-500/20 to-cyan-500/20 border border-sky-500/50 rounded-lg p-4 text-left hover:from-sky-500/30 hover:to-cyan-500/30 transition-all duration-200 group"
+        className="w-full bg-gradient-to-r from-white/10 to-gray-500/10 border border-white/30 rounded-lg p-4 text-left hover:from-white/20 hover:to-gray-500/20 transition-all duration-200 group"
       >
         <div className="flex items-center justify-between">
-          <h4 className="text-lg font-semibold text-sky-400 flex items-center gap-2">
-            <span className="text-2xl font-bold text-red-500">Q.</span>
+          <h4 className="text-lg font-semibold text-white flex items-center gap-2">
+            <span className="text-2xl font-bold text-white">Q.</span>
             {question}
           </h4>
-          <svg className={`w-6 h-6 text-sky-400 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className={`w-6 h-6 text-white transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
           </svg>
         </div>
-        {!isOpen && <p className="text-sm text-sky-300/70 mt-1">클릭해서 답변 보기</p>}
+        {!isOpen && <p className="text-sm text-gray-400 mt-1">클릭해서 답변 보기</p>}
       </button>
       {isOpen && (
-        <div className="mt-2 bg-sky-900/20 border border-sky-500/30 rounded-lg p-4">
-          <div className="text-sky-100">
+        <div className="mt-2 bg-white/5 border border-white/20 rounded-lg p-4">
+          <div className="text-gray-200">
             {children}
           </div>
         </div>
@@ -94,7 +134,68 @@ const FAQToggle = ({ question, children }: {
   );
 };
 
+// 기본 콘텐츠 데이터
+const defaultContent: ContentData = {
+  hero: {
+    logoName: "VIBEPICK",
+    title: "바이브 코딩",
+    slogan: "바이브픽의 모든 사람이 상상을 현실로 만들 수 있게",
+    subtitle: "AI와 함께하는 창의적인 개발 여정",
+    tags: [
+      { icon: "📋", text: "1부: 개발 환경 세팅", color: "primary" },
+      { icon: "🚀", text: "2부: 프로젝트 준비 및 배포", color: "success" }
+    ]
+  },
+  journey: {
+    title: "바이브 코딩 여정",
+    totalTime: "약 1시간",
+    completionMessage: "나만의 웹사이트가 완성됩니다!",
+    steps: [
+      { icon: "📋", title: "준비", time: "10분", description: "계정 설정" },
+      { icon: "⚙️", title: "환경설정", time: "15분", description: "개발 도구 설치" },
+      { icon: "🛠️", title: "프로젝트 생성", time: "20분", description: "Next.js 시작" },
+      { icon: "🔗", title: "Git 연동", time: "10분", description: "버전 관리" },
+      { icon: "🌐", title: "배포!", time: "5분", description: "웹사이트 공개" }
+    ]
+  },
+  prerequisites: {
+    title: "사전 준비사항",
+    icon: "📌",
+    cardTitle: "준비물 체크리스트",
+    cardIcon: "⚡",
+    subtitle: "시작하기 전에 4가지를 미리 준비해주세요!",
+    items: [
+      "Cursor 설치",
+      "Cursor Pro 2주 Trial 시작",
+      "GitHub 계정",
+      "Vercel 계정"
+    ],
+    buttonText: "상세 준비 가이드 보기",
+    buttonLink: "/prepare"
+  }
+};
+
 export default function Home() {
+  const [content, setContent] = useState<ContentData>(defaultContent);
+
+  // 콘텐츠 로드
+  useEffect(() => {
+    const loadContent = async () => {
+      try {
+        const response = await fetch('/api/content');
+        if (response.ok) {
+          const data = await response.json();
+          if (data.content) {
+            setContent(data.content);
+          }
+        }
+      } catch (error) {
+        console.error('콘텐츠 로드 실패:', error);
+      }
+    };
+    loadContent();
+  }, []);
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* Background Overlays */}
@@ -112,7 +213,7 @@ export default function Home() {
       <header className="fixed top-0 left-0 right-0 z-[1000] bg-black/95 backdrop-blur-[10px] border-b border-border-color">
         <nav className="max-w-7xl mx-auto px-8 py-4 flex justify-between items-center">
           <div className="flex items-center">
-            <span className="text-2xl font-bold text-white">VIBEPICK</span>
+            <span className="text-2xl font-bold text-white">{content.hero.logoName}</span>
           </div>
         </nav>
       </header>
@@ -127,142 +228,73 @@ export default function Home() {
         <section className="hero mt-12 px-4 py-16 text-center relative">
           {/* Logo */}
           <div className="flex flex-col items-center gap-4 mb-8">
-            <span className="text-4xl font-bold text-white">VIBEPICK</span>
+            <span className="text-4xl font-bold text-white">{content.hero.logoName}</span>
           </div>
 
           {/* Hero Title */}
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 tracking-tight bg-gradient-to-r from-primary to-primary-light bg-clip-text text-transparent">
-            바이브 코딩
+            {content.hero.title}
           </h1>
           <p className="text-lg md:text-xl text-text-secondary max-w-2xl mx-auto">
-            <span className="text-xl md:text-2xl font-bold text-primary mb-2 inline-block">&quot;바이브픽의 모든 사람이 상상을 현실로 만들 수 있게&quot;</span>
+            <span className="text-xl md:text-2xl font-bold text-primary mb-2 inline-block">&quot;{content.hero.slogan}&quot;</span>
             <br />
-            AI와 함께하는 창의적인 개발 여정
+            {content.hero.subtitle}
           </p>
 
           {/* Section Tags */}
           <div className="mt-8 flex gap-4 justify-center flex-wrap">
-            <span className="bg-bg-card border border-primary px-4 py-2 rounded-full text-sm">📋 1부: 개발 환경 세팅</span>
-            <span className="bg-bg-card border border-success px-4 py-2 rounded-full text-sm">🚀 2부: 프로젝트 준비 및 배포</span>
+            {content.hero.tags.map((tag, index) => (
+              <span key={index} className={`bg-bg-card border ${tag.color === 'primary' ? 'border-primary' : 'border-success'} px-4 py-2 rounded-full text-sm`}>
+                {tag.icon} {tag.text}
+              </span>
+            ))}
           </div>
 
           {/* Journey Roadmap */}
           <div className="w-full max-w-5xl mx-auto mt-8 mb-6 px-2 sm:px-4">
             <div className="bg-gradient-to-r from-bg-card to-bg-dark rounded-xl p-4 sm:p-6 border border-border-color">
-              <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-center mb-4 sm:mb-6 text-primary">🚀 바이브 코딩 여정</h3>
+              <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-center mb-4 sm:mb-6 text-primary">🚀 {content.journey.title}</h3>
 
               {/* Desktop View */}
               <div className="hidden sm:block">
                 <div className="flex items-center justify-between relative">
                   <div className="absolute top-1/2 left-8 right-8 h-0.5 bg-gradient-to-r from-primary/20 via-primary/50 to-success/20 -z-10"></div>
 
-                  <div className="relative flex flex-col items-center px-1 lg:px-2">
-                    <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-gradient-to-br from-primary to-primary-light rounded-full flex items-center justify-center text-lg sm:text-xl lg:text-2xl mb-2 shadow-lg hover:scale-110 transition-transform">📋</div>
-                    <div className="text-center">
-                      <h4 className="font-bold text-primary text-xs sm:text-sm">준비</h4>
-                      <p className="text-xs text-success font-semibold">10분</p>
-                      <p className="text-xs text-text-secondary mt-1 max-w-[80px] sm:max-w-[100px] lg:max-w-[120px]">계정 설정</p>
+                  {content.journey.steps.map((step, index) => (
+                    <div key={index} className="relative flex flex-col items-center px-1 lg:px-2">
+                      <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-gradient-to-br from-primary to-primary-light rounded-full flex items-center justify-center text-lg sm:text-xl lg:text-2xl mb-2 shadow-lg hover:scale-110 transition-transform">{step.icon}</div>
+                      <div className="text-center">
+                        <h4 className="font-bold text-primary text-xs sm:text-sm">{step.title}</h4>
+                        <p className="text-xs text-success font-semibold">{step.time}</p>
+                        <p className="text-xs text-text-secondary mt-1 max-w-[80px] sm:max-w-[100px] lg:max-w-[120px]">{step.description}</p>
+                      </div>
                     </div>
-                  </div>
-
-                  <div className="relative flex flex-col items-center px-1 lg:px-2">
-                    <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-gradient-to-br from-primary to-primary-light rounded-full flex items-center justify-center text-lg sm:text-xl lg:text-2xl mb-2 shadow-lg hover:scale-110 transition-transform">⚙️</div>
-                    <div className="text-center">
-                      <h4 className="font-bold text-primary text-xs sm:text-sm">환경설정</h4>
-                      <p className="text-xs text-success font-semibold">15분</p>
-                      <p className="text-xs text-text-secondary mt-1 max-w-[80px] sm:max-w-[100px] lg:max-w-[120px]">개발 도구 설치</p>
-                    </div>
-                  </div>
-
-                  <div className="relative flex flex-col items-center px-1 lg:px-2">
-                    <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-gradient-to-br from-primary to-primary-light rounded-full flex items-center justify-center text-lg sm:text-xl lg:text-2xl mb-2 shadow-lg hover:scale-110 transition-transform">🛠️</div>
-                    <div className="text-center">
-                      <h4 className="font-bold text-primary text-xs sm:text-sm">프로젝트 생성</h4>
-                      <p className="text-xs text-success font-semibold">20분</p>
-                      <p className="text-xs text-text-secondary mt-1 max-w-[80px] sm:max-w-[100px] lg:max-w-[120px]">Next.js 시작</p>
-                    </div>
-                  </div>
-
-                  <div className="relative flex flex-col items-center px-1 lg:px-2">
-                    <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-gradient-to-br from-primary to-primary-light rounded-full flex items-center justify-center text-lg sm:text-xl lg:text-2xl mb-2 shadow-lg hover:scale-110 transition-transform">🔗</div>
-                    <div className="text-center">
-                      <h4 className="font-bold text-primary text-xs sm:text-sm">Git 연동</h4>
-                      <p className="text-xs text-success font-semibold">10분</p>
-                      <p className="text-xs text-text-secondary mt-1 max-w-[80px] sm:max-w-[100px] lg:max-w-[120px]">버전 관리</p>
-                    </div>
-                  </div>
-
-                  <div className="relative flex flex-col items-center px-1 lg:px-2">
-                    <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-gradient-to-br from-primary to-primary-light rounded-full flex items-center justify-center text-lg sm:text-xl lg:text-2xl mb-2 shadow-lg hover:scale-110 transition-transform">🌐</div>
-                    <div className="text-center">
-                      <h4 className="font-bold text-primary text-xs sm:text-sm">배포!</h4>
-                      <p className="text-xs text-success font-semibold">5분</p>
-                      <p className="text-xs text-text-secondary mt-1 max-w-[80px] sm:max-w-[100px] lg:max-w-[120px]">웹사이트 공개</p>
-                    </div>
-                  </div>
+                  ))}
                 </div>
               </div>
 
               {/* Mobile View */}
               <div className="sm:hidden">
                 <div className="space-y-3">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-gradient-to-br from-primary to-primary-light rounded-full flex items-center justify-center text-lg flex-shrink-0">📋</div>
-                    <div className="flex-1">
-                      <div className="flex items-baseline gap-2">
-                        <h4 className="font-bold text-primary text-sm">준비</h4>
-                        <p className="text-xs text-success font-semibold">10분</p>
+                  {content.journey.steps.map((step, index) => (
+                    <div key={index} className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-gradient-to-br from-primary to-primary-light rounded-full flex items-center justify-center text-lg flex-shrink-0">{step.icon}</div>
+                      <div className="flex-1">
+                        <div className="flex items-baseline gap-2">
+                          <h4 className="font-bold text-primary text-sm">{step.title}</h4>
+                          <p className="text-xs text-success font-semibold">{step.time}</p>
+                        </div>
+                        <p className="text-xs text-text-secondary">{step.description}</p>
                       </div>
-                      <p className="text-xs text-text-secondary">계정 설정</p>
                     </div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-gradient-to-br from-primary to-primary-light rounded-full flex items-center justify-center text-lg flex-shrink-0">⚙️</div>
-                    <div className="flex-1">
-                      <div className="flex items-baseline gap-2">
-                        <h4 className="font-bold text-primary text-sm">환경설정</h4>
-                        <p className="text-xs text-success font-semibold">15분</p>
-                      </div>
-                      <p className="text-xs text-text-secondary">개발 도구 설치</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-gradient-to-br from-primary to-primary-light rounded-full flex items-center justify-center text-lg flex-shrink-0">🛠️</div>
-                    <div className="flex-1">
-                      <div className="flex items-baseline gap-2">
-                        <h4 className="font-bold text-primary text-sm">프로젝트 생성</h4>
-                        <p className="text-xs text-success font-semibold">20분</p>
-                      </div>
-                      <p className="text-xs text-text-secondary">Next.js 시작</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-gradient-to-br from-primary to-primary-light rounded-full flex items-center justify-center text-lg flex-shrink-0">🔗</div>
-                    <div className="flex-1">
-                      <div className="flex items-baseline gap-2">
-                        <h4 className="font-bold text-primary text-sm">Git 연동</h4>
-                        <p className="text-xs text-success font-semibold">10분</p>
-                      </div>
-                      <p className="text-xs text-text-secondary">버전 관리</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-gradient-to-br from-primary to-primary-light rounded-full flex items-center justify-center text-lg flex-shrink-0">🌐</div>
-                    <div className="flex-1">
-                      <div className="flex items-baseline gap-2">
-                        <h4 className="font-bold text-primary text-sm">배포!</h4>
-                        <p className="text-xs text-success font-semibold">5분</p>
-                      </div>
-                      <p className="text-xs text-text-secondary">웹사이트 공개</p>
-                    </div>
-                  </div>
+                  ))}
                 </div>
               </div>
 
               <div className="mt-6 text-center">
                 <p className="text-sm text-text-secondary">
-                  총 <span className="text-primary font-bold">약 1시간</span>으로
-                  <span className="text-success font-bold"> 나만의 웹사이트</span>가 완성됩니다! ✨
+                  총 <span className="text-primary font-bold">{content.journey.totalTime}</span>으로
+                  <span className="text-success font-bold"> {content.journey.completionMessage}</span> ✨
                 </p>
               </div>
             </div>
@@ -274,26 +306,25 @@ export default function Home() {
           {/* Prerequisites */}
           <section id="prepare" className="section mb-12">
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-6 flex items-center gap-2 after:content-[''] after:flex-1 after:h-px after:bg-border-color">
-              📌 사전 준비사항
+              {content.prerequisites.icon} {content.prerequisites.title}
             </h2>
 
             <div className="bg-bg-card border border-border-color rounded-xl p-8 mb-6 transition-all duration-200 hover:bg-bg-card-hover hover:border-[#333333] hover:-translate-y-0.5">
               <div className="text-center">
-                <h3 className="text-2xl font-bold mb-4 text-primary">⚡ 준비물 체크리스트</h3>
-                <p className="text-lg text-text-secondary mb-6">시작하기 전에 4가지를 미리 준비해주세요!</p>
+                <h3 className="text-2xl font-bold mb-4 text-primary">{content.prerequisites.cardIcon} {content.prerequisites.cardTitle}</h3>
+                <p className="text-lg text-text-secondary mb-6">{content.prerequisites.subtitle}</p>
 
                 <div className="flex flex-wrap gap-3 justify-center mb-8">
-                  <span className="bg-black/50 border border-primary/50 px-4 py-2 rounded-full text-sm">✅ Cursor 설치</span>
-                  <span className="bg-black/50 border border-primary/50 px-4 py-2 rounded-full text-sm">✅ Cursor Pro 2주 Trial 시작</span>
-                  <span className="bg-black/50 border border-primary/50 px-4 py-2 rounded-full text-sm">✅ GitHub 계정</span>
-                  <span className="bg-black/50 border border-primary/50 px-4 py-2 rounded-full text-sm">✅ Vercel 계정</span>
+                  {content.prerequisites.items.map((item, index) => (
+                    <span key={index} className="bg-black/50 border border-primary/50 px-4 py-2 rounded-full text-sm">✅ {item}</span>
+                  ))}
                 </div>
 
                 <Link
-                  href="/prepare"
+                  href={content.prerequisites.buttonLink}
                   className="inline-flex items-center gap-2 bg-primary hover:bg-primary-light text-white font-bold py-3 px-8 rounded-lg transition-all duration-200 transform hover:scale-105"
                 >
-                  📋 상세 준비 가이드 보기
+                  📋 {content.prerequisites.buttonText}
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
                   </svg>
@@ -329,7 +360,7 @@ export default function Home() {
 
           {/* Divider */}
           <div className="my-8 flex items-center justify-center">
-            <div className="h-0.5 w-full max-w-xs bg-gradient-to-r from-transparent via-sky-400/50 to-transparent"></div>
+            <div className="h-0.5 w-full max-w-xs bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
           </div>
 
           {/* Section 1: 개발 환경 세팅 */}
@@ -339,7 +370,7 @@ export default function Home() {
             </h2>
 
             <h3 className="text-2xl font-bold mb-6 text-primary">🌐 Step 1. 준비 작업</h3>
-            <div className="bg-bg-card border border-border-color rounded-xl p-8 mb-6 transition-all duration-200 hover:bg-bg-card-hover hover:border-[#333333] hover:-translate-y-0.5" style={{ borderColor: "#ff6b35" }}>
+            <div className="bg-bg-card border border-border-color rounded-xl p-8 mb-6 transition-all duration-200 hover:bg-bg-card-hover hover:border-[#333333] hover:-translate-y-0.5" style={{ borderColor: "#ffffff" }}>
               <p className="text-text-secondary mb-4">프로젝트를 시작하기 전에 필요한 준비를 해둡니다.</p>
 
               <div className="bg-gradient-to-r from-warning/20 to-primary/20 border-2 border-warning rounded-lg p-6 mb-6">
@@ -404,7 +435,7 @@ export default function Home() {
             </div>
 
             <h3 className="text-2xl font-bold mb-6 mt-8 text-primary">🚀 Step 2. Cursor 열고 프로젝트 폴더 선택하기</h3>
-            <div className="bg-bg-card border border-border-color rounded-xl p-8 mb-6 transition-all duration-200 hover:bg-bg-card-hover hover:border-[#333333] hover:-translate-y-0.5" style={{ borderColor: "#ff6b35" }}>
+            <div className="bg-bg-card border border-border-color rounded-xl p-8 mb-6 transition-all duration-200 hover:bg-bg-card-hover hover:border-[#333333] hover:-translate-y-0.5" style={{ borderColor: "#ffffff" }}>
               <p className="text-text-secondary mb-4">Cursor를 처음 실행하면 먼저 작업할 폴더를 열어야 해요!</p>
 
               <div className="bg-[#050505] border border-border-color rounded-lg p-6">
@@ -443,7 +474,7 @@ export default function Home() {
 
               <FAQToggle question="왜 폴더를 먼저 열어야 하나요?">
                 <p className="mb-3"><strong>Cursor는 폴더 단위로 프로젝트를 관리해요!</strong></p>
-                <ul className="list-disc list-inside space-y-2 text-sky-200">
+                <ul className="list-disc list-inside space-y-2 text-gray-300">
                   <li>폴더를 열어야 AI가 프로젝트 파일들을 만들 수 있어요</li>
                   <li>터미널도 해당 폴더 위치에서 실행돼요</li>
                   <li>나중에 파일을 찾기도 쉬워요</li>
@@ -452,7 +483,7 @@ export default function Home() {
             </div>
 
             <h3 className="text-2xl font-bold mb-6 mt-8 text-primary">🔐 Step 3. Cursor 로그인하기</h3>
-            <div className="bg-bg-card border border-border-color rounded-xl p-8 mb-6 transition-all duration-200 hover:bg-bg-card-hover hover:border-[#333333] hover:-translate-y-0.5" style={{ borderColor: "#a855f7" }}>
+            <div className="bg-bg-card border border-border-color rounded-xl p-8 mb-6 transition-all duration-200 hover:bg-bg-card-hover hover:border-[#333333] hover:-translate-y-0.5" style={{ borderColor: "#888888" }}>
               <p className="text-text-secondary mb-4">AI와 대화하려면 먼저 로그인이 필요해요!</p>
 
               <div className="bg-[#050505] border border-border-color rounded-lg p-6">
@@ -490,7 +521,7 @@ export default function Home() {
             </div>
 
             <h3 className="text-2xl font-bold mb-6 mt-8 text-primary">🤖 Step 4. AI 모델 선택하기</h3>
-            <div className="bg-bg-card border border-border-color rounded-xl p-8 mb-6 transition-all duration-200 hover:bg-bg-card-hover hover:border-[#333333] hover:-translate-y-0.5" style={{ borderColor: "#a855f7" }}>
+            <div className="bg-bg-card border border-border-color rounded-xl p-8 mb-6 transition-all duration-200 hover:bg-bg-card-hover hover:border-[#333333] hover:-translate-y-0.5" style={{ borderColor: "#888888" }}>
               <p className="text-text-secondary mb-4">Cursor에서 사용할 AI 모델을 선택합니다.</p>
 
               <div className="bg-[#050505] border border-border-color rounded-lg p-6">
@@ -530,10 +561,10 @@ export default function Home() {
               <h3 className="text-2xl mb-4 text-primary font-semibold">🛡️ 에러 해결 마법 공식</h3>
               <p className="text-lg text-text-secondary mb-6">이제부터 AI와 본격적인 대화가 시작됩니다!</p>
 
-              <div className="bg-gradient-to-r from-purple-500/10 to-primary/10 border border-purple-500/30 rounded-lg p-6 mb-6">
-                <h4 className="text-xl font-bold text-purple-400 mb-4">🎯 가장 중요한 마인드셋</h4>
+              <div className="bg-gradient-to-r from-white/5 to-gray-500/5 border border-white/20 rounded-lg p-6 mb-6">
+                <h4 className="text-xl font-bold text-white mb-4">🎯 가장 중요한 마인드셋</h4>
                 <p className="text-lg mb-3">
-                  <strong className="text-purple-400">우리는 개발을 배우러 온 게 아닙니다.</strong><br />
+                  <strong className="text-white">우리는 개발을 배우러 온 게 아닙니다.</strong><br />
                   <span className="text-primary font-bold">바이브 코딩을 하러 왔습니다!</span>
                 </p>
                 <p className="text-text-secondary">
@@ -625,7 +656,7 @@ export default function Home() {
             <div className="bg-bg-card border border-border-color rounded-xl p-8 mb-6 transition-all duration-200 hover:bg-bg-card-hover hover:border-[#333333] hover:-translate-y-0.5">
               <p className="text-text-secondary mb-6">웹사이트를 실행하고 테스트하는데 필요한 환경입니다.</p>
 
-              <div className="bg-gradient-to-r from-success/10 to-primary/10 border-2 border-success/50 rounded-lg p-6">
+              <div className="bg-gradient-to-r from-success/10 to-primary/10 border-2 border-white/30 rounded-lg p-6">
                 <p className="mb-3 text-lg font-semibold text-success flex items-center gap-2">
                   <span className="text-2xl">💬</span> Cursor AI 채팅에서 말하기:
                 </p>
@@ -652,17 +683,17 @@ export default function Home() {
             <div className="bg-bg-card border border-border-color rounded-xl p-8 mb-6 transition-all duration-200 hover:bg-bg-card-hover hover:border-[#333333] hover:-translate-y-0.5">
               <p className="text-text-secondary mb-6">웹사이트를 인터넷에 공개하는 서비스입니다.</p>
 
-              <div className="bg-gradient-to-r from-purple-500/10 to-pink-500/10 border-2 border-purple-500/50 rounded-lg p-6">
-                <p className="mb-3 text-lg font-semibold text-purple-400 flex items-center gap-2">
+              <div className="bg-gradient-to-r from-white/5 to-gray-500/5 border-2 border-white/30 rounded-lg p-6">
+                <p className="mb-3 text-lg font-semibold text-white flex items-center gap-2">
                   <span className="text-2xl">💬</span> Cursor AI 채팅에서 말하기:
                 </p>
-                <div className="bg-white text-black p-5 rounded-lg border-3 border-purple-500 shadow-lg font-mono text-xl font-bold text-center">
+                <div className="bg-white text-black p-5 rounded-lg border-3 border-white/50 shadow-lg font-mono text-xl font-bold text-center">
                   &quot;Vercel CLI 설치해줘&quot;
                 </div>
               </div>
 
-              <div className="mt-6 bg-blue-900/50 p-3 rounded border-l-4 border-blue-400">
-                <p className="text-sm text-blue-200">💡 만약 설치가 안된다면 터미널에서 직접 <code className="bg-blue-800 px-1 rounded">npm i -g vercel</code> 명령어를 사용하세요.</p>
+              <div className="mt-6 bg-white/5 p-3 rounded border-l-4 border-gray-500">
+                <p className="text-sm text-gray-300">💡 만약 설치가 안된다면 터미널에서 직접 <code className="bg-gray-700 px-1 rounded">npm i -g vercel</code> 명령어를 사용하세요.</p>
               </div>
 
               <div className="mt-6">
@@ -681,7 +712,7 @@ export default function Home() {
           </section>
 
           {/* Section 2: 프로젝트 준비 및 배포 */}
-          <section className="border-t-4 border-green-500 pt-6">
+          <section className="border-t-4 border-white/50 pt-6">
             <div className="text-center my-20">
               <hr className="border-none border-t border-border-color max-w-[200px] mx-auto" />
               <p className="mt-8 text-2xl text-text-secondary">🎉 <strong className="text-primary">1부 완료!</strong> 이제 프로젝트를 준비해봅시다</p>
@@ -695,19 +726,19 @@ export default function Home() {
             <div className="bg-bg-card border border-border-color rounded-xl p-8 mb-6 transition-all duration-200 hover:bg-bg-card-hover hover:border-[#333333] hover:-translate-y-0.5">
               <p className="text-text-secondary mb-6">이제 AI와 함께 실제 웹사이트를 만들어봅시다!</p>
 
-              <div className="bg-gradient-to-r from-purple-500/10 to-blue-500/10 border-2 border-purple-500/50 rounded-lg p-6">
-                <p className="mb-3 text-lg font-semibold text-purple-400 flex items-center gap-2">
+              <div className="bg-gradient-to-r from-white/5 to-gray-500/5 border-2 border-white/30 rounded-lg p-6">
+                <p className="mb-3 text-lg font-semibold text-white flex items-center gap-2">
                   <span className="text-2xl">💬</span> Cursor AI 채팅에서 말하기:
                 </p>
-                <div className="bg-white text-black p-5 rounded-lg border-3 border-purple-500 shadow-lg font-mono text-xl font-bold text-center">
+                <div className="bg-white text-black p-5 rounded-lg border-3 border-white/50 shadow-lg font-mono text-xl font-bold text-center">
                   &quot;create-next-app으로 [프로젝트-이름] 프로젝트 만들어줘&quot;
                 </div>
-                <p className="text-purple-300 text-sm mt-3">AI가 자동으로 Next.js 프로젝트를 생성해줄 거예요!</p>
+                <p className="text-gray-400 text-sm mt-3">AI가 자동으로 Next.js 프로젝트를 생성해줄 거예요!</p>
               </div>
 
-              <div className="mt-6 bg-blue-900/50 p-4 rounded border border-blue-600">
+              <div className="mt-6 bg-white/5 p-4 rounded border border-gray-600">
                 <p className="text-sm font-bold text-white mb-3">💡 프로젝트 이름 짓기 팁</p>
-                <ul className="text-sm text-blue-200 space-y-2 ml-4 list-disc">
+                <ul className="text-sm text-gray-300 space-y-2 ml-4 list-disc">
                   <li><strong>영어로 지으세요:</strong> my-portfolio, todo-app, blog-site</li>
                   <li><strong>단어 사이에 - 사용:</strong> my-awesome-website (✅) myawesomewebsite (❌)</li>
                   <li><strong>직관적인 이름이 좋아요:</strong> shopping-list &gt; project1</li>
@@ -739,14 +770,14 @@ export default function Home() {
             <div className="bg-bg-card border border-border-color rounded-xl p-8 mb-6 transition-all duration-200 hover:bg-bg-card-hover hover:border-[#333333] hover:-translate-y-0.5">
               <p className="text-text-secondary mb-6">이제 만든 웹사이트를 실행해봅시다!</p>
 
-              <div className="bg-gradient-to-r from-success/10 to-blue-500/10 border-2 border-success/50 rounded-lg p-6">
+              <div className="bg-gradient-to-r from-white/5 to-gray-500/5 border-2 border-white/30 rounded-lg p-6">
                 <p className="mb-3 text-lg font-semibold text-success flex items-center gap-2">
                   <span className="text-2xl">💬</span> Cursor AI 채팅에서 말하기:
                 </p>
                 <div className="bg-white text-black p-5 rounded-lg border-3 border-success shadow-lg font-mono text-xl font-bold text-center">
                   &quot;로컬 서버 켜줘&quot;
                 </div>
-                <p className="text-green-300 text-sm mt-3">AI가 자동으로 npm run dev 명령어를 실행해줄 거예요!</p>
+                <p className="text-gray-400 text-sm mt-3">AI가 자동으로 npm run dev 명령어를 실행해줄 거예요!</p>
               </div>
 
               <div className="bg-gray-800 border border-gray-600 rounded-lg p-4 mb-4 shadow-sm">
@@ -756,9 +787,9 @@ export default function Home() {
                   <li><strong>터미널 열기:</strong> Cursor 하단 패널에서 PowerShell(Mac은 Terminal) 선택 또는 <code className="bg-gray-700 px-1 rounded">Ctrl + `</code></li>
 
                   <li><strong>프로젝트 폴더로 이동 (필요한 경우만!)</strong>
-                    <div className="ml-6 mt-2 bg-blue-900/50 p-3 rounded border border-blue-600">
-                      <p className="text-sm text-blue-200 mb-2">👀 <strong>먼저 터미널 경로를 확인하세요!</strong></p>
-                      <p className="text-sm text-blue-200">터미널 왼쪽에 현재 위치가 표시되어 있어요. 이미 프로젝트 폴더에 있다면 이 단계는 건너뛰세요!</p>
+                    <div className="ml-6 mt-2 bg-white/5 p-3 rounded border border-gray-600">
+                      <p className="text-sm text-gray-300 mb-2">👀 <strong>먼저 터미널 경로를 확인하세요!</strong></p>
+                      <p className="text-sm text-gray-300">터미널 왼쪽에 현재 위치가 표시되어 있어요. 이미 프로젝트 폴더에 있다면 이 단계는 건너뛰세요!</p>
                     </div>
                     <div className="ml-6 mt-2">
                       <code className="bg-gray-700 px-2 py-1 rounded">cd [프로젝트 이름]</code>
@@ -821,18 +852,18 @@ export default function Home() {
 
             {/* 웹사이트 만들기 섹션 */}
             <div className="bg-gray-900 rounded-lg p-8 text-center mb-8">
-              <h2 className="text-4xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
+              <h2 className="text-4xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400">
                 🎉 이제 실제로 웹사이트를 만들어봅시다!
               </h2>
               <p className="text-xl mb-6 text-gray-300">지금까지 배운 것들을 활용해서 나만의 웹사이트를 만들어볼 시간이에요!</p>
 
-              <div className="bg-black/50 border border-purple-500/50 rounded-lg p-6 mb-6">
-                <h3 className="text-2xl font-bold mb-4 text-purple-400">💡 5분 브레인스토밍</h3>
+              <div className="bg-black/50 border border-white/30 rounded-lg p-6 mb-6">
+                <h3 className="text-2xl font-bold mb-4 text-white">💡 5분 브레인스토밍</h3>
                 <p className="text-lg mb-4 text-gray-300">어떤 웹사이트를 만들지 고민해보세요!</p>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                  <div className="bg-purple-500/10 border border-purple-500/30 rounded-lg p-4">
-                    <h4 className="font-bold text-purple-400 mb-2">예시 아이디어</h4>
+                  <div className="bg-white/5 border border-white/20 rounded-lg p-4">
+                    <h4 className="font-bold text-white mb-2">예시 아이디어</h4>
                     <ul className="text-sm space-y-1 text-gray-300">
                       <li>• [귀여운] 강아지 사진 갤러리</li>
                       <li>• [여행자를 위한] 맛집 추천 사이트</li>
@@ -841,8 +872,8 @@ export default function Home() {
                     </ul>
                   </div>
 
-                  <div className="bg-pink-500/10 border border-pink-500/30 rounded-lg p-4">
-                    <h4 className="font-bold text-pink-400 mb-2">AI에게 요청하기</h4>
+                  <div className="bg-white/5 border border-white/20 rounded-lg p-4">
+                    <h4 className="font-bold text-gray-300 mb-2">AI에게 요청하기</h4>
                     <p className="text-sm text-gray-300">
                       &quot;귀여운 강아지 사진 갤러리 웹사이트 만들어줘&quot;<br/>
                       &quot;여행자를 위한 맛집 추천 사이트 만들어줘&quot;<br/>
@@ -853,16 +884,16 @@ export default function Home() {
 
                 <Link
                   href="/start"
-                  className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-3 rounded-lg font-bold hover:from-purple-600 hover:to-pink-600 transition-all transform hover:scale-105"
+                  className="inline-flex items-center gap-2 bg-gradient-to-r from-white to-gray-400 text-white px-6 py-3 rounded-lg font-bold hover:from-gray-300 hover:to-gray-500 transition-all transform hover:scale-105"
                 >
                   ⏱️ 5분 타이머 시작하고 아이디어 정하기
                 </Link>
               </div>
 
-              <div className="rounded-lg px-5 py-4 my-4 flex items-start gap-3 border bg-green-500/10 border-green-500/30">
+              <div className="rounded-lg px-5 py-4 my-4 flex items-start gap-3 border bg-white/5 border-white/50/30">
                 <span className="text-xl flex-shrink-0 mt-0.5">🌟</span>
                 <div className="text-left">
-                  <strong className="text-green-400">준비되셨나요?</strong>
+                  <strong className="text-white">준비되셨나요?</strong>
                   <span className="text-gray-300"> 이제 본격적으로 시작해봅시다!<br/>
                   아래 단계를 따라가면서 여러분만의 멋진 웹사이트를 만들어보세요!</span>
                 </div>
@@ -887,18 +918,18 @@ export default function Home() {
             <div className="mb-8">
               <h3 className="text-2xl font-semibold mb-4 text-gray-200">🖼️ AI와 이미지에 대한 중요한 사실</h3>
 
-              <div className="bg-red-900/30 border border-red-400 rounded-lg p-4 mb-4">
+              <div className="bg-white/5 border border-gray-500 rounded-lg p-4 mb-4">
                 <h4 className="font-bold mb-3 text-white">⚠️ 아니요!</h4>
-                <p className="text-red-200 mb-3">AI는 이미지를 직접 찾거나 생성하지 못합니다.</p>
+                <p className="text-gray-300 mb-3">AI는 이미지를 직접 찾거나 생성하지 못합니다.</p>
               </div>
 
-              <div className="bg-yellow-900/50 border border-yellow-600 rounded-lg p-4 mb-4">
+              <div className="bg-white/5 border border-gray-600 rounded-lg p-4 mb-4">
                 <h4 className="font-bold mb-3 text-white">💡 이미지를 웹사이트에 넣는 방법</h4>
 
-                <ol className="list-decimal list-inside space-y-2 text-yellow-200">
+                <ol className="list-decimal list-inside space-y-2 text-gray-300">
                   <li><strong>public 폴더를 만듭니다</strong></li>
                   <li><strong>이미지 파일을 그 폴더에 넣습니다</strong><br/>
-                  <span className="text-sm">예: <code className="bg-yellow-800 px-1 rounded">public/logo.png</code></span></li>
+                  <span className="text-sm">예: <code className="bg-gray-700 px-1 rounded">public/logo.png</code></span></li>
                   <li><strong>AI 채팅에서 이렇게 말합니다:</strong><br/>
                   <span className="text-sm font-mono">&quot;public 폴더에 있는 logo.png를 메인 페이지 상단에 보여줘&quot;</span></li>
                 </ol>
@@ -917,8 +948,8 @@ export default function Home() {
                   </div>
                 </div>
 
-                <div className="mt-3 p-2 bg-yellow-800 rounded border border-yellow-500">
-                  <p className="text-sm text-yellow-100"><strong>💡 핵심 포인트:</strong> 이미지는 직접 준비해야 하고, AI는 그 이미지를 코드로 연결하는 일만 도와줍니다.</p>
+                <div className="mt-3 p-2 bg-gray-700 rounded border border-gray-500">
+                  <p className="text-sm text-gray-200"><strong>💡 핵심 포인트:</strong> 이미지는 직접 준비해야 하고, AI는 그 이미지를 코드로 연결하는 일만 도와줍니다.</p>
                 </div>
               </div>
             </div>
@@ -930,9 +961,9 @@ export default function Home() {
 
               <p className="text-gray-300 mb-4">웹사이트에서 문제가 생겼을 때, 브라우저 개발자 도구를 사용하면 AI가 문제를 더 빠르게 해결할 수 있어요!</p>
 
-              <div className="bg-blue-900/50 border border-blue-400 rounded-lg p-4 mb-4">
+              <div className="bg-white/5 border border-gray-500 rounded-lg p-4 mb-4">
                 <h4 className="font-bold mb-3 text-white">🖱️ 개발자 도구 열기</h4>
-                <p className="text-blue-200 mb-3">웹사이트에서 <strong>마우스 오른쪽 클릭</strong> → <strong>&quot;검사&quot;</strong> 클릭</p>
+                <p className="text-gray-300 mb-3">웹사이트에서 <strong>마우스 오른쪽 클릭</strong> → <strong>&quot;검사&quot;</strong> 클릭</p>
 
                 <div className="mb-4 rounded-lg overflow-hidden border border-gray-600">
                   <Image
@@ -944,7 +975,7 @@ export default function Home() {
                   />
                 </div>
 
-                <p className="text-sm text-blue-300">단축키: Windows (F12 또는 Ctrl+Shift+I) / Mac (Cmd+Opt+I)</p>
+                <p className="text-sm text-gray-400">단축키: Windows (F12 또는 Ctrl+Shift+I) / Mac (Cmd+Opt+I)</p>
               </div>
 
               <div className="bg-gray-800 border border-gray-600 rounded-lg p-4 mb-4 shadow-sm">
@@ -965,25 +996,25 @@ export default function Home() {
                   <li><strong>모바일 아이콘:</strong> 모바일 화면에서 어떻게 보이는지 확인</li>
                 </ul>
 
-                <div className="bg-red-900/30 border border-red-400 rounded-lg p-3">
+                <div className="bg-white/5 border border-gray-500 rounded-lg p-3">
                   <h5 className="font-bold mb-2 text-white">🚨 콘솔 에러가 나타났을 때</h5>
-                  <p className="text-red-200 mb-2">콘솔에 빨간색 에러 메시지가 보이면?</p>
-                  <ol className="list-decimal list-inside space-y-1 text-red-200 text-sm">
+                  <p className="text-gray-300 mb-2">콘솔에 빨간색 에러 메시지가 보이면?</p>
+                  <ol className="list-decimal list-inside space-y-1 text-gray-300 text-sm">
                     <li>에러 메시지를 드래그해서 선택</li>
                     <li>복사 (Ctrl+C 또는 Cmd+C)</li>
                     <li>AI 채팅에 붙여넣고 <strong>&quot;이 에러를 해결해줘&quot;</strong></li>
                   </ol>
                 </div>
 
-                <div className="mt-3 p-2 bg-blue-900/50 rounded border border-blue-600">
-                  <p className="text-sm text-blue-200"><strong>💡 꿀팁:</strong> 개발자 도구를 잘 활용하면 AI가 여러분의 문제를 정확히 이해하고 빠르게 해결할 수 있어요!</p>
+                <div className="mt-3 p-2 bg-white/5 rounded border border-gray-600">
+                  <p className="text-sm text-gray-300"><strong>💡 꿀팁:</strong> 개발자 도구를 잘 활용하면 AI가 여러분의 문제를 정확히 이해하고 빠르게 해결할 수 있어요!</p>
                 </div>
               </div>
             </div>
           </section>
 
           {/* Section 3: 배포 */}
-          <section className="border-t-4 border-purple-500 pt-6">
+          <section className="border-t-4 border-white/50 pt-6">
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-6 flex items-center gap-2 after:content-[''] after:flex-1 after:h-px after:bg-border-color">
               🌐 3부: 배포
             </h2>
@@ -1008,11 +1039,11 @@ export default function Home() {
                 <li><strong>HTTPS URL 복사</strong><br/>https://github.com/[username]/[repo-name].git 형태의 URL 복사</li>
               </ol>
 
-              <div className="bg-gradient-to-r from-blue-500/10 to-cyan-500/10 border-2 border-blue-500/50 rounded-lg p-6 mb-6">
-                <p className="mb-3 text-lg font-semibold text-blue-400 flex items-center gap-2">
+              <div className="bg-gradient-to-r from-white/5 to-gray-500/5 border-2 border-white/30 rounded-lg p-6 mb-6">
+                <p className="mb-3 text-lg font-semibold text-white flex items-center gap-2">
                   <span className="text-2xl">💬</span> Cursor AI 채팅에서 말하기:
                 </p>
-                <div className="bg-white text-black p-5 rounded-lg border-3 border-blue-500 shadow-lg font-mono text-xl font-bold text-center">
+                <div className="bg-white text-black p-5 rounded-lg border-3 border-white/50 shadow-lg font-mono text-xl font-bold text-center">
                   &quot;GitHub 레포지토리 [복사한 URL] 에 연결해줘&quot;
                 </div>
               </div>
@@ -1020,21 +1051,21 @@ export default function Home() {
               <h4 className="font-bold mb-4 text-white text-xl">🚀 그 다음, Vercel로 배포하기</h4>
               <p className="text-text-secondary mb-4">GitHub에 연결했다면, 이제 Vercel로 배포해보세요!</p>
 
-              <div className="bg-gradient-to-r from-success/10 to-primary/10 border-2 border-success/50 rounded-lg p-6 mb-6">
+              <div className="bg-gradient-to-r from-success/10 to-primary/10 border-2 border-white/30 rounded-lg p-6 mb-6">
                 <p className="mb-3 text-lg font-semibold text-success flex items-center gap-2">
                   <span className="text-2xl">💬</span> Cursor AI 채팅에서 말하기:
                 </p>
                 <div className="bg-white text-black p-5 rounded-lg border-3 border-success shadow-lg font-mono text-xl font-bold text-center">
                   &quot;vercel에 로그인하고 배포까지 해줘&quot;
                 </div>
-                <p className="mt-3 text-sm text-green-300">AI가 Vercel CLI를 사용해서 자동으로 배포 프로세스를 진행해줄 거예요!</p>
+                <p className="mt-3 text-sm text-gray-400">AI가 Vercel CLI를 사용해서 자동으로 배포 프로세스를 진행해줄 거예요!</p>
               </div>
 
               {/* 중요 배포 설정 */}
-              <div className="rounded-lg px-5 py-4 my-4 flex items-start gap-3 border bg-red-500/10 border-red-500/30">
+              <div className="rounded-lg px-5 py-4 my-4 flex items-start gap-3 border bg-white/5 border-white/20">
                 <span className="text-xl flex-shrink-0 mt-0.5">🚨</span>
                 <div>
-                  <strong className="text-red-300">중요! Vercel 배포 시 반드시 읽어주세요!</strong><br />
+                  <strong className="text-gray-300">중요! Vercel 배포 시 반드시 읽어주세요!</strong><br />
                   <span className="text-text-secondary">모두가 볼 수 있는 사이트를 만들려면 이 설정이 필요해요</span>
                 </div>
               </div>
@@ -1050,12 +1081,12 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="rounded-lg px-5 py-4 my-4 flex items-start gap-3 border bg-red-500/10 border-red-500/30">
+              <div className="rounded-lg px-5 py-4 my-4 flex items-start gap-3 border bg-white/5 border-white/20">
                 <span className="text-xl flex-shrink-0 mt-0.5">⚠️</span>
                 <div>
-                  <strong className="text-red-300">배포할 때 터미널에서 이런 질문이 나옵니다:</strong><br />
+                  <strong className="text-gray-300">배포할 때 터미널에서 이런 질문이 나옵니다:</strong><br />
                   <code className="font-mono text-sm">Enable Vercel Authentication (y/N)?</code><br />
-                  <strong className="text-red-300">👉 반드시 <code className="bg-red-800 px-1 rounded">n</code> 을 입력하세요!</strong><br />
+                  <strong className="text-gray-300">👉 반드시 <code className="bg-gray-700 px-1 rounded">n</code> 을 입력하세요!</strong><br />
                   <span className="text-sm text-text-secondary">
                   • 그냥 Enter 치면 안돼요! (Enter = N이지만 다른 의미)<br />
                   • 꼭 <strong>n</strong>을 타이핑하고 Enter를 눌러주세요<br />
@@ -1068,9 +1099,9 @@ export default function Home() {
                 <Collapsible title="Q. 실수로 Y를 눌렀다면?">
                   <div className="text-gray-300 space-y-3">
                     <p><strong>걱정하지 마세요! 다시 설정할 수 있어요.</strong></p>
-                    <div className="bg-blue-900/50 p-3 rounded border-l-4 border-blue-400">
-                      <p className="text-blue-200 text-sm"><strong>해결 방법:</strong></p>
-                      <ol className="list-decimal list-inside mt-2 space-y-1 text-sm text-blue-200">
+                    <div className="bg-white/5 p-3 rounded border-l-4 border-gray-500">
+                      <p className="text-gray-300 text-sm"><strong>해결 방법:</strong></p>
+                      <ol className="list-decimal list-inside mt-2 space-y-1 text-sm text-gray-300">
                         <li>Vercel 대시보드로 이동</li>
                         <li>프로젝트 설정에서 &quot;Password Protection&quot; 비활성화</li>
                         <li>또는 새 프로젝트로 다시 배포</li>
@@ -1179,15 +1210,15 @@ export default function Home() {
             <div className="bg-bg-card border border-border-color rounded-xl p-8 mb-6 transition-all duration-200 hover:bg-bg-card-hover hover:border-[#333333] hover:-translate-y-0.5">
               <p className="text-text-secondary mb-6">GitHub에 푸시할 때마다 자동으로 배포되도록 설정하면 편리합니다!</p>
 
-              <div className="bg-gradient-to-r from-success/10 to-blue-500/10 border-2 border-success/50 rounded-lg p-6">
-                <ol className="list-decimal list-inside space-y-3 text-green-200">
+              <div className="bg-gradient-to-r from-white/5 to-gray-500/5 border-2 border-white/30 rounded-lg p-6">
+                <ol className="list-decimal list-inside space-y-3 text-gray-300">
                   <li><strong>Vercel 대시보드에서 프로젝트 선택</strong></li>
                   <li><strong>Settings → Git → Deploy Hooks 설정</strong></li>
                   <li><strong>이제 git push만 하면 자동 배포!</strong></li>
                 </ol>
 
-                <div className="mt-6 p-4 bg-green-900/50 rounded border border-green-600">
-                  <p className="text-sm text-green-100"><strong>💡 꿀팁:</strong> 이제부터는 코드를 수정하고 &quot;커밋, 푸쉬, 배포해줘&quot;라고 말하면 자동으로 웹사이트가 업데이트돼요!</p>
+                <div className="mt-6 p-4 bg-white/5 rounded border border-gray-600">
+                  <p className="text-sm text-gray-200"><strong>💡 꿀팁:</strong> 이제부터는 코드를 수정하고 &quot;커밋, 푸쉬, 배포해줘&quot;라고 말하면 자동으로 웹사이트가 업데이트돼요!</p>
                 </div>
               </div>
             </div>
@@ -1196,11 +1227,11 @@ export default function Home() {
             <div className="bg-bg-card border border-border-color rounded-xl p-8 mb-6 transition-all duration-200 hover:bg-bg-card-hover hover:border-[#333333] hover:-translate-y-0.5">
               <p className="text-text-secondary mb-6">다른 컴퓨터에서 작업하거나, 팀원이 수정한 내용을 가져올 때 사용해요.</p>
 
-              <div className="bg-gradient-to-r from-cyan-500/10 to-blue-500/10 border-2 border-cyan-500/50 rounded-lg p-6">
-                <p className="mb-3 text-lg font-semibold text-cyan-400 flex items-center gap-2">
+              <div className="bg-gradient-to-r from-white/5 to-gray-500/5 border-2 border-white/30 rounded-lg p-6">
+                <p className="mb-3 text-lg font-semibold text-white flex items-center gap-2">
                   <span className="text-2xl">💬</span> Cursor AI 채팅에서 말하기:
                 </p>
-                <div className="bg-white text-black p-5 rounded-lg border-3 border-cyan-500 shadow-lg font-mono text-xl font-bold text-center">
+                <div className="bg-white text-black p-5 rounded-lg border-3 border-white/50 shadow-lg font-mono text-xl font-bold text-center">
                   &quot;풀(pull) 해줘&quot; 또는 &quot;최신 코드 가져와줘&quot;
                 </div>
               </div>
@@ -1218,8 +1249,8 @@ export default function Home() {
                       GitHub 웹사이트에서 직접 파일을 수정한 경우</li>
                     </ul>
                   </div>
-                  <div className="bg-blue-900/50 p-3 rounded border-l-4 border-blue-400">
-                    <p className="text-blue-200 text-sm"><strong>💡 기억하세요:</strong> Push는 올리기, Pull은 가져오기!</p>
+                  <div className="bg-white/5 p-3 rounded border-l-4 border-gray-500">
+                    <p className="text-gray-300 text-sm"><strong>💡 기억하세요:</strong> Push는 올리기, Pull은 가져오기!</p>
                   </div>
                 </div>
               </Collapsible>
@@ -1230,7 +1261,7 @@ export default function Home() {
               <h3 className="text-2xl font-semibold mb-4 text-gray-200">🌐 도메인 이름 바꾸기 (선택사항)</h3>
               <p className="text-gray-300 mb-4">기본 주소가 너무 길다고요? Vercel에서 더 짧고 예쁜 주소로 바꿀 수 있어요!</p>
 
-              <div className="bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-600 rounded-lg p-4 mb-4">
+              <div className="bg-gradient-to-r from-white/5 to-gray-500/5 border border-gray-600 rounded-lg p-4 mb-4">
                 <div className="mb-4 rounded-lg overflow-hidden border border-gray-600">
                   <Image
                     src="/images/domain.png"
@@ -1241,19 +1272,19 @@ export default function Home() {
                   />
                 </div>
 
-                <ol className="list-decimal list-inside space-y-2 text-purple-200">
+                <ol className="list-decimal list-inside space-y-2 text-gray-300">
                   <li><strong>Vercel 대시보드 접속</strong><br/>
-                  <span className="text-sm text-purple-300">vercel.com에 로그인 → 여러분의 프로젝트 클릭</span></li>
+                  <span className="text-sm text-gray-400">vercel.com에 로그인 → 여러분의 프로젝트 클릭</span></li>
                   <li><strong>Settings → Domains 메뉴로 이동</strong><br/>
-                  <span className="text-sm text-purple-300">프로젝트 설정에서 도메인 관리 페이지로 들어가요</span></li>
+                  <span className="text-sm text-gray-400">프로젝트 설정에서 도메인 관리 페이지로 들어가요</span></li>
                   <li><strong>원하는 이름 입력하고 Add 클릭</strong><br/>
-                  <span className="text-sm text-purple-300">예: my-awesome-site.vercel.app → coolsite.vercel.app</span></li>
+                  <span className="text-sm text-gray-400">예: my-awesome-site.vercel.app → coolsite.vercel.app</span></li>
                 </ol>
               </div>
 
-              <div className="bg-purple-900/50 rounded-lg p-4 text-center border border-purple-600">
-                <h4 className="font-bold text-purple-200 mb-2">🌟 축하합니다!</h4>
-                <p className="text-purple-200">이제 더 멋진 주소로 여러분의 웹사이트를 공유할 수 있어요!<br/>
+              <div className="bg-white/5 rounded-lg p-4 text-center border border-gray-600">
+                <h4 className="font-bold text-gray-300 mb-2">🌟 축하합니다!</h4>
+                <p className="text-gray-300">이제 더 멋진 주소로 여러분의 웹사이트를 공유할 수 있어요!<br/>
                 친구들에게 자랑해보세요! 🎊</p>
               </div>
             </div>

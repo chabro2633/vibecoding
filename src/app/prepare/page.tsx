@@ -28,7 +28,7 @@ export default function PreparePage() {
       <main className="max-w-4xl mx-auto px-4 py-8">
         {/* Back Link */}
         <div className="mb-6">
-          <Link href="/" className="text-blue-400 hover:text-blue-300 transition-colors">
+          <Link href="/" className="text-gray-300 hover:text-white transition-colors">
             ← 메인으로 돌아가기
           </Link>
         </div>
@@ -37,7 +37,7 @@ export default function PreparePage() {
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold mb-4 text-white">바이브 코딩 사전 준비</h1>
           <p className="text-xl text-gray-300 mb-2">원활한 세션을 위해 미리 준비해주세요</p>
-          <div className="inline-block bg-orange-600 text-white px-4 py-2 rounded-full mt-4">
+          <div className="inline-block bg-white text-black px-4 py-2 rounded-full mt-4">
             ⏱️ 예상 소요시간: 약 15분
           </div>
         </div>
@@ -50,7 +50,7 @@ export default function PreparePage() {
             {/* 1. Cursor 설치 */}
             <div className="bg-gray-800 border border-gray-600 rounded-lg p-6">
               <div className="flex items-start space-x-4">
-                <div className="flex-shrink-0 w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center font-bold text-xl">
+                <div className="flex-shrink-0 w-10 h-10 bg-white rounded-full flex items-center justify-center font-bold text-xl">
                   1
                 </div>
                 <div className="flex-1">
@@ -61,13 +61,13 @@ export default function PreparePage() {
                     href="https://cursor.sh"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium"
+                    className="inline-block bg-white text-black px-6 py-3 rounded-lg hover:bg-gray-200 transition-colors font-medium"
                   >
                     🔗 cursor.sh에서 다운로드
                   </a>
 
-                  <div className="mt-4 p-3 bg-blue-900/50 rounded border-l-4 border-blue-400">
-                    <p className="text-sm text-blue-200">⏱️ 소요시간: 약 5분</p>
+                  <div className="mt-4 p-3 bg-white/5 rounded border-l-4 border-gray-500">
+                    <p className="text-sm text-gray-300">⏱️ 소요시간: 약 5분</p>
                   </div>
                 </div>
               </div>
@@ -76,20 +76,20 @@ export default function PreparePage() {
             {/* 2. Cursor Pro 구독 */}
             <div className="bg-gray-800 border border-gray-600 rounded-lg p-6">
               <div className="flex items-start space-x-4">
-                <div className="flex-shrink-0 w-10 h-10 bg-purple-600 rounded-full flex items-center justify-center font-bold text-xl">
+                <div className="flex-shrink-0 w-10 h-10 bg-gray-600 rounded-full flex items-center justify-center font-bold text-xl">
                   2
                 </div>
                 <div className="flex-1">
                   <h3 className="text-2xl font-bold mb-3 text-white">Cursor Pro 구독</h3>
                   <p className="text-gray-300 mb-4">AI 기능을 최대한 활용하기 위해 Pro 구독이 필요합니다.</p>
 
-                  <div className="bg-purple-900/50 border border-purple-600 rounded-lg p-4 mb-4">
-                    <p className="text-purple-200 font-medium mb-2">💳 법인카드 등록 후 14일 무료체험 가능!</p>
-                    <p className="text-purple-300 text-sm">무료 체험 기간 내 취소하면 비용이 청구되지 않습니다.</p>
+                  <div className="bg-white/5 border border-gray-600 rounded-lg p-4 mb-4">
+                    <p className="text-gray-300 font-medium mb-2">💳 법인카드 등록 후 14일 무료체험 가능!</p>
+                    <p className="text-gray-400 text-sm">무료 체험 기간 내 취소하면 비용이 청구되지 않습니다.</p>
                   </div>
 
-                  <div className="bg-yellow-900/50 border-l-4 border-yellow-600 p-3">
-                    <p className="text-yellow-200 text-sm">
+                  <div className="bg-white/5 border-l-4 border-gray-600 p-3">
+                    <p className="text-gray-300 text-sm">
                       <strong>결제 옵션:</strong> 비즈플레이 교육훈련비-일반
                     </p>
                   </div>
@@ -100,7 +100,7 @@ export default function PreparePage() {
             {/* 3. GitHub 가입 */}
             <div className="bg-gray-800 border border-gray-600 rounded-lg p-6">
               <div className="flex items-start space-x-4">
-                <div className="flex-shrink-0 w-10 h-10 bg-green-600 rounded-full flex items-center justify-center font-bold text-xl">
+                <div className="flex-shrink-0 w-10 h-10 bg-white rounded-full flex items-center justify-center font-bold text-xl">
                   3
                 </div>
                 <div className="flex-1">
@@ -111,13 +111,13 @@ export default function PreparePage() {
                     href="https://github.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-block bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors font-medium"
+                    className="inline-block bg-white text-black px-6 py-3 rounded-lg hover:bg-gray-200 transition-colors font-medium"
                   >
                     🔗 github.com에서 가입
                   </a>
 
-                  <div className="mt-4 p-3 bg-red-900/30 rounded border-l-4 border-red-400">
-                    <p className="text-sm text-red-200">
+                  <div className="mt-4 p-3 bg-white/5 rounded border-l-4 border-gray-500">
+                    <p className="text-sm text-gray-300">
                       <strong>⚠️ 주의:</strong> 개인 이메일 사용을 권장합니다
                     </p>
                   </div>
@@ -128,7 +128,7 @@ export default function PreparePage() {
             {/* 4. Vercel 가입 */}
             <div className="bg-gray-800 border border-gray-600 rounded-lg p-6">
               <div className="flex items-start space-x-4">
-                <div className="flex-shrink-0 w-10 h-10 bg-orange-600 rounded-full flex items-center justify-center font-bold text-xl">
+                <div className="flex-shrink-0 w-10 h-10 bg-white rounded-full flex items-center justify-center font-bold text-xl">
                   4
                 </div>
                 <div className="flex-1">
@@ -139,13 +139,13 @@ export default function PreparePage() {
                     href="https://vercel.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-block bg-orange-600 text-white px-6 py-3 rounded-lg hover:bg-orange-700 transition-colors font-medium"
+                    className="inline-block bg-white text-black px-6 py-3 rounded-lg hover:bg-gray-200 transition-colors font-medium"
                   >
                     🔗 vercel.com에서 가입
                   </a>
 
-                  <div className="mt-4 p-3 bg-blue-900/50 rounded border-l-4 border-blue-400">
-                    <p className="text-sm text-blue-200">
+                  <div className="mt-4 p-3 bg-white/5 rounded border-l-4 border-gray-500">
+                    <p className="text-sm text-gray-300">
                       💡 <strong>권장:</strong> GitHub 계정으로 로그인하면 연동이 쉬워집니다
                     </p>
                   </div>
@@ -164,7 +164,7 @@ export default function PreparePage() {
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
-                    이름 <span className="text-red-400">*</span>
+                    이름 <span className="text-gray-400">*</span>
                   </label>
                   <input
                     type="text"
@@ -172,7 +172,7 @@ export default function PreparePage() {
                     required
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent"
                     placeholder="홍길동"
                   />
                 </div>
@@ -186,14 +186,14 @@ export default function PreparePage() {
                     value={feedback}
                     onChange={(e) => setFeedback(e.target.value)}
                     rows={4}
-                    className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent"
                     placeholder="궁금한 점이나 의견을 자유롭게 작성해주세요"
                   />
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full bg-green-600 text-white px-6 py-4 rounded-lg hover:bg-green-700 transition-colors font-bold text-lg"
+                  className="w-full bg-white text-black px-6 py-4 rounded-lg hover:bg-gray-200 transition-colors font-bold text-lg"
                 >
                   ✅ 준비 완료!
                 </button>
@@ -205,7 +205,7 @@ export default function PreparePage() {
                 <p className="text-gray-300 mb-6">{name}님, 준비가 완료되었습니다.</p>
                 <Link
                   href="/"
-                  className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium"
+                  className="inline-block bg-white text-black px-6 py-3 rounded-lg hover:bg-gray-200 transition-colors font-medium"
                 >
                   메인으로 돌아가기
                 </Link>
@@ -219,24 +219,24 @@ export default function PreparePage() {
           <h2 className="text-2xl font-bold mb-6 text-white">💡 유용한 팁</h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="bg-blue-900/30 border border-blue-600 rounded-lg p-4">
-              <h3 className="font-bold text-blue-200 mb-2">👤 개인 계정 사용</h3>
-              <p className="text-blue-300 text-sm">GitHub와 Vercel은 개인 계정으로 가입하는 것을 권장합니다.</p>
+            <div className="bg-white/5 border border-gray-600 rounded-lg p-4">
+              <h3 className="font-bold text-gray-300 mb-2">👤 개인 계정 사용</h3>
+              <p className="text-gray-400 text-sm">GitHub와 Vercel은 개인 계정으로 가입하는 것을 권장합니다.</p>
             </div>
 
-            <div className="bg-purple-900/30 border border-purple-600 rounded-lg p-4">
-              <h3 className="font-bold text-purple-200 mb-2">🎁 Cursor Pro 무료체험</h3>
-              <p className="text-purple-300 text-sm">14일 무료체험 기간 동안 모든 기능을 사용해보세요.</p>
+            <div className="bg-white/5 border border-gray-600 rounded-lg p-4">
+              <h3 className="font-bold text-gray-300 mb-2">🎁 Cursor Pro 무료체험</h3>
+              <p className="text-gray-400 text-sm">14일 무료체험 기간 동안 모든 기능을 사용해보세요.</p>
             </div>
 
-            <div className="bg-green-900/30 border border-green-600 rounded-lg p-4">
-              <h3 className="font-bold text-green-200 mb-2">🔗 GitHub-Vercel 연결</h3>
-              <p className="text-green-300 text-sm">Vercel 가입 시 GitHub 계정으로 로그인하면 연동이 자동으로 됩니다.</p>
+            <div className="bg-white/5 border border-gray-600 rounded-lg p-4">
+              <h3 className="font-bold text-gray-300 mb-2">🔗 GitHub-Vercel 연결</h3>
+              <p className="text-gray-400 text-sm">Vercel 가입 시 GitHub 계정으로 로그인하면 연동이 자동으로 됩니다.</p>
             </div>
 
-            <div className="bg-orange-900/30 border border-orange-600 rounded-lg p-4">
-              <h3 className="font-bold text-orange-200 mb-2">❓ 문제 발생 시</h3>
-              <p className="text-orange-300 text-sm">준비 과정에서 문제가 발생하면 언제든지 문의해주세요.</p>
+            <div className="bg-white/5 border border-gray-600 rounded-lg p-4">
+              <h3 className="font-bold text-gray-300 mb-2">❓ 문제 발생 시</h3>
+              <p className="text-gray-400 text-sm">준비 과정에서 문제가 발생하면 언제든지 문의해주세요.</p>
             </div>
           </div>
         </div>
@@ -246,7 +246,7 @@ export default function PreparePage() {
           <p className="text-gray-400 mb-4">준비 과정에서 도움이 필요하신가요?</p>
           <Link
             href="/"
-            className="text-blue-400 hover:text-blue-300 underline"
+            className="text-gray-300 hover:text-white underline"
           >
             문의하기
           </Link>

@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import HTMLEditor from '../components/HTMLEditor';
+import SectionEditor from '../components/SectionEditor';
 
 interface SubmissionData {
   id: string;
@@ -17,7 +18,7 @@ const AdminPage = () => {
   const [password, setPassword] = useState('');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [sortBy, setSortBy] = useState<'newest' | 'oldest'>('newest');
-  const [activeTab, setActiveTab] = useState<'submissions' | 'html-editor'>('submissions');
+  const [activeTab, setActiveTab] = useState<'submissions' | 'html-editor' | 'section-editor'>('submissions');
 
   // 간단한 비밀번호 인증 (실제 운영에서는 더 안전한 인증 시스템 필요)
   const adminPassword = 'chabro2024';
@@ -163,6 +164,16 @@ const AdminPage = () => {
               >
                 📝 HTML 에디터
               </button>
+              <button
+                onClick={() => setActiveTab('section-editor')}
+                className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                  activeTab === 'section-editor'
+                    ? 'bg-blue-600 text-white'
+                    : 'text-gray-400 hover:text-white hover:bg-gray-700'
+                }`}
+              >
+                🎨 섹션 편집기
+              </button>
             </div>
           </div>
           <div className="flex items-center space-x-4">
@@ -186,18 +197,35 @@ const AdminPage = () => {
           <div className="flex items-center space-x-2">
             <div className="text-blue-400">ℹ️</div>
             <p className="text-blue-200 text-sm">
-              <strong>저장 방식:</strong> {activeTab === 'submissions' ? '메모리 기반 저장 (서버 재시작 시 데이터 초기화됨)' : '파일 기반 저장 (public/generated/index.html)'}
+              <strong>저장 방식:</strong> {
+                activeTab === 'submissions'
+                  ? '메모리 기반 저장 (서버 재시작 시 데이터 초기화됨)'
+                  : activeTab === 'section-editor'
+                    ? '파일 기반 저장 (public/content/sections.json)'
+                    : '파일 기반 저장 (public/generated/index.html)'
+              }
             </p>
           </div>
         </div>
 
-        {/* HTML 에디터 (임시로 항상 표시) */}
-        <div className="mb-6">
-          <HTMLEditor
-            onSave={handleHtmlSave}
-            onLoad={handleHtmlLoad}
-          />
-        </div>
+        {/* 섹션 편집기 탭 */}
+        {activeTab === 'section-editor' && (
+          <div className="space-y-6">
+            <SectionEditor />
+
+            {/* 도움말 */}
+            <div className="bg-gray-800 border border-gray-600 rounded-lg p-6">
+              <h3 className="text-lg font-bold mb-4">💡 사용 방법</h3>
+              <ul className="space-y-2 text-gray-300 text-sm">
+                <li>• 상단 드롭다운에서 편집할 섹션을 선택하세요</li>
+                <li>• 텍스트를 수정하면 미리보기가 실시간으로 업데이트됩니다</li>
+                <li>• Cursor 가이드 섹션에서는 이미지도 변경할 수 있습니다</li>
+                <li>• 저장 버튼을 클릭하면 메인 페이지에 즉시 반영됩니다</li>
+                <li>• 되돌리기 버튼으로 마지막 저장 상태로 복원할 수 있습니다</li>
+              </ul>
+            </div>
+          </div>
+        )}
 
         {/* HTML 에디터 탭 */}
         {activeTab === 'html-editor' && (
