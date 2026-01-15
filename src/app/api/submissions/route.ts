@@ -1,27 +1,24 @@
 import { NextRequest, NextResponse } from 'next/server';
-import fs from 'fs';
-import path from 'path';
 
-const DATA_FILE = path.join(process.cwd(), 'data', 'submissions.json');
-
-// 데이터 파일 경로 확인 및 생성
-function ensureDataFile() {
-  const dir = path.dirname(DATA_FILE);
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir, { recursive: true });
-  }
-  if (!fs.existsSync(DATA_FILE)) {
-    fs.writeFileSync(DATA_FILE, JSON.stringify([]));
-  }
-}
+const JSONBIN_API_KEY = process.env.JSONBIN_API_KEY || '$2a$10$7hXfsxlTbemvEDUOw6DVUexOKrI8GHassxoXtMQ/pVRedgevE3WAS';
+const JSONBIN_BIN_ID = process.env.JSONBIN_BIN_ID || '6968e473ae596e708fde2cee';
+const JSONBIN_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`;
 
 // GET: 제출 목록 조회
 export async function GET() {
   try {
-    ensureDataFile();
-    const data = fs.readFileSync(DATA_FILE, 'utf-8');
-    const submissions = JSON.parse(data);
-    return NextResponse.json(submissions);
+    const response = await fetch(`${JSONBIN_URL}/latest`, {
+      headers: {
+        'X-Master-Key': JSONBIN_API_KEY,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch from JSONBin');
+    }
+
+    const data = await response.json();
+    return NextResponse.json(data.record.submissions || []);
   } catch (error) {
     console.error('Error reading submissions:', error);
     return NextResponse.json([]);
@@ -31,7 +28,6 @@ export async function GET() {
 // POST: 새 제출 저장
 export async function POST(request: NextRequest) {
   try {
-    ensureDataFile();
     const body = await request.json();
     const { name, feedback } = body;
 
@@ -39,9 +35,20 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: '이름은 필수입니다.' }, { status: 400 });
     }
 
-    const data = fs.readFileSync(DATA_FILE, 'utf-8');
-    const submissions = JSON.parse(data);
+    // 기존 데이터 조회
+    const getResponse = await fetch(`${JSONBIN_URL}/latest`, {
+      headers: {
+        'X-Master-Key': JSONBIN_API_KEY,
+      },
+    });
 
+    let submissions = [];
+    if (getResponse.ok) {
+      const data = await getResponse.json();
+      submissions = data.record.submissions || [];
+    }
+
+    // 새 제출 추가
     const newSubmission = {
       id: Date.now(),
       name,
@@ -50,7 +57,20 @@ export async function POST(request: NextRequest) {
     };
 
     submissions.unshift(newSubmission);
-    fs.writeFileSync(DATA_FILE, JSON.stringify(submissions, null, 2));
+
+    // JSONBin 업데이트
+    const updateResponse = await fetch(JSONBIN_URL, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Master-Key': JSONBIN_API_KEY,
+      },
+      body: JSON.stringify({ submissions }),
+    });
+
+    if (!updateResponse.ok) {
+      throw new Error('Failed to update JSONBin');
+    }
 
     return NextResponse.json(newSubmission, { status: 201 });
   } catch (error) {
