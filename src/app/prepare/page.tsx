@@ -7,10 +7,29 @@ export default function PreparePage() {
   const [name, setName] = useState('');
   const [feedback, setFeedback] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch('/api/submissions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, feedback }),
+      });
+
+      if (response.ok) {
+        setSubmitted(true);
+      }
+    } catch (error) {
+      console.error('제출 오류:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -193,9 +212,10 @@ export default function PreparePage() {
 
                 <button
                   type="submit"
-                  className="w-full bg-blue-500 text-white px-6 py-4 rounded-lg hover:bg-blue-600 transition-colors font-bold text-lg"
+                  disabled={isSubmitting}
+                  className="w-full bg-blue-500 text-white px-6 py-4 rounded-lg hover:bg-blue-600 transition-colors font-bold text-lg disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  ✅ 준비 완료!
+                  {isSubmitting ? '제출 중...' : '✅ 준비 완료!'}
                 </button>
               </form>
             ) : (
