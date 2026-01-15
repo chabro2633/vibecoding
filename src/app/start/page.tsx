@@ -97,21 +97,6 @@ export default function StartPage() {
           <div className="h-1 flex-1 bg-gradient-to-r from-purple-500 via-green-500 to-transparent rounded"></div>
         </div>
 
-        {/* Windows Users Notice */}
-        <div className="bg-blue-500/10 border border-blue-500/30 rounded-2xl p-6 backdrop-blur-sm">
-          <div className="flex items-start gap-3">
-            <span className="text-3xl flex-shrink-0">💻</span>
-            <div className="text-left">
-              <p className="text-xl font-bold text-blue-400 mb-2">
-                Windows 사용자분들은 한 곳에 모여 앉아주세요
-              </p>
-              <p className="text-gray-400">
-                (일부 과정이 다르기 때문입니다)
-              </p>
-            </div>
-          </div>
-        </div>
-
         {/* Start Button */}
         <div className="pt-8">
           {!timerStarted ? (

@@ -107,11 +107,6 @@ export default function PreparePage() {
                     <p className="text-gray-400 text-sm">무료 체험 기간 내 취소하면 비용이 청구되지 않습니다.</p>
                   </div>
 
-                  <div className="bg-blue-900/20 border-l-4 border-blue-500/50 p-3">
-                    <p className="text-gray-300 text-sm">
-                      <strong>결제 옵션:</strong> 비즈플레이 교육훈련비-일반
-                    </p>
-                  </div>
                 </div>
               </div>
             </div>
