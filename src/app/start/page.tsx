@@ -1,11 +1,80 @@
 'use client'
 
 import Link from "next/link";
+import { useState, useEffect, useCallback } from "react";
 
 export default function StartPage() {
+  const [timerStarted, setTimerStarted] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(5 * 60); // 5분 = 300초
+  const [isFinished, setIsFinished] = useState(false);
+
+  useEffect(() => {
+    if (!timerStarted || timeLeft <= 0) {
+      if (timeLeft <= 0 && timerStarted) {
+        setIsFinished(true);
+      }
+      return;
+    }
+
+    const interval = setInterval(() => {
+      setTimeLeft((prev) => prev - 1);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [timerStarted, timeLeft]);
+
+  const formatTime = useCallback((seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  }, []);
+
+  const handleStart = () => {
+    setTimerStarted(true);
+  };
+
+  const resetTimer = () => {
+    setTimerStarted(false);
+    setTimeLeft(5 * 60);
+    setIsFinished(false);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 via-black to-gray-900 text-white flex items-center justify-center p-4">
       <div className="max-w-4xl w-full text-center space-y-8">
+        {/* Timer Display */}
+        {timerStarted && (
+          <div className={`fixed top-8 left-1/2 transform -translate-x-1/2 z-50 ${isFinished ? 'animate-pulse' : ''}`}>
+            <div className={`px-8 py-4 rounded-2xl backdrop-blur-md ${
+              isFinished
+                ? 'bg-red-500/30 border-2 border-red-500'
+                : timeLeft <= 60
+                  ? 'bg-yellow-500/30 border-2 border-yellow-500'
+                  : 'bg-blue-500/30 border-2 border-blue-500'
+            }`}>
+              <p className="text-sm text-gray-300 mb-1">남은 시간</p>
+              <p className={`text-5xl font-bold font-mono ${
+                isFinished
+                  ? 'text-red-400'
+                  : timeLeft <= 60
+                    ? 'text-yellow-400'
+                    : 'text-blue-400'
+              }`}>
+                {formatTime(timeLeft)}
+              </p>
+              {isFinished && (
+                <p className="text-red-400 font-bold mt-2 animate-bounce">⏰ 시간 종료!</p>
+              )}
+              <button
+                onClick={resetTimer}
+                className="mt-3 text-sm text-gray-400 hover:text-white underline"
+              >
+                타이머 리셋
+              </button>
+            </div>
+          </div>
+        )}
+
         {/* Main Title with Gradient */}
         <div className="space-y-4">
           <h1 className="text-6xl md:text-[10rem] font-bold mb-4">
@@ -45,12 +114,21 @@ export default function StartPage() {
 
         {/* Start Button */}
         <div className="pt-8">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-3 bg-gradient-to-r from-blue-500 to-green-500 text-white px-10 py-5 rounded-2xl font-bold text-2xl hover:from-blue-600 hover:to-green-600 transition-all transform hover:scale-105 shadow-3xl"
-          >
-            🎯 시작하기
-          </Link>
+          {!timerStarted ? (
+            <button
+              onClick={handleStart}
+              className="inline-flex items-center gap-3 bg-gradient-to-r from-blue-500 to-green-500 text-white px-10 py-5 rounded-2xl font-bold text-2xl hover:from-blue-600 hover:to-green-600 transition-all transform hover:scale-105 shadow-3xl"
+            >
+              🎯 시작하기 (5분 타이머)
+            </button>
+          ) : (
+            <Link
+              href="/"
+              className="inline-flex items-center gap-3 bg-gradient-to-r from-green-500 to-blue-500 text-white px-10 py-5 rounded-2xl font-bold text-2xl hover:from-green-600 hover:to-blue-600 transition-all transform hover:scale-105 shadow-3xl"
+            >
+              📖 가이드 보러가기
+            </Link>
+          )}
         </div>
 
         {/* Animated Dots */}

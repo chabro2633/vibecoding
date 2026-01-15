@@ -38,7 +38,7 @@ export default function PreparePage() {
       <header className="border-b border-blue-900 py-4">
         <div className="max-w-6xl mx-auto px-4 flex items-center justify-between">
           <div className="flex items-center space-x-4">
-            <span className="text-2xl font-bold text-white">VIBEPICK</span>
+            <span className="text-2xl font-bold text-white">chabro</span>
           </div>
         </div>
       </header>
@@ -276,7 +276,7 @@ export default function PreparePage() {
       {/* Footer */}
       <footer className="border-t border-blue-900 py-8 mt-12">
         <div className="max-w-6xl mx-auto px-4 text-center">
-          <p className="text-gray-400">© 2024 VIBEPICK. All rights reserved.</p>
+          <p className="text-gray-400">© 2024 chabro. All rights reserved.</p>
         </div>
       </footer>
     </div>

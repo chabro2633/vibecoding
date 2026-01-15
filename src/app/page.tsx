@@ -137,9 +137,9 @@ const FAQToggle = ({ question, children }: {
 // 기본 콘텐츠 데이터
 const defaultContent: ContentData = {
   hero: {
-    logoName: "VIBEPICK",
+    logoName: "chabro",
     title: "바이브 코딩",
-    slogan: "바이브픽의 모든 사람이 상상을 현실로 만들 수 있게",
+    slogan: "모든 사람이 상상을 현실로 만들 수 있게",
     subtitle: "AI와 함께하는 창의적인 개발 여정",
     tags: [
       { icon: "📋", text: "1부: 개발 환경 세팅", color: "primary" },
@@ -260,34 +260,74 @@ export default function Home() {
                 <div className="flex items-center justify-between relative">
                   <div className="absolute top-1/2 left-8 right-8 h-0.5 bg-gradient-to-r from-primary/20 via-primary/50 to-success/20 -z-10"></div>
 
-                  {content.journey.steps.map((step, index) => (
-                    <div key={index} className="relative flex flex-col items-center px-1 lg:px-2">
-                      <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-gradient-to-br from-primary to-primary-light rounded-full flex items-center justify-center text-lg sm:text-xl lg:text-2xl mb-2 shadow-lg hover:scale-110 transition-transform">{step.icon}</div>
-                      <div className="text-center">
-                        <h4 className="font-bold text-primary text-xs sm:text-sm">{step.title}</h4>
-                        <p className="text-xs text-success font-semibold">{step.time}</p>
-                        <p className="text-xs text-text-secondary mt-1 max-w-[80px] sm:max-w-[100px] lg:max-w-[120px]">{step.description}</p>
+                  {content.journey.steps.map((step, index) => {
+                    const anchorLinks: Record<number, string> = {
+                      0: '#prepare',      // 준비 → 사전 준비사항
+                      1: '#cursor',       // 환경설정 → 1부 개발환경 세팅
+                      2: '#part2',        // 프로젝트 생성 → 2부 프로젝트 준비
+                      3: '#part3',        // Git 연동 → 3부 배포
+                    };
+                    const href = anchorLinks[index];
+
+                    return href ? (
+                      <a key={index} href={href} className="relative flex flex-col items-center px-1 lg:px-2 cursor-pointer group">
+                        <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-gradient-to-br from-primary to-primary-light rounded-full flex items-center justify-center text-lg sm:text-xl lg:text-2xl mb-2 shadow-lg group-hover:scale-110 transition-transform">{step.icon}</div>
+                        <div className="text-center">
+                          <h4 className="font-bold text-primary text-xs sm:text-sm group-hover:underline">{step.title}</h4>
+                          <p className="text-xs text-success font-semibold">{step.time}</p>
+                          <p className="text-xs text-text-secondary mt-1 max-w-[80px] sm:max-w-[100px] lg:max-w-[120px]">{step.description}</p>
+                        </div>
+                      </a>
+                    ) : (
+                      <div key={index} className="relative flex flex-col items-center px-1 lg:px-2">
+                        <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-gradient-to-br from-primary to-primary-light rounded-full flex items-center justify-center text-lg sm:text-xl lg:text-2xl mb-2 shadow-lg hover:scale-110 transition-transform">{step.icon}</div>
+                        <div className="text-center">
+                          <h4 className="font-bold text-primary text-xs sm:text-sm">{step.title}</h4>
+                          <p className="text-xs text-success font-semibold">{step.time}</p>
+                          <p className="text-xs text-text-secondary mt-1 max-w-[80px] sm:max-w-[100px] lg:max-w-[120px]">{step.description}</p>
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
 
               {/* Mobile View */}
               <div className="sm:hidden">
                 <div className="space-y-3">
-                  {content.journey.steps.map((step, index) => (
-                    <div key={index} className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-gradient-to-br from-primary to-primary-light rounded-full flex items-center justify-center text-lg flex-shrink-0">{step.icon}</div>
-                      <div className="flex-1">
-                        <div className="flex items-baseline gap-2">
-                          <h4 className="font-bold text-primary text-sm">{step.title}</h4>
-                          <p className="text-xs text-success font-semibold">{step.time}</p>
+                  {content.journey.steps.map((step, index) => {
+                    const anchorLinks: Record<number, string> = {
+                      0: '#prepare',
+                      1: '#cursor',
+                      2: '#part2',
+                      3: '#part3',
+                    };
+                    const href = anchorLinks[index];
+
+                    return href ? (
+                      <a key={index} href={href} className="flex items-center gap-3 group">
+                        <div className="w-10 h-10 bg-gradient-to-br from-primary to-primary-light rounded-full flex items-center justify-center text-lg flex-shrink-0 group-hover:scale-110 transition-transform">{step.icon}</div>
+                        <div className="flex-1">
+                          <div className="flex items-baseline gap-2">
+                            <h4 className="font-bold text-primary text-sm group-hover:underline">{step.title}</h4>
+                            <p className="text-xs text-success font-semibold">{step.time}</p>
+                          </div>
+                          <p className="text-xs text-text-secondary">{step.description}</p>
                         </div>
-                        <p className="text-xs text-text-secondary">{step.description}</p>
+                      </a>
+                    ) : (
+                      <div key={index} className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-gradient-to-br from-primary to-primary-light rounded-full flex items-center justify-center text-lg flex-shrink-0">{step.icon}</div>
+                        <div className="flex-1">
+                          <div className="flex items-baseline gap-2">
+                            <h4 className="font-bold text-primary text-sm">{step.title}</h4>
+                            <p className="text-xs text-success font-semibold">{step.time}</p>
+                          </div>
+                          <p className="text-xs text-text-secondary">{step.description}</p>
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
 
@@ -411,13 +451,13 @@ export default function Home() {
                       <strong className="text-primary">GitHub에서 새 Repository 생성</strong>
                       <p className="text-sm text-text-secondary mt-1">github.com 로그인 → 우측 상단 + 버튼 → New repository 클릭</p>
                       <div className="mt-3">
-                        <Image src="/images/repo.png" alt="GitHub New repository 버튼" width={700} height={500} className="w-full h-auto rounded-lg border border-border-color shadow-lg" />
+                        <Image src="/images/github-dashboard.png" alt="GitHub New repository 버튼" width={700} height={500} className="w-full h-auto rounded-lg border border-border-color shadow-lg" />
                       </div>
                       <p className="text-sm text-text-secondary mt-2">
                         Repository 이름 입력 → <strong className="text-warning">아무것도 체크하지 말고</strong> → Create repository
                       </p>
                       <div className="mt-3">
-                        <Image src="/images/repo2.png" alt="Repository 생성 화면" width={700} height={500} className="w-full h-auto rounded-lg border border-border-color shadow-lg" />
+                        <Image src="/images/github-create-repo.png" alt="Repository 생성 화면" width={700} height={500} className="w-full h-auto rounded-lg border border-border-color shadow-lg" />
                       </div>
                       <p className="text-sm text-warning mt-2">⚠️ 이름은 영어, 숫자, 하이픈(-)만 사용 (예: my-cute-website)</p>
                     </div>
@@ -535,12 +575,36 @@ export default function Home() {
                     <strong>Chat Model 선택</strong>
                     <div className="mt-3 space-y-2">
                       <div className="bg-success/10 border border-success/30 rounded-lg p-3">
-                        <strong className="text-success">✅ 추천: claude-3.5-sonnet</strong>
-                        <p className="text-sm text-text-secondary">가장 똑똑하고 한국어를 잘 이해해요!</p>
+                        <strong className="text-success">✅ 추천: Sonnet 4.5</strong>
+                        <p className="text-sm text-text-secondary">성능과 속도의 완벽한 균형! 한국어도 잘 이해해요</p>
+                      </div>
+                      <div className="bg-purple-500/10 border border-purple-500/30 rounded-lg p-3">
+                        <strong className="text-purple-400">🧠 최고 성능: Opus 4.5</strong>
+                        <p className="text-sm text-text-secondary">가장 똑똑한 AI, 복잡한 문제 해결에 최강 (비용 높음)</p>
                       </div>
                       <div className="bg-info/10 border border-info/30 rounded-lg p-3">
-                        <strong className="text-info">🚀 빠른 응답: gpt-4o</strong>
-                        <p className="text-sm text-text-secondary">빠르게 답변이 필요할 때 좋아요</p>
+                        <strong className="text-info">🚀 코딩 특화: GPT-5.2 Codex</strong>
+                        <p className="text-sm text-text-secondary">OpenAI 최신 코딩 모델, 빠르고 정확한 코드 생성</p>
+                      </div>
+                      <div className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-3">
+                        <strong className="text-blue-400">💪 고성능: GPT-5.1 Codex Max</strong>
+                        <p className="text-sm text-text-secondary">대규모 코드베이스 처리에 강력</p>
+                      </div>
+                      <div className="bg-cyan-500/10 border border-cyan-500/30 rounded-lg p-3">
+                        <strong className="text-cyan-400">⚡ 범용: GPT-5.2</strong>
+                        <p className="text-sm text-text-secondary">OpenAI 최신 범용 모델, 균형 잡힌 성능</p>
+                      </div>
+                      <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-3">
+                        <strong className="text-yellow-400">⚡ 초고속: Gemini 3 Flash</strong>
+                        <p className="text-sm text-text-secondary">Google AI, 빠른 응답이 필요할 때 최고</p>
+                      </div>
+                      <div className="bg-gray-500/10 border border-gray-500/30 rounded-lg p-3">
+                        <strong className="text-gray-400">💰 경제적: GPT-5.1 Codex Mini</strong>
+                        <p className="text-sm text-text-secondary">가벼운 작업에 저렴하고 빠름</p>
+                      </div>
+                      <div className="bg-orange-500/10 border border-orange-500/30 rounded-lg p-3">
+                        <strong className="text-orange-400">🎵 멀티모달: Composer 1</strong>
+                        <p className="text-sm text-text-secondary">Cursor 자체 모델, 다양한 작업 통합 처리</p>
                       </div>
                     </div>
                   </li>
@@ -600,8 +664,8 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="rounded-lg px-5 py-4 my-4 flex items-start gap-3 border bg-success/10 border-success/30 mt-6">
-                <span className="text-xl flex-shrink-0 mt-0.5">💪</span>
+              <div className="rounded-lg px-5 py-4 my-4 flex flex-col items-center justify-center text-center border bg-success/10 border-success/30 mt-6">
+                <span className="text-xl mb-2">💪</span>
                 <div>
                   <strong>기억하세요!</strong> AI는 여러분의 개발 파트너입니다.<br />
                   &quot;이거 왜 안 돼?&quot;, &quot;이거 고쳐줘&quot;, &quot;다시 해줘&quot; - 이런 말들을 편하게 하세요!<br />
@@ -718,7 +782,7 @@ export default function Home() {
               <p className="mt-8 text-2xl text-text-secondary">🎉 <strong className="text-primary">1부 완료!</strong> 이제 프로젝트를 준비해봅시다</p>
             </div>
 
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-6 flex items-center gap-2 after:content-[''] after:flex-1 after:h-px after:bg-border-color">
+            <h2 id="part2" className="text-2xl md:text-3xl lg:text-4xl font-bold mb-6 flex items-center gap-2 after:content-[''] after:flex-1 after:h-px after:bg-border-color">
               📝 2부: 프로젝트 준비
             </h2>
 
@@ -939,7 +1003,7 @@ export default function Home() {
 
                   <div className="mb-4 rounded-lg overflow-hidden border border-gray-600">
                     <Image
-                      src="/images/public.png"
+                      src="/images/public-folder.png"
                       alt="Public 폴더 구조"
                       width={600}
                       height={400}
@@ -965,12 +1029,12 @@ export default function Home() {
                 <h4 className="font-bold mb-3 text-white">🖱️ 개발자 도구 열기</h4>
                 <p className="text-gray-300 mb-3">웹사이트에서 <strong>마우스 오른쪽 클릭</strong> → <strong>&quot;검사&quot;</strong> 클릭</p>
 
-                <div className="mb-4 rounded-lg overflow-hidden border border-gray-600">
+                <div className="mb-4 rounded-lg overflow-hidden border border-gray-600 max-w-sm mx-auto">
                   <Image
                     src="/images/inspect2.png"
                     alt="검사 메뉴"
-                    width={400}
-                    height={300}
+                    width={300}
+                    height={225}
                     className="w-full h-auto"
                   />
                 </div>
@@ -983,7 +1047,7 @@ export default function Home() {
 
                 <div className="mb-4 rounded-lg overflow-hidden border border-gray-600">
                   <Image
-                    src="/images/inspect.png"
+                    src="/images/devtools.png"
                     alt="개발자 도구 화면"
                     width={700}
                     height={400}
@@ -1014,7 +1078,7 @@ export default function Home() {
           </section>
 
           {/* Section 3: 배포 */}
-          <section className="border-t-4 border-blue-500 pt-6">
+          <section id="part3" className="border-t-4 border-blue-500 pt-6">
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-6 flex items-center gap-2 after:content-[''] after:flex-1 after:h-px after:bg-border-color">
               🌐 3부: 배포
             </h2>
@@ -1026,7 +1090,7 @@ export default function Home() {
 
               <div className="mb-6 rounded-lg overflow-hidden border border-gray-600">
                 <Image
-                  src="/images/repolink.png"
+                  src="/images/repolink2.png"
                   alt="GitHub 레포지토리 URL"
                   width={700}
                   height={400}
@@ -1035,7 +1099,7 @@ export default function Home() {
               </div>
 
               <ol className="list-decimal list-inside space-y-2 text-text-secondary mb-6">
-                <li><strong>Code 버튼 클릭</strong><br/>초록색 &quot;Code&quot; 버튼을 찾아서 클릭</li>
+                <li><strong>Code 버튼 클릭</strong><br/>주황색 &quot;Code&quot; 버튼을 찾아서 클릭</li>
                 <li><strong>HTTPS URL 복사</strong><br/>https://github.com/[username]/[repo-name].git 형태의 URL 복사</li>
               </ol>
 
@@ -1264,7 +1328,7 @@ export default function Home() {
               <div className="bg-gradient-to-r from-blue-500/10 to-blue-600/5 border border-gray-600 rounded-lg p-4 mb-4">
                 <div className="mb-4 rounded-lg overflow-hidden border border-gray-600">
                   <Image
-                    src="/images/domain.png"
+                    src="/images/domain2.png"
                     alt="Vercel 도메인 설정"
                     width={700}
                     height={400}
@@ -1294,23 +1358,10 @@ export default function Home() {
         {/* Footer */}
         <footer className="border-t border-border-color py-8 mt-12">
           <div className="max-w-6xl mx-auto px-4 text-center">
-            <p className="text-text-secondary">© 2024 VIBEPICK. All rights reserved.</p>
+            <p className="text-text-secondary">© 2024 chabro. All rights reserved.</p>
           </div>
         </footer>
       </div>
-
-      {/* Floating Contact Button */}
-      <a
-        href="https://mathpresso-workspace.slack.com/team/U01GH3ZD9RR"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 bg-primary hover:bg-primary-light text-white font-semibold px-6 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105 flex items-center gap-2 z-50"
-      >
-        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
-        </svg>
-        문의하기
-      </a>
     </div>
   );
 }

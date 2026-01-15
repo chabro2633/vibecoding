@@ -8,9 +8,9 @@ const CONTENT_FILE_PATH = path.join(process.cwd(), 'public', 'content', 'section
 // 기본 콘텐츠 데이터
 const defaultContent = {
   hero: {
-    logoName: "VIBEPICK",
+    logoName: "chabro",
     title: "바이브 코딩",
-    slogan: "바이브픽의 모든 사람이 상상을 현실로 만들 수 있게",
+    slogan: "모든 사람이 상상을 현실로 만들 수 있게",
     subtitle: "AI와 함께하는 창의적인 개발 여정",
     tags: [
       { icon: "📋", text: "1부: 개발 환경 세팅", color: "primary" },
